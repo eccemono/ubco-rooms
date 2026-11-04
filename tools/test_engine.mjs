@@ -86,7 +86,7 @@ check("allow-labs search still hides restricted buildings", labSearch.exact.ever
 check("allow-labs search still hides CCS studios", labSearch.exact.every((r) => !dataset.specializedRoomIds.has(r.room.id)));
 
 const overview = dayAvailability(dataset, { date, buildings: ["ASC", "ART", "EME", "FIP", "SCI", "COM"] });
-check("day overview has 30-minute slots", overview.slots.length === 30);
+check("day overview has 15-minute slots", overview.slots.length === 60);
 check("day overview has some available slots", overview.slots.some((s) => s.count > 0));
 check("empty building selection is explicit", dayAvailability(dataset, { date, buildings: [] }).issues.length > 0);
 
