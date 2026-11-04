@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261106";
+} from "./data.js?v=20261108";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -15,7 +15,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261106";
+} from "./engine.js?v=20261108";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -73,11 +73,7 @@ function adjacentTeachingDay(dateString, direction) {
 }
 
 function slotTone(count) {
-  if (count >= 12) return "free-4";
-  if (count >= 6) return "free-3";
-  if (count >= 3) return "free-2";
-  if (count >= 1) return "free-1";
-  return "";
+  return count > 0 ? "free" : "";
 }
 
 function renderDayGlance() {
@@ -108,16 +104,32 @@ function renderDayGlance() {
   }
 
   const term = termForDate(state.dataset.meta, date);
-  note.textContent = `${term ? formatTerm(term.key, state.dataset.meta).replace("2026-27 ", "") + " · " : ""}Teaching day · ${plural(result.rooms, "standard room")} considered · green = a free 30-minute block`;
+  note.textContent = `${term ? formatTerm(term.key, state.dataset.meta).replace("2026-27 ", "") + " · " : ""}Teaching day · ${plural(result.rooms, "standard room")} considered · solid green = a free 30-minute block`;
+  const parseInput = (value) => {
+    const [h, m] = (value || "0:0").split(":").map(Number);
+    return h * 60 + (m || 0);
+  };
+  const selStart = parseInput($("#start").value);
+  const selEnd = parseInput($("#end").value);
   strip.innerHTML = result.slots
     .map((slot) => {
       const titleText =
         slot.count > 0
           ? `${slot.count} rooms free ${minutesToLabel(slot.start)}–${minutesToLabel(slot.end)}`
           : `No standard room free ${minutesToLabel(slot.start)}–${minutesToLabel(slot.end)}`;
-      return `<span class="day-slot ${slotTone(slot.count)}" title="${escapeHtml(titleText)}"></span>`;
+      const selected = slot.start < selEnd && slot.end > selStart;
+      return `<button type="button" class="day-slot ${slotTone(slot.count)}${selected ? " selected" : ""}" data-slot-start="${String(Math.floor(slot.start / 60)).padStart(2, "0")}:${String(slot.start % 60).padStart(2, "0")}" data-slot-end="${String(Math.floor(slot.end / 60)).padStart(2, "0")}:${String(slot.end % 60).padStart(2, "0")}" title="${escapeHtml(titleText)}" aria-label="${escapeHtml(titleText)}"></button>`;
     })
     .join("");
+
+  strip.querySelectorAll("[data-slot-start]").forEach((button) => {
+    button.addEventListener("click", () => {
+      $("#start").value = button.dataset.slotStart;
+      $("#end").value = button.dataset.slotEnd;
+      searchFromForm();
+      $("#search-status").scrollIntoView({ behavior: "smooth", block: "start" });
+    });
+  });
 
   const ticks = [420, 600, 780, 960, 1140, 1320];
   axis.innerHTML = ticks

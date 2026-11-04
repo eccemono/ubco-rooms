@@ -460,12 +460,15 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 .day-arrow:hover { border-color: var(--teal); color: var(--teal-dark); }
 .day-arrow:disabled { opacity: .35; cursor: default; }
 .day-strip { display: flex; gap: 2px; height: 38px; border-radius: 9px; overflow: hidden; background: #eef1f4; }
-.day-slot { flex: 1 1 0; min-width: 0; background: #e8edf2; position: relative; }
-.day-slot.free-1 { background: #d8f0ea; }
-.day-slot.free-2 { background: #a9dfd3; }
-.day-slot.free-3 { background: #69c4b3; }
-.day-slot.free-4 { background: #2d9d89; }
+.day-slot {
+  flex: 1 1 0; min-width: 0; background: #e8edf2; position: relative;
+  border: 0; padding: 0; cursor: pointer;
+}
+.day-slot.free { background: #2d9d89; }
+.day-slot.free:hover { background: #1f806f; }
 .day-slot:hover { outline: 2px solid var(--navy); outline-offset: -2px; }
+.day-slot.selected { box-shadow: inset 0 0 0 2px #f2a900; }
+.day-slot:focus-visible { outline: 2px solid var(--navy); outline-offset: -2px; }
 .day-axis { position: relative; height: 16px; margin-top: .35rem; color: var(--ink-faint); font-size: .68rem; }
 .day-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
 .day-axis span:first-child { transform: none; }
