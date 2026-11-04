@@ -5,14 +5,14 @@ import {
   normalizeDataset,
   termForDate,
   weekdayName,
-} from "./data.js";
+} from "./data.js?v=20261104";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
   datasetStats,
   roomDayView,
   searchAvailability,
-} from "./engine.js";
+} from "./engine.js?v=20261104";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
