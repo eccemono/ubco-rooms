@@ -28,15 +28,6 @@ It signs in with the saved profile (the owner approved this), selects both terms
 
 Then run `../tools/import_levels.sh`.
 
-## Fast path: both terms and both levels in one search
-
-```bash
-cd collector
-node auto_export.mjs
-```
-
-Sign in, open **Find Course Sections**, select both terms and both academic levels, click OK, then leave it alone. The helper waits 60 seconds and clicks the report's Excel button automatically.
-
 ## Run it
 
 ```bash

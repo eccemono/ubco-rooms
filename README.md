@@ -78,16 +78,9 @@ Do **not** choose “Academic Level Not Applicable” — UBCO’s own instructi
 
 The script tries Workday’s **Export to Excel** button first. If it cannot find one, it saves the visible page’s HTML and table text to `data/raw/` so the parser can be tuned against the real layout.
 
-If you searched both terms and both levels in one report (the fastest option), use the auto-export helper instead of the four-prompt loop:
+If Workday’s home page keeps spinning, use **Student → Academics → Registration & Courses → Find Course Sections**; the home page spinner does not block the report.
 
-```bash
-cd collector
-node auto_export.mjs
-```
-
-It gives you 60 seconds to sign in and run the combined search, then clicks Workday’s Excel button automatically. If Workday’s home page keeps spinning, use **Student → Academics → Registration & Courses → Find Course Sections**; the home page spinner does not block the report.
-
-Workday occasionally changes its DOM. If the DOM fallback produces an empty table, export the report manually with the Excel icon and put the file in `data/raw/`.
+Workday occasionally changes its DOM. If the Excel export is unavailable, use the course-level text capture described below.
 
 ### 2. Parse the export
 
