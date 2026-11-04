@@ -399,13 +399,20 @@ def infer_term(filename: str, raw_term: str, fallback: str | None) -> str | None
 
 
 def infer_level(filename: str, raw_level: str, fallback: str | None) -> str:
-    haystack = f"{filename} {raw_level}".lower()
-    if "undergrad" in haystack or "undergraduate" in haystack:
+    explicit = (raw_level or "").strip().lower()
+    if explicit:
+        if "undergrad" in explicit or "undergraduate" in explicit:
+            return "Undergraduate"
+        if "grad" in explicit:
+            return "Graduate"
+        if "not applicable" in explicit or explicit in {"n/a", "na"}:
+            return "Not applicable"
+        return raw_level.strip()
+    haystack = filename.lower()
+    if "undergrad" in haystack or re.search(r"(^|[^a-z])ug([^a-z]|$)", haystack):
         return "Undergraduate"
     if "grad" in haystack:
         return "Graduate"
-    if re.search(r"(^|[^a-z])ug([^a-z]|$)", haystack):
-        return "Undergraduate"
     return fallback or "Undergraduate"
 
 

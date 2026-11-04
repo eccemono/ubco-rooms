@@ -53,6 +53,9 @@ function logStep(message) {
 }
 
 async function chooseCombo() {
+  if (process.argv.includes("--once")) {
+    return [COMBOS[0]];
+  }
   const only = process.argv.find((arg) => arg.startsWith("--only="))?.split("=")[1];
   if (only) {
     const combo = COMBOS.find((c) => c.key === only);
@@ -80,7 +83,20 @@ async function clickFirstVisible(page, locators, { timeout = 2500 } = {}) {
 }
 
 async function tryExport(page, combo) {
+  // Workday often hides "Export to Excel" behind the report's ... menu.
+  const menuCandidates = [
+    page.getByRole('button', { name: /more|actions|options|related/i }),
+    page.locator('[aria-label*="more" i]'),
+    page.locator('[aria-label*="action" i]'),
+    page.locator('[data-automation-id*="more" i]'),
+    page.locator('[data-automation-id*="action" i]'),
+  ];
+  await clickFirstVisible(page, menuCandidates, { timeout: 1200 });
+  await page.waitForTimeout(500);
+
   const exportCandidates = [
+    page.getByRole("menuitem", { name: /export.*(excel|spreadsheet)|excel.*export/i }),
+    page.getByRole("menuitem", { name: /export/i }),
     page.getByRole("button", { name: /export.*(excel|spreadsheet)|excel.*export/i }),
     page.getByRole("button", { name: /^export$/i }),
     page.locator('[title*="Export" i]').filter({ visible: true }),
@@ -268,6 +284,11 @@ The home page spinner does not block the rest of the app.
 When you press Enter, the script will try Workday's built-in Excel export first,
 then fall back to saving the page DOM.
 `);
+
+  if (process.argv.includes("--once")) {
+    console.log("\nCombined-capture mode: select both terms and both academic levels in ONE search.");
+    console.log("The export will be saved as 2026W1-ug-<name>; the importer reads the term/level columns.");
+  }
 
   for (const combo of combos) {
     // Workday may open the report in a new tab; always act on the newest tab.

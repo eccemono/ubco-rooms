@@ -6,4 +6,4 @@ if [ ! -d node_modules ]; then
 fi
 # Chromium is cached by Playwright; this is a no-op if it is already installed.
 npx playwright install chromium >/dev/null
-exec npm run collect
+exec npm run collect -- "$@"
