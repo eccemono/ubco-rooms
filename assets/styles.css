@@ -393,3 +393,17 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
   .plot-head { margin-top: .1rem; }
 }
 .room-best { margin-top: .45rem; }
+
+.advanced-bar { margin: -.35rem 0 .9rem; }
+.advanced-panel {
+  margin-top: .55rem; padding: .7rem .9rem; border: 1px solid var(--line);
+  border-radius: 10px; background: rgba(255, 255, 255, .7);
+}
+.advanced-panel .check-line { min-height: 0; font-size: .84rem; }
+.advanced-panel .fine-print { display: block; margin-top: .35rem; }
+.bar-busy { display: flex; align-items: center; justify-content: center; cursor: help; }
+.bar-busy-label {
+  color: #566474; font-size: .6rem; font-weight: 800;
+  letter-spacing: .06em; text-transform: uppercase;
+  overflow: hidden; white-space: nowrap;
+}

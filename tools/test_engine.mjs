@@ -33,7 +33,7 @@ check("every meeting has a valid day", dataset.meetings.every((m) => m.dayIndexe
 const date = "2026-11-04";
 let exact = null;
 for (const [start, end] of [["13:00", "15:00"], ["08:00", "09:00"], ["19:00", "20:00"], ["10:00", "11:00"]]) {
-  const attempt = searchAvailability(dataset, { date, start, end, people: 2, building: "", allowMoves: true });
+  const attempt = searchAvailability(dataset, { date, start, end, building: "", allowLabs: true });
   if (attempt.exact.length > 0) {
     exact = attempt;
     break;
@@ -54,9 +54,8 @@ const combo = searchAvailability(dataset, {
   date,
   start: "09:00",
   end: "18:00",
-  people: 2,
   building: "SCI",
-  allowMoves: true,
+  allowLabs: true,
 });
 check("long SCI window is handled", combo.issues.length === 0);
 for (const option of combo.combos) {
@@ -68,9 +67,16 @@ for (const option of combo.combos) {
   );
   check(
     `combo transfer is honoured (${option.rooms.map((r) => r.name).join(" → ")})`,
-    option.second.start - option.first.end >= 10
+    option.second.start - option.first.end >= 15
   );
 }
+
+const defaultSearch = searchAvailability(dataset, { date, start: "14:00", end: "16:00" });
+check("default search hides lab rooms", defaultSearch.exact.every((r) => !dataset.labRoomIds.has(r.room.id)));
+check(
+  "default search hides ADM and UCH",
+  defaultSearch.exact.every((r) => !["ADM", "UCH"].includes(r.room.buildingCode))
+);
 
 const roomId = dataset.rooms[0].id;
 const day = roomDayView(dataset, roomId, date);

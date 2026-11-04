@@ -149,6 +149,12 @@ export function normalizeDataset(raw) {
 
   const roomById = new Map(rooms.map((r) => [r.id, r]));
   const sectionById = new Map(sections.map((s) => [s.id, s]));
+  const labRoomIds = new Set();
+  for (const m of meetings) {
+    if (!m.roomId) continue;
+    const activity = `${m.kind || ""} ${sectionById.get(m.sectionId)?.activity || ""}`.toLowerCase();
+    if (activity.includes("lab")) labRoomIds.add(m.roomId);
+  }
   const meetingsByRoom = new Map();
   for (const m of meetings) {
     if (!m.roomId || !roomById.has(m.roomId)) continue;
@@ -163,6 +169,7 @@ export function normalizeDataset(raw) {
     meetings,
     roomById,
     sectionById,
+    labRoomIds,
     meetingsByRoom,
     importedAt: new Date().toISOString(),
   };

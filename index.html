@@ -74,6 +74,14 @@
       </div>
     </form>
 
+    <div class="advanced-bar">
+      <button type="button" class="link-btn" id="advanced-toggle" aria-expanded="false" aria-controls="advanced-panel">Advanced</button>
+      <div id="advanced-panel" class="advanced-panel" hidden>
+        <label class="check-line"><input type="checkbox" id="allow-labs"> Include lab rooms in results</label>
+        <span class="fine-print">ADM and UCH are always excluded.</span>
+      </div>
+    </div>
+
     <div id="search-status" class="status" role="status" aria-live="polite"></div>
     <div id="results" class="results"></div>
   </section>
@@ -171,6 +179,7 @@
       <h2>How availability is calculated</h2>
       <p>Every meeting pattern from the course schedule becomes a dated event using its section’s start and end dates. A room is shown as free when the requested interval does not overlap any event in that room, and the room is inside its listed building hours.</p>
       <p>Results are ranked by the cushion of free time before and after your window, then by building preference (ASC, ART, EME, FIP, SCI, COM). The ranking reserves about 10 minutes of transition before the next class so you are not studying right up to the door.</p>
+      <p>Rooms used by any laboratory section are hidden by default; the <strong>Advanced</strong> toggle can include them. ADM and UCH are never shown.</p>
       <p>Room changes are only suggested when a single room cannot cover the whole window. A 15-minute transfer is included between rooms; walking time is not counted as study time.</p>
       <h2>What this cannot know</h2>
       <ul>

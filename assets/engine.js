@@ -13,6 +13,7 @@ import {
 } from "./data.js";
 
 const BUILDING_PRIORITY = ["ASC", "ART", "EME", "FIP", "SCI", "COM"];
+const NEVER_SHOW_BUILDINGS = new Set(["ADM", "UCH"]);
 const TRANSFER_MINUTES = 15;
 const TRANSITION_MINUTES = 10;
 const MAX_EXACT_RESULTS = 40;
@@ -38,7 +39,7 @@ function cushionScore(slackBefore, slackAfter) {
 }
 
 export function searchAvailability(dataset, options) {
-  const { date, start, end, building = "" } = options;
+  const { date, start, end, building = "", allowLabs = false } = options;
 
   const startMin = hmToMinutes(start);
   const endMin = hmToMinutes(end);
@@ -48,7 +49,12 @@ export function searchAvailability(dataset, options) {
   }
 
   const term = termForDate(dataset.meta, date);
-  const rooms = dataset.rooms.filter((r) => !building || r.buildingCode === building);
+  const rooms = dataset.rooms.filter((r) => {
+    if (NEVER_SHOW_BUILDINGS.has(r.buildingCode)) return false;
+    if (building && r.buildingCode !== building) return false;
+    if (!allowLabs && dataset.labRoomIds?.has(r.id)) return false;
+    return true;
+  });
   const candidates = [];
 
   for (const room of rooms) {
@@ -119,6 +125,7 @@ export function searchAvailability(dataset, options) {
     endMin,
     term,
     transfer: TRANSFER_MINUTES,
+    allowLabs,
     requestedMinutes: endMin - startMin,
     weekday: weekdayName(date),
   };
@@ -302,4 +309,4 @@ export function datasetStats(dataset) {
   };
 }
 
-export { formatTerm, prettyDate, minutesToLabel, isDateInRange, buildingRank };
+export { formatTerm, prettyDate, minutesToLabel, isDateInRange, buildingRank, NEVER_SHOW_BUILDINGS };

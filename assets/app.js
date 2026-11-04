@@ -7,6 +7,7 @@ import {
   weekdayName,
 } from "./data.js";
 import {
+  NEVER_SHOW_BUILDINGS,
   buildCourseRows,
   datasetStats,
   roomDayView,
@@ -129,6 +130,7 @@ function populateControls() {
   if (!$("#tt-date").value || !termForDate(meta, $("#tt-date").value)) $("#tt-date").value = date;
 
   const roomOptions = [...rooms]
+    .filter((r) => !NEVER_SHOW_BUILDINGS.has(r.buildingCode))
     .sort((a, b) => a.buildingCode.localeCompare(b.buildingCode) || a.number.localeCompare(b.number, undefined, { numeric: true }))
     .map((r) => ({ value: r.id, label: `${r.name} — ${r.buildingName}` }));
   fillSelect($("#tt-room"), roomOptions);
@@ -157,12 +159,14 @@ function searchFromForm() {
   const start = $("#start").value;
   const end = $("#end").value;
   const building = $("#building").value;
+  const allowLabs = $("#allow-labs")?.checked || false;
 
   const result = searchAvailability(state.dataset, {
     date,
     start,
     end,
     building,
+    allowLabs,
   });
   state.lastSearch = result;
   renderSearchResult(result);
@@ -197,8 +201,17 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
     .map((ev) => {
       const left = pct(ev.start, viewStart, span);
       const width = pct(ev.end, viewStart, span) - left;
-      const code = ev.section ? `${ev.section.subject} ${ev.section.courseNumber}` : "Class";
-      return `<span class="bar-busy" style="left:${left}%;width:${width}%" title="${escapeHtml(code)} ${minutesToLabel(ev.start)}–${minutesToLabel(ev.end)}"></span>`;
+      const code = ev.section ? `${ev.section.subject} ${ev.section.courseNumber} ${ev.section.section || ""}`.trim() : "Class";
+      const activity = ev.section?.activity || ev.kind || "Class";
+      const title = ev.section?.title ? ` · ${ev.section.title}` : "";
+      const tooltip = `${code} · ${activity} · ${minutesToLabel(ev.start)}–${minutesToLabel(ev.end)}${title}`;
+      const label =
+        width >= 10
+          ? `<span class="bar-busy-label">Occupied</span>`
+          : width >= 4.5
+            ? `<span class="bar-busy-label">Occ</span>`
+            : "";
+      return `<span class="bar-busy" style="left:${left}%;width:${width}%" title="${escapeHtml(tooltip)}">${label}</span>`;
     })
     .join("");
 
@@ -248,13 +261,15 @@ function renderSearchResult(result) {
   if (total) {
     setStatus(
       status,
-      `<strong>${plural(total, "room")}</strong> with no scheduled class ${escapeHtml(title)} (${requested}). Sorted by cushion, then building.`
+      `<strong>${plural(total, "room")}</strong> with no scheduled class ${escapeHtml(title)} (${requested}). Sorted by cushion, then building.` +
+        (result.allowLabs ? "" : " Lab rooms are hidden.")
     );
   } else {
     setStatus(
       status,
       `<strong>No single room</strong> covers the full window ${escapeHtml(title)}.` +
-        (result.combos.length ? " These room-change options still cover it." : "")
+        (result.combos.length ? " These room-change options still cover it." : "") +
+        (result.allowLabs ? "" : " Lab rooms are hidden.")
     );
   }
 
@@ -287,6 +302,7 @@ function renderRoomCard(item, best, viewStart, viewEnd) {
         ${roomButton(room, item.date)}
         <span class="room-building">${escapeHtml(room.buildingName)}</span>
         ${best ? '<span class="tag room-best">Best</span>' : ""}
+        ${state.dataset.labRoomIds.has(room.id) ? '<span class="tag tag-warn room-best">Lab room</span>' : ""}
       </div>
       <div class="plot">
         ${renderBar({ block, events, startMin, endMin, viewStart, viewEnd })}
@@ -452,6 +468,10 @@ function renderCourseRooms(row) {
     seen.add(roomId);
     const room = state.dataset.roomById.get(roomId);
     if (!room) continue;
+    if (NEVER_SHOW_BUILDINGS.has(room.buildingCode)) {
+      buttons.push(`<span class="muted-cell">Not student-accessible</span>`);
+      continue;
+    }
     const meeting = row.meetings.find((m) => m.roomId === roomId);
     const selectedDate = $("#date").value;
     const inRange =
@@ -527,6 +547,16 @@ function wireEvents() {
   $("#search-form").addEventListener("submit", (event) => {
     event.preventDefault();
     searchFromForm();
+  });
+
+  $("#advanced-toggle").addEventListener("click", () => {
+    const panel = $("#advanced-panel");
+    const open = panel.hidden;
+    panel.hidden = !open;
+    $("#advanced-toggle").setAttribute("aria-expanded", String(open));
+  });
+  $("#allow-labs").addEventListener("change", () => {
+    if ($("#search-status").innerText.trim()) searchFromForm();
   });
 
   $("#tt-go").addEventListener("click", () => {
