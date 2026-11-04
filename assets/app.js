@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261115";
+} from "./data.js?v=20261117";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -15,7 +15,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261115";
+} from "./engine.js?v=20261117";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -421,15 +421,46 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
     </div>`;
 }
 
-function renderAxis(viewStart, viewEnd) {
+function renderAxis(viewStart, viewEnd, block, events, startMin, endMin) {
   const span = viewEnd - viewStart;
-  const step = span <= 360 ? 30 : 60;
-  const ticks = new Set([viewStart, viewEnd]);
-  for (let t = Math.ceil(viewStart / step) * step; t < viewEnd; t += step) ticks.add(t);
-  return `<div class="bar-axis">${[...ticks]
-    .sort((a, b) => a - b)
-    .map((t) => `<span class="${t % 60 === 0 ? "major" : "minor"}" style="left:${pct(t, viewStart, span)}%">${minutesToLabel(t)}</span>`)
-    .join("")}</div>`;
+  const points = new Map();
+  const add = (time, role, priority) => {
+    if (time < viewStart || time > viewEnd) return;
+    if (!points.has(time)) points.set(time, { time, roles: new Set(), priority });
+    const entry = points.get(time);
+    entry.roles.add(role);
+    entry.priority = Math.min(entry.priority, priority);
+  };
+  add(viewStart, "timeline starts", 4);
+  add(viewEnd, "timeline ends", 4);
+  add(startMin, "selected start", 0);
+  add(endMin, "selected end", 0);
+  if (block) {
+    add(block.start, "free starts", 1);
+    add(block.end, "free ends", 1);
+  }
+  for (const event of events || []) {
+    add(event.start, "class starts", 2);
+    add(event.end, "class ends", 2);
+  }
+
+  const ordered = [...points.values()].sort((a, b) => a.time - b.time);
+  const lanes = [[], []];
+  const labels = ordered
+    .map((point) => {
+      const left = ((point.time - viewStart) / span) * 100;
+      let lane = lanes.findIndex((positions) => positions.every((p) => Math.abs(p - left) > 5.2));
+      if (lane === -1) lane = left < 50 ? 0 : 1;
+      lanes[lane].push(left);
+      const selected = point.roles.has("selected start") || point.roles.has("selected end");
+      const title = `${minutesToLabel(point.time)} · ${[...point.roles].join(" · ")}`;
+      return `<span class="axis-label${selected ? " axis-selected" : ""}" style="left:${left}%;top:${lane * 11}px" title="${escapeHtml(title)}">${minutesToLabel(point.time)}</span>`;
+    })
+    .join("");
+  const ticks = ordered
+    .map((point) => `<i class="axis-tick" style="left:${((point.time - viewStart) / span) * 100}%"></i>`)
+    .join("");
+  return `<div class="bar-axis">${ticks}${labels}</div>`;
 }
 
 function roomButton(room, date) {
@@ -461,6 +492,57 @@ function otherTimeOptions(result) {
   return options;
 }
 
+function renderBestRoute(result) {
+  const exact = result.exact[0];
+  const partial = result.partial?.[0];
+  const combo = result.combos?.[0];
+  if (!exact && !partial && !combo) return "";
+
+  let type = "room";
+  let best = exact;
+  if (!best) {
+    const partialScore = partial ? partial.usableMinutes : -1;
+    const comboStudy = combo
+      ? combo.first.end - combo.first.start + (combo.second.end - combo.second.start) - combo.gap * 0.5
+      : -1;
+    if (partial && partialScore >= comboStudy) {
+      type = "partial";
+      best = partial;
+    } else {
+      type = "combo";
+      best = combo;
+    }
+  }
+
+  if (type === "combo") {
+    const gap = best.gap || best.transfer || 5;
+    const hasGap = gap > (best.transfer || 5);
+    return `
+      <section class="best-route card">
+        <div class="best-route-kicker">Best route${hasGap ? " · gap" : " · one move"}</div>
+        <div class="best-route-main">
+          ${roomButton(best.first.room, best.date)}
+          <span class="best-route-time">${minutesToLabel(best.first.start)}–${minutesToLabel(best.first.end)}</span>
+          <span class="best-route-arrow">→</span>
+          ${roomButton(best.second.room, best.date)}
+          <span class="best-route-time">${minutesToLabel(best.second.start)}–${minutesToLabel(best.second.end)}</span>
+        </div>
+        <div class="best-route-note">${hasGap ? `⚠ ${formatDuration(gap)} gap · ${best.transfer || 5} min walk included` : `${best.transfer || 5} min walk`}</div>
+      </section>`;
+  }
+
+  const isPartial = type === "partial";
+  return `
+    <section class="best-route card">
+      <div class="best-route-kicker">Best route${isPartial ? " · partial window" : ""}</div>
+      <div class="best-route-main">
+        ${roomButton(best.room, best.date)}
+        <span class="best-route-time">${minutesToLabel(best.startMin)}–${minutesToLabel(best.endMin)}</span>
+      </div>
+      <div class="best-route-note">${isPartial ? `${formatDuration(best.usableMinutes)} usable of ${formatDuration(best.requestedMinutes)}` : "Covers the full requested window"}</div>
+    </section>`;
+}
+
 function renderSearchResult(result) {
   const status = $("#search-status");
   const results = $("#results");
@@ -483,7 +565,6 @@ function renderSearchResult(result) {
   if (total) {
     statusBits = [
       `<strong>${plural(total, "room")}</strong> with no scheduled class ${escapeHtml(title)} (${requested}).`,
-      `Ranked by usable free time, then cushion and building.`,
     ];
     if (visible < total) statusBits.push(`Showing ${visible} of ${total}; more are below.`);
   } else {
@@ -492,7 +573,6 @@ function renderSearchResult(result) {
     else if (result.combos.length) statusBits.push("Room-change options are below.");
     else statusBits.push("Try one of the other times below or the Advanced option.");
   }
-  if (!result.allowLabs) statusBits.push("Lab rooms are hidden.");
   setStatus(status, statusBits.join(" "));
 
   const { viewStart, viewEnd } = viewWindow(result);
@@ -531,7 +611,8 @@ function renderSearchResult(result) {
   const main = cards.length
     ? cards.join("")
     : `<div class="empty"><strong>Nothing in the captured data.</strong>Try a different building, a shorter window, or one of the times below.</div>`;
-  results.innerHTML = main + (foot.length ? `<div class="results-foot">${foot.join("")}</div>` : "");
+  const bestRoute = renderBestRoute(result);
+  results.innerHTML = (bestRoute ? `<div class="best-route-wrap">${bestRoute}</div>` : "") + main + (foot.length ? `<div class="results-foot">${foot.join("")}</div>` : "");
 
   $$("[data-room-jump]", results).forEach((btn) => {
     btn.addEventListener("click", () => jumpToRoom(btn.dataset.roomJump, btn.dataset.roomDate || result.date));
@@ -569,7 +650,7 @@ function renderRoomCard(item, best, viewStart, viewEnd) {
       </div>
       <div class="plot">
         ${renderBar({ block, events, startMin, endMin, viewStart, viewEnd })}
-        ${renderAxis(viewStart, viewEnd)}
+        ${renderAxis(viewStart, viewEnd, block, events, startMin, endMin)}
       </div>
     </article>`;
 }
@@ -596,7 +677,7 @@ function renderComboCard(combo, index, viewStart, viewEnd) {
           viewStart,
           viewEnd,
         })}
-        ${renderAxis(viewStart, viewEnd)}
+        ${renderAxis(viewStart, viewEnd, part.block, view?.events || [], part.start, part.end)}
       </div>
     </div>`;
 

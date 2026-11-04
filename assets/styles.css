@@ -520,3 +520,29 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 @media (max-width: 700px) {
   .bar-axis .minor { display: none; }
 }
+
+.best-route {
+  border-color: #9bd3c6;
+  background: linear-gradient(180deg, #f4fbf8, #fff);
+  padding: .85rem 1rem;
+}
+.best-route-kicker {
+  color: var(--teal-dark); font-size: .68rem; font-weight: 800;
+  letter-spacing: .1em; text-transform: uppercase; margin-bottom: .3rem;
+}
+.best-route-main {
+  display: flex; align-items: baseline; gap: .5rem; flex-wrap: wrap;
+}
+.best-route-main .room-link { font-size: 1.2rem; }
+.best-route-time { font-weight: 700; color: var(--ink); font-variant-numeric: tabular-nums; }
+.best-route-arrow { color: var(--ink-faint); }
+.best-route-note { color: var(--ink-soft); font-size: .78rem; margin-top: .25rem; }
+.bar-axis { height: 26px; }
+.axis-label {
+  position: absolute; transform: translateX(-50%); white-space: nowrap;
+  color: var(--ink-faint); font-size: .60rem; line-height: 1;
+}
+.axis-label.axis-selected { color: var(--navy); font-weight: 700; }
+.axis-tick { position: absolute; bottom: 0; width: 1px; height: 4px; background: #c3cbd3; }
+.bar-busy + .bar-busy { border-left: 1px solid rgba(16, 36, 61, .35); }
+.bar-busy-code { font-size: .46rem; }
