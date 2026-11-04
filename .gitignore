@@ -1,0 +1,8 @@
+.venv/
+.workday-profile/
+collector/node_modules/
+data/raw/*
+!data/raw/.gitkeep
+__pycache__/
+*.pyc
+.DS_Store

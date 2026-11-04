@@ -1,0 +1,236 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>UBCO Room Finder</title>
+<meta name="description" content="Find UBCO classrooms with no scheduled class at a given date and time.">
+<meta name="theme-color" content="#002145">
+<link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23002145'/%3E%3Cpath d='M18 18v18c0 8 6 12 14 12s14-4 14-12V18h-8v18c0 4-2 6-6 6s-6-2-6-6V18z' fill='%23fff'/%3E%3Crect x='14' y='50' width='36' height='5' rx='2.5' fill='%23f2a900'/%3E%3C/svg%3E">
+<link rel="stylesheet" href="assets/styles.css">
+</head>
+<body>
+<a class="skip-link" href="#main">Skip to content</a>
+
+<header class="site-head">
+  <div class="wrap head-inner">
+    <a class="brand" href="./">
+      <span class="brand-mark" aria-hidden="true">U</span>
+      <span>
+        <strong>UBCO Room Finder</strong>
+        <small>Study space, minus the guesswork</small>
+      </span>
+    </a>
+    <div class="head-meta">
+      <span id="data-badge" class="badge badge-demo">Loading data…</span>
+    </div>
+  </div>
+  <nav class="tabs wrap" role="tablist" aria-label="Sections">
+    <button class="tab is-active" id="tab-search" role="tab" aria-selected="true" aria-controls="panel-search" data-tab="search" type="button">Find a room</button>
+    <button class="tab" id="tab-timetable" role="tab" aria-selected="false" aria-controls="panel-timetable" data-tab="timetable" type="button">Room timetable</button>
+    <button class="tab" id="tab-courses" role="tab" aria-selected="false" aria-controls="panel-courses" data-tab="courses" type="button">Courses</button>
+    <button class="tab" id="tab-data" role="tab" aria-selected="false" aria-controls="panel-data" data-tab="data" type="button">About the data</button>
+  </nav>
+</header>
+
+<main id="main" class="wrap">
+
+  <section id="panel-search" class="panel is-active" role="tabpanel" aria-labelledby="tab-search">
+    <div class="hero">
+      <p class="eyebrow">2026–27 Winter Session</p>
+      <h1 id="search-title">Find a room that’s actually free.</h1>
+      <p class="lede">Pick a date and a time window. We check every scheduled class in the dataset and show rooms with nothing booked. No account, no reservation.</p>
+    </div>
+
+    <div id="demo-banner" class="notice notice-warn" hidden>
+      <strong>Demo data.</strong> These classes and bookings are a generated test fixture, not real UBCO availability. Replace the dataset before trusting results.
+    </div>
+
+    <form id="search-form" class="search-card">
+      <div class="field-grid">
+        <label class="field">
+          <span>Date</span>
+          <input type="date" id="date" name="date" required>
+        </label>
+        <label class="field">
+          <span>Start</span>
+          <input type="time" id="start" name="start" step="300" value="13:00" required>
+        </label>
+        <label class="field">
+          <span>End</span>
+          <input type="time" id="end" name="end" step="300" value="15:00" required>
+        </label>
+        <label class="field">
+          <span>People</span>
+          <input type="number" id="people" name="people" min="1" max="500" value="2" inputmode="numeric">
+        </label>
+      </div>
+
+      <div class="quick-row" role="group" aria-label="Quick durations">
+        <span class="quick-label">Quick set</span>
+        <button type="button" class="chip" data-duration="60">1 hour</button>
+        <button type="button" class="chip" data-duration="90">90 min</button>
+        <button type="button" class="chip" data-duration="120">2 hours</button>
+        <button type="button" class="chip" data-duration="180">3 hours</button>
+      </div>
+
+      <div class="field-grid field-grid-3">
+        <label class="field">
+          <span>Building</span>
+          <select id="building" name="building">
+            <option value="">Any building</option>
+          </select>
+        </label>
+        <label class="field">
+          <span>Term</span>
+          <select id="term" name="term">
+            <option value="">Auto from date</option>
+          </select>
+        </label>
+        <label class="field check-field">
+          <span>Options</span>
+          <span class="check-line"><input type="checkbox" id="allow-moves" checked> Allow one room change</span>
+        </label>
+      </div>
+
+      <div class="form-foot">
+        <p class="fine-print">“No class listed” is not a guarantee. Events, exams and private bookings may be missing.</p>
+        <button class="btn btn-primary" type="submit">Find free rooms</button>
+      </div>
+    </form>
+
+    <div id="search-status" class="status" role="status" aria-live="polite"></div>
+    <div id="results" class="results"></div>
+  </section>
+
+  <section id="panel-timetable" class="panel" role="tabpanel" aria-labelledby="tab-timetable" hidden>
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Day view</p>
+        <h1 id="timetable-title">Room timetable</h1>
+        <p class="lede">See what is booked in a room on a given day, and where the gaps are.</p>
+      </div>
+    </div>
+    <div class="toolbar card">
+      <label class="field">
+        <span>Date</span>
+        <input type="date" id="tt-date">
+      </label>
+      <label class="field grow">
+        <span>Room</span>
+        <select id="tt-room"></select>
+      </label>
+      <button class="btn btn-primary" id="tt-go" type="button">View day</button>
+    </div>
+    <div id="tt-summary" class="status" role="status" aria-live="polite"></div>
+    <div id="tt-results"></div>
+  </section>
+
+  <section id="panel-courses" class="panel" role="tabpanel" aria-labelledby="tab-courses" hidden>
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Every captured section</p>
+        <h1 id="courses-title">Course explorer</h1>
+        <p class="lede">Search the dataset by course, title, activity or room. Download the full table as Excel.</p>
+      </div>
+      <a class="btn btn-ghost" href="exports/ubco-2026-27.xlsx" download>Download Excel</a>
+    </div>
+    <div class="toolbar card">
+      <label class="field grow">
+        <span>Search</span>
+        <input type="search" id="course-search" placeholder="e.g. COSC 111, calculus, SCI 333">
+      </label>
+      <label class="field">
+        <span>Term</span>
+        <select id="course-term"><option value="">All terms</option></select>
+      </label>
+      <label class="field">
+        <span>Level</span>
+        <select id="course-level">
+          <option value="">All levels</option>
+          <option>Undergraduate</option>
+          <option>Graduate</option>
+        </select>
+      </label>
+    </div>
+    <p id="course-count" class="status"></p>
+    <div class="table-wrap card">
+      <table class="data-table" id="course-table">
+        <thead>
+          <tr>
+            <th>Course</th><th>Section</th><th>Title</th><th>Activity</th>
+            <th>Term</th><th>Days</th><th>Time</th><th>Room</th>
+          </tr>
+        </thead>
+        <tbody></tbody>
+      </table>
+    </div>
+    <p class="fine-print table-note" id="course-note"></p>
+  </section>
+
+  <section id="panel-data" class="panel" role="tabpanel" aria-labelledby="tab-data" hidden>
+    <div class="section-head">
+      <div>
+        <p class="eyebrow">Provenance</p>
+        <h1 id="data-title">About the data</h1>
+        <p class="lede">What is in this build, how fresh it is, and what it cannot tell you.</p>
+      </div>
+    </div>
+
+    <div id="data-warnings" class="stack"></div>
+
+    <div class="stat-grid" id="data-stats"></div>
+
+    <div class="card" id="coverage-card">
+      <div class="table-wrap">
+        <table class="data-table" id="coverage-table">
+          <thead>
+            <tr><th>Term</th><th>Level</th><th>Sections</th><th>With a room</th><th>Meeting patterns</th></tr>
+          </thead>
+          <tbody></tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="card prose">
+      <h2>How availability is calculated</h2>
+      <p>Every meeting pattern from the course schedule becomes a dated event using its section’s start and end dates. A room is shown as free when the requested interval does not overlap any event in that room, and the room is inside its listed building hours.</p>
+      <p>Room changes are only suggested when a single room cannot cover the whole window. A transfer allowance is included between rooms; walking time is not counted as study time.</p>
+      <h2>What this cannot know</h2>
+      <ul>
+        <li>Ad-hoc bookings, exams, events, maintenance closures and department-controlled spaces.</li>
+        <li>Whether a door is physically unlocked or a room is restricted to a program.</li>
+        <li>Last-minute timetable changes made after the dataset was collected.</li>
+      </ul>
+      <p>Treat a result as <em>“no scheduled class found in this dataset”</em>, not as a reservation or a guarantee.</p>
+    </div>
+
+    <div class="card">
+      <h2>Replace the dataset locally</h2>
+      <p class="muted">Drop a <code>schedule.json</code> produced by the project’s importer. It stays in this browser tab and is never uploaded.</p>
+      <div id="drop-zone" class="drop-zone">
+        <input type="file" id="file-input" accept=".json,application/json" hidden>
+        <p><strong>Drop schedule.json here</strong> or <button type="button" class="link-btn" id="choose-file">choose a file</button></p>
+        <p class="fine-print">The file is parsed locally. Reloading the page restores the bundled dataset.</p>
+      </div>
+      <p id="import-status" class="status" role="status"></p>
+    </div>
+
+    <div class="card prose">
+      <h2>Refresh</h2>
+      <p>See <code>README.md</code> in the project for the collection and build commands. The dataset is intentionally a static snapshot; this site has no server and no live Workday connection.</p>
+    </div>
+  </section>
+
+</main>
+
+<footer class="site-foot">
+  <div class="wrap">
+    <p>Personal student project. Not affiliated with UBC. Always confirm space use with UBCO room booking.</p>
+    <p id="footer-meta" class="fine-print"></p>
+  </div>
+</footer>
+
+<script type="module" src="assets/app.js"></script>
+</body>
+</html>

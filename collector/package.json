@@ -1,0 +1,14 @@
+{
+  "name": "ubco-rooms-collector",
+  "private": true,
+  "type": "module",
+  "version": "0.1.0",
+  "description": "Local, user-driven Workday capture for the UBCO Room Finder dataset",
+  "scripts": {
+    "collect": "node collect_workday.mjs",
+    "install-browser": "playwright install chromium"
+  },
+  "dependencies": {
+    "playwright": "1.64.1"
+  }
+}
