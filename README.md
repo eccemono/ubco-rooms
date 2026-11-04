@@ -6,7 +6,9 @@ A static website and Excel workbook for answering one question:
 
 The project is built for UBC Okanagan’s 2026–27 Winter Terms 1 and 2. It is a personal student project, not an official UBC service.
 
-**The bundled dataset is a real Workday capture** from 4 November 2026: 3,054 sections, 5,797 meeting patterns, and 110 rooms across both 2026–27 winter terms. It was captured from the Find Course Sections report in five course-level slices (100–500). Sections with no dated meeting pattern — work terms, asynchronous online, arranged studies — are not in the room dataset, so the catalogue is not literally every row of the 3,844-result report.
+**The bundled dataset is a real Workday capture** from 4 November 2026: 3,179 sections, 6,044 meeting patterns, and 110 rooms across both 2026–27 winter terms. It was captured from the Find Course Sections report in five course-level slices (100–500).
+
+The report showed **3,844 results**; the raw text contains **3,775 unique section headers**. Of those, **2,836 sections have a scheduled room and every one of them is present in the dataset**. Another 343 captured sections have a dated meeting but no room (online/arranged), and 596 sections have no dated room meeting at all (co-op, thesis, asynchronous online, arranged study). Those are not room-availability candidates.
 
 ---
 
@@ -271,7 +273,7 @@ ubco-rooms/
 
 ## Known limitations
 
-- The capture is 3,054 room-scheduled sections from a 3,844-result report. Work terms, asynchronous online sections and arranged studies without a dated meeting were skipped.
+- The capture covers all 2,836 sections with a scheduled room. Work terms, asynchronous online sections and arranged studies without a dated room meeting are excluded from room results.
 - Room capacities are mostly unknown; the site therefore does not filter by group size for those rooms.
 - Building hours are defaults from the public learning-spaces directory and need verification.
 - The combination finder supports one room change (two rooms), not arbitrary chains.

@@ -54,7 +54,7 @@ TERMS = {
 }
 
 HEADER_RE = re.compile(
-    r"^([A-Z]{2,6})(?:_O)?\s+(\d{3}[A-Z]?)-([A-Z0-9]{2,4})\s*-\s*(.+)$"
+    r"^([A-Z]{2,6})(?:_O)?\s+(\d{3}[A-Z]?)-([A-Z0-9_]{2,6})\s*-\s*(.+)$"
 )
 
 TIME_RE = re.compile(

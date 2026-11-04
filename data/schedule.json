@@ -1,6 +1,6 @@
 {
   "meta": {
-    "generatedAt": "2026-11-04T11:23:43-07:00",
+    "generatedAt": "2026-11-04T11:40:39-07:00",
     "academicYear": "2026-27",
     "campus": "UBC Okanagan",
     "source": "Workday Find Course Sections \u2014 full text capture by course level",
@@ -21,10 +21,10 @@
       }
     ],
     "counts": {
-      "sections": 3054,
-      "meetings": 5797,
+      "sections": 3179,
+      "meetings": 6044,
       "rooms": 110,
-      "sectionsWithoutRoom": 322
+      "sectionsWithoutRoom": 343
     },
     "nonTeachingPeriods": [
       {
@@ -1580,6 +1580,19 @@
       "courseNumber": "400",
       "title": "History of Anthropology",
       "section": "001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ANTH409-D_001",
+      "term": "2026W1",
+      "subject": "ANTH",
+      "courseNumber": "409",
+      "title": "COMM RESEARCH (D)",
+      "section": "D_001",
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
@@ -3667,6 +3680,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-ARTH160-A_001",
+      "term": "2026W1",
+      "subject": "ARTH",
+      "courseNumber": "160",
+      "title": "CREATIVE CURES (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-ARTH203-001",
       "term": "2026W1",
       "subject": "ARTH",
@@ -5383,6 +5409,32 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-BIOL430-C_001",
+      "term": "2026W1",
+      "subject": "BIOL",
+      "courseNumber": "430",
+      "title": "ANIM BIOMECH (C)",
+      "section": "C_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-BIOL430-O_001",
+      "term": "2026W1",
+      "subject": "BIOL",
+      "courseNumber": "430",
+      "title": "ANTIMICRO PHARM (O)",
+      "section": "O_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-BIOL501-001",
       "term": "2026W1",
       "subject": "BIOL",
@@ -6496,6 +6548,32 @@
       "section": "001",
       "activity": "Laboratory",
       "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-CHEM507-B_101",
+      "term": "2026W1",
+      "subject": "CHEM",
+      "courseNumber": "507",
+      "title": "COMPTTNL CHEM (B)",
+      "section": "B_101",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-CHEM521-F_101",
+      "term": "2026W1",
+      "subject": "CHEM",
+      "courseNumber": "521",
+      "title": "COORD CHEMISTRY (F)",
+      "section": "F_101",
+      "activity": "Lecture",
+      "level": "Graduate",
       "status": "Open",
       "credits": "3",
       "delivery": "In Person Learning"
@@ -7697,6 +7775,32 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-COMM399-A_001",
+      "term": "2026W1",
+      "subject": "COMM",
+      "courseNumber": "399",
+      "title": "SPCL TPCS AI (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-COMM399-C_001",
+      "term": "2026W1",
+      "subject": "COMM",
+      "courseNumber": "399",
+      "title": "EQTY & INVSTMNT (C)",
+      "section": "C_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-COMM400-001",
       "term": "2026W1",
       "subject": "COMM",
@@ -8620,6 +8724,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-COSC519-J_001",
+      "term": "2026W1",
+      "subject": "COSC",
+      "courseNumber": "519",
+      "title": "IMMERSIVE TECH (J)",
+      "section": "J_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-COSC520-001",
       "term": "2026W1",
       "subject": "COSC",
@@ -8643,6 +8760,19 @@
       "level": "Graduate",
       "status": "Open",
       "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-COSC590-J_001",
+      "term": "2026W1",
+      "subject": "COSC",
+      "courseNumber": "590",
+      "title": "Graduate Seminar (J)",
+      "section": "J_001",
+      "activity": "Seminar",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "1",
       "delivery": "In Person Learning"
     },
     {
@@ -8724,6 +8854,32 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-CRWR381-A_001",
+      "term": "2026W1",
+      "subject": "CRWR",
+      "courseNumber": "381",
+      "title": "Writing of Poetry (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-CRWR470-C_001",
+      "term": "2026W1",
+      "subject": "CRWR",
+      "courseNumber": "470",
+      "title": "Portfolio (C)",
+      "section": "C_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-CRWR471-001",
       "term": "2026W1",
       "subject": "CRWR",
@@ -8759,6 +8915,32 @@
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-CRWR581-C_001",
+      "term": "2026W1",
+      "subject": "CRWR",
+      "courseNumber": "581",
+      "title": "Graduate Workshop in Creative Writing - Lyric (C)",
+      "section": "C_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-CRWR582-C_001",
+      "term": "2026W1",
+      "subject": "CRWR",
+      "courseNumber": "582",
+      "title": "Graduate Workshop in Creative Writing- Narrative (C)",
+      "section": "C_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
       "credits": "3",
       "delivery": "In Person Learning"
     },
@@ -8841,6 +9023,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-CULT301-A_001",
+      "term": "2026W1",
+      "subject": "CULT",
+      "courseNumber": "301",
+      "title": "QUEER CINEMA (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "Online Learning"
+    },
+    {
       "id": "2026W1-CULT304-001",
       "term": "2026W1",
       "subject": "CULT",
@@ -8863,6 +9058,58 @@
       "activity": "Experiential",
       "level": "Undergraduate",
       "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-CULT312-A_001",
+      "term": "2026W1",
+      "subject": "CULT",
+      "courseNumber": "312",
+      "title": "Internet Culture (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "Online Learning"
+    },
+    {
+      "id": "2026W1-CULT362-A_001",
+      "term": "2026W1",
+      "subject": "CULT",
+      "courseNumber": "362",
+      "title": "Advanced Practice in Photography (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-CULT371-A_001",
+      "term": "2026W1",
+      "subject": "CULT",
+      "courseNumber": "371",
+      "title": "MDN CRIT THRY (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-CULT400-K_001",
+      "term": "2026W1",
+      "subject": "CULT",
+      "courseNumber": "400",
+      "title": "VMPRS POP CULT (K)",
+      "section": "K_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
       "credits": "3",
       "delivery": "In Person Learning"
     },
@@ -9107,6 +9354,19 @@
       "courseNumber": "405",
       "title": "Stochastic Modelling and Simulation",
       "section": "001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-DATA419-B_001",
+      "term": "2026W1",
+      "subject": "DATA",
+      "courseNumber": "419",
+      "title": "STAT COMM & CONS (B)",
+      "section": "B_001",
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
@@ -9580,6 +9840,19 @@
       "status": "Closed",
       "credits": "3",
       "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-DIHU312-A_001",
+      "term": "2026W1",
+      "subject": "DIHU",
+      "courseNumber": "312",
+      "title": "Internet Culture (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "Online Learning"
     },
     {
       "id": "2026W1-DIHU370-001",
@@ -10239,6 +10512,19 @@
       "title": "Integrating Social Studies",
       "section": "001",
       "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-EDUC462-D_001",
+      "term": "2026W1",
+      "subject": "EDUC",
+      "courseNumber": "462",
+      "title": "SUSTAIN & GARDNG (D)",
+      "section": "D_001",
+      "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
       "credits": "3",
@@ -11363,6 +11649,71 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-ENGL309-A_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "309",
+      "title": "MDN CRIT THRY (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ENGL333-B_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "333",
+      "title": "DIASPORIC LIT CA (B)",
+      "section": "B_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ENGL350-D_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "350",
+      "title": "PEACE AND WAR (D)",
+      "section": "D_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ENGL355-C_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "355",
+      "title": "ANCIENT CLASS LI (C)",
+      "section": "C_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ENGL374-A_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "374",
+      "title": "18C SATIRE (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-ENGL386-001",
       "term": "2026W1",
       "subject": "ENGL",
@@ -11372,6 +11723,32 @@
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ENGL394-H_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "394",
+      "title": "LIT FOR YOUNG (H)",
+      "section": "H_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ENGL395-J_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "395",
+      "title": "LIT FOR YOUNG (J)",
+      "section": "J_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
       "credits": "3",
       "delivery": "In Person Learning"
     },
@@ -11415,6 +11792,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-ENGL493-K_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "493",
+      "title": "VMPRS POP CULT (K)",
+      "section": "K_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-ENGL501-001",
       "term": "2026W1",
       "subject": "ENGL",
@@ -11434,6 +11824,45 @@
       "courseNumber": "503",
       "title": "Practices in the Prof of Lit Studies & Related Disciplines",
       "section": "001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ENGL521-C_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "521",
+      "title": "MEDIA/CONT READ (C)",
+      "section": "C_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ENGL524-E_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "524",
+      "title": "CHAUCER (E)",
+      "section": "E_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ENGL525-E_001",
+      "term": "2026W1",
+      "subject": "ENGL",
+      "courseNumber": "525",
+      "title": "ADOLESCENCE L&C (E)",
+      "section": "E_001",
       "activity": "Lecture",
       "level": "Graduate",
       "status": "Open",
@@ -13092,6 +13521,32 @@
       "delivery": "Online Learning"
     },
     {
+      "id": "2026W1-ENGR598-A_001",
+      "term": "2026W1",
+      "subject": "ENGR",
+      "courseNumber": "598",
+      "title": "APPLIED HVAC (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-ENGR598-Z_001",
+      "term": "2026W1",
+      "subject": "ENGR",
+      "courseNumber": "598",
+      "title": "SYSTEMSASD (Z)",
+      "section": "Z_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-FILM100-001",
       "term": "2026W1",
       "subject": "FILM",
@@ -13274,6 +13729,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-FREN327-A_001",
+      "term": "2026W1",
+      "subject": "FREN",
+      "courseNumber": "327",
+      "title": "Studies in Cinema (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-FREN344-001",
       "term": "2026W1",
       "subject": "FREN",
@@ -13293,6 +13761,19 @@
       "courseNumber": "353",
       "title": "The Structure of French",
       "section": "001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-FREN420-D_001",
+      "term": "2026W1",
+      "subject": "FREN",
+      "courseNumber": "420",
+      "title": "MAD & TRANSGRESS (D)",
+      "section": "D_001",
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
@@ -13631,6 +14112,19 @@
       "courseNumber": "100",
       "title": "Beginners' German I",
       "section": "003",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-GERM303-A_001",
+      "term": "2026W1",
+      "subject": "GERM",
+      "courseNumber": "303",
+      "title": "GERMANY (A)",
+      "section": "A_001",
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
@@ -15393,6 +15887,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-HIST382-B_001",
+      "term": "2026W1",
+      "subject": "HIST",
+      "courseNumber": "382",
+      "title": "GUNPWDR EMPIRES (B)",
+      "section": "B_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-HIST384-001",
       "term": "2026W1",
       "subject": "HIST",
@@ -15427,6 +15934,45 @@
       "section": "001",
       "activity": "Lecture",
       "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-HIST495-B_101",
+      "term": "2026W1",
+      "subject": "HIST",
+      "courseNumber": "495",
+      "title": "INDIAN RESERVES (B)",
+      "section": "B_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-IGS501-C_002",
+      "term": "2026W1",
+      "subject": "IGS",
+      "courseNumber": "501",
+      "title": "CREA RSCH MTHDS (C)",
+      "section": "C_002",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-IGS515-A_001",
+      "term": "2026W1",
+      "subject": "IGS",
+      "courseNumber": "515",
+      "title": "QUAL METHODS (A)",
+      "section": "A_001",
+      "activity": "Seminar",
+      "level": "Graduate",
       "status": "Open",
       "credits": "3",
       "delivery": "In Person Learning"
@@ -16433,6 +16979,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-MATH432-A_101",
+      "term": "2026W1",
+      "subject": "MATH",
+      "courseNumber": "432",
+      "title": "TOPICS ALGEBRA I (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-MATH461-101",
       "term": "2026W1",
       "subject": "MATH",
@@ -16456,6 +17015,19 @@
       "level": "Graduate",
       "status": "Open",
       "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-MATH590-J_001",
+      "term": "2026W1",
+      "subject": "MATH",
+      "courseNumber": "590",
+      "title": "Graduate Seminar (J)",
+      "section": "J_001",
+      "activity": "Seminar",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "1",
       "delivery": "In Person Learning"
     },
     {
@@ -16794,6 +17366,32 @@
       "level": "Graduate",
       "status": "Open",
       "credits": "1.5",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-MGMT542-A_001",
+      "term": "2026W1",
+      "subject": "MGMT",
+      "courseNumber": "542",
+      "title": "CAREER DEV (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "1",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-MGMT542-B_001",
+      "term": "2026W1",
+      "subject": "MGMT",
+      "courseNumber": "542",
+      "title": "CAREER DEV II (B)",
+      "section": "B_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "1",
       "delivery": "In Person Learning"
     },
     {
@@ -18734,6 +19332,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-PHIL405-A_001",
+      "term": "2026W1",
+      "subject": "PHIL",
+      "courseNumber": "405",
+      "title": "Dangerous Ideas Seminar (A)",
+      "section": "A_001",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-PHIL419-001",
       "term": "2026W1",
       "subject": "PHIL",
@@ -19592,6 +20203,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-PHYS548-A_001",
+      "term": "2026W1",
+      "subject": "PHYS",
+      "courseNumber": "548",
+      "title": "Special Topics in Medical Physics (A)",
+      "section": "A_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-POLI100-001",
       "term": "2026W1",
       "subject": "POLI",
@@ -19813,6 +20437,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-POLI405-A_001",
+      "term": "2026W1",
+      "subject": "POLI",
+      "courseNumber": "405",
+      "title": "Dangerous Ideas Seminar (A)",
+      "section": "A_001",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-POLI430-001",
       "term": "2026W1",
       "subject": "POLI",
@@ -19845,6 +20482,19 @@
       "courseNumber": "435",
       "title": "International Politics on Film",
       "section": "S01",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-POLI454-B_001",
+      "term": "2026W1",
+      "subject": "POLI",
+      "courseNumber": "454",
+      "title": "ARISTOTLE (B)",
+      "section": "B_001",
       "activity": "Seminar",
       "level": "Undergraduate",
       "status": "Open",
@@ -19949,6 +20599,19 @@
       "courseNumber": "270",
       "title": "Introduction to Research Methods and Design",
       "section": "001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-PSYO280-A_001",
+      "term": "2026W1",
+      "subject": "PSYO",
+      "courseNumber": "280",
+      "title": "TPCSMNTLHELWELLN (A)",
+      "section": "A_001",
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
@@ -20073,6 +20736,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-PSYO380-Y_002",
+      "term": "2026W1",
+      "subject": "PSYO",
+      "courseNumber": "380",
+      "title": "BODY IMAGE (Y)",
+      "section": "Y_002",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-PSYO440-001",
       "term": "2026W1",
       "subject": "PSYO",
@@ -20083,6 +20759,19 @@
       "level": "Undergraduate",
       "status": "Closed",
       "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-PSYO490-B_S01",
+      "term": "2026W1",
+      "subject": "PSYO",
+      "courseNumber": "490",
+      "title": "UNDG HONS THESIS (B)",
+      "section": "B_S01",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "6",
       "delivery": "In Person Learning"
     },
     {
@@ -20268,6 +20957,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W1-SOCI411-C_001",
+      "term": "2026W1",
+      "subject": "SOCI",
+      "courseNumber": "411",
+      "title": "LAW AND ORDER BC (C)",
+      "section": "C_001",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W1-SOCI415-001",
       "term": "2026W1",
       "subject": "SOCI",
@@ -20287,6 +20989,19 @@
       "courseNumber": "426",
       "title": "Urban Sociology",
       "section": "001",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-SOCI496-E_001",
+      "term": "2026W1",
+      "subject": "SOCI",
+      "courseNumber": "496",
+      "title": "ADV ENVIRO SOCI (E)",
+      "section": "E_001",
       "activity": "Seminar",
       "level": "Undergraduate",
       "status": "Open",
@@ -21223,6 +21938,97 @@
       "courseNumber": "282",
       "title": "Drawing III",
       "section": "001",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-VISA300-A_001",
+      "term": "2026W1",
+      "subject": "VISA",
+      "courseNumber": "300",
+      "title": "ADV DRAWING (A)",
+      "section": "A_001",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-VISA312-A_001",
+      "term": "2026W1",
+      "subject": "VISA",
+      "courseNumber": "312",
+      "title": "Advanced Practice in Painting (A)",
+      "section": "A_001",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-VISA312-A_002",
+      "term": "2026W1",
+      "subject": "VISA",
+      "courseNumber": "312",
+      "title": "Advanced Practice in Painting (A)",
+      "section": "A_002",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-VISA322-A_001",
+      "term": "2026W1",
+      "subject": "VISA",
+      "courseNumber": "322",
+      "title": "Advanced Practice in Sculpture (A)",
+      "section": "A_001",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-VISA336-A_001",
+      "term": "2026W1",
+      "subject": "VISA",
+      "courseNumber": "336",
+      "title": "Advanced Practice in Printmaking (A)",
+      "section": "A_001",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-VISA362-A_001",
+      "term": "2026W1",
+      "subject": "VISA",
+      "courseNumber": "362",
+      "title": "Advanced Practice in Photography (A)",
+      "section": "A_001",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W1-VISA382-A_001",
+      "term": "2026W1",
+      "subject": "VISA",
+      "courseNumber": "382",
+      "title": "Advanced Practice in Media Arts (A)",
+      "section": "A_001",
       "activity": "Studio",
       "level": "Undergraduate",
       "status": "Waitlist",
@@ -23979,6 +24785,45 @@
       "courseNumber": "316",
       "title": "Contemporary Art in a Global Context",
       "section": "101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-ARTH360-B_101",
+      "term": "2026W2",
+      "subject": "ARTH",
+      "courseNumber": "360",
+      "title": "ANCIENT EGYPT (B)",
+      "section": "B_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "Online Learning"
+    },
+    {
+      "id": "2026W2-ARTH360-C_101",
+      "term": "2026W2",
+      "subject": "ARTH",
+      "courseNumber": "360",
+      "title": "FOOD IN ART (C)",
+      "section": "C_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "Online Learning"
+    },
+    {
+      "id": "2026W2-ARTH360-D_101",
+      "term": "2026W2",
+      "subject": "ARTH",
+      "courseNumber": "360",
+      "title": "FREN ART ACADEMY (D)",
+      "section": "D_101",
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
@@ -27626,6 +28471,32 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-COMM499-C_101",
+      "term": "2026W2",
+      "subject": "COMM",
+      "courseNumber": "499",
+      "title": "CPA FNDTNL DEV (C)",
+      "section": "C_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-COMM499-D_101",
+      "term": "2026W2",
+      "subject": "COMM",
+      "courseNumber": "499",
+      "title": "WOMEN LEADERSHIP (D)",
+      "section": "D_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-CORH203-101",
       "term": "2026W2",
       "subject": "CORH",
@@ -28627,6 +29498,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-COSC419-B_101",
+      "term": "2026W2",
+      "subject": "COSC",
+      "courseNumber": "419",
+      "title": "DEEP LEARNING (B)",
+      "section": "B_101",
+      "activity": "Experiential",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-COSC442-101",
       "term": "2026W2",
       "subject": "COSC",
@@ -28666,6 +29550,32 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-COSC519-B_101",
+      "term": "2026W2",
+      "subject": "COSC",
+      "courseNumber": "519",
+      "title": "DEEP LEARNING (B)",
+      "section": "B_101",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-COSC536-I_101",
+      "term": "2026W2",
+      "subject": "COSC",
+      "courseNumber": "536",
+      "title": "COMP GRAPHICS (I)",
+      "section": "I_101",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-COSC544-101",
       "term": "2026W2",
       "subject": "COSC",
@@ -28676,6 +29586,19 @@
       "level": "Graduate",
       "status": "Open",
       "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-COSC590-K_101",
+      "term": "2026W2",
+      "subject": "COSC",
+      "courseNumber": "590",
+      "title": "Graduate Seminar (K)",
+      "section": "K_101",
+      "activity": "Seminar",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "1",
       "delivery": "In Person Learning"
     },
     {
@@ -28952,6 +29875,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-CULT313-B_101",
+      "term": "2026W2",
+      "subject": "CULT",
+      "courseNumber": "313",
+      "title": "THE KOREAN WAVE (B)",
+      "section": "B_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-CULT350-101",
       "term": "2026W2",
       "subject": "CULT",
@@ -28963,6 +29899,19 @@
       "status": "Closed",
       "credits": "3",
       "delivery": "Hybrid Learning"
+    },
+    {
+      "id": "2026W2-CULT362-B_101",
+      "term": "2026W2",
+      "subject": "CULT",
+      "courseNumber": "362",
+      "title": "Advanced Practice in Photography (B)",
+      "section": "B_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
     },
     {
       "id": "2026W2-CULT370-001",
@@ -28987,6 +29936,32 @@
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-CULT400-N_101",
+      "term": "2026W2",
+      "subject": "CULT",
+      "courseNumber": "400",
+      "title": "DRAG POP CULTURE (N)",
+      "section": "N_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "Online Learning"
+    },
+    {
+      "id": "2026W2-CULT406-A_101",
+      "term": "2026W2",
+      "subject": "CULT",
+      "courseNumber": "406",
+      "title": "CANCON EPHEMERAL (A)",
+      "section": "A_101",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Closed",
       "credits": "3",
       "delivery": "In Person Learning"
     },
@@ -29546,6 +30521,19 @@
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-DIHU406-A_101",
+      "term": "2026W2",
+      "subject": "DIHU",
+      "courseNumber": "406",
+      "title": "CANCON EPHEMERAL (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Closed",
       "credits": "3",
       "delivery": "In Person Learning"
     },
@@ -30707,6 +31695,32 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-EESC496-A_101",
+      "term": "2026W2",
+      "subject": "EESC",
+      "courseNumber": "496",
+      "title": "GEOCHRONOLOGY (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-EESC496-A_L01",
+      "term": "2026W2",
+      "subject": "EESC",
+      "courseNumber": "496",
+      "title": "GEOCHRONOLOGY (A)",
+      "section": "A_L01",
+      "activity": "Laboratory",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-EESC560-001",
       "term": "2026W2",
       "subject": "EESC",
@@ -31227,6 +32241,19 @@
       "delivery": "Hybrid Learning"
     },
     {
+      "id": "2026W2-ENGL203-A_101",
+      "term": "2026W2",
+      "subject": "ENGL",
+      "courseNumber": "203",
+      "title": "Topics in Composition (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-ENGL215-101",
       "term": "2026W2",
       "subject": "ENGL",
@@ -31318,6 +32345,45 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-ENGL319-B_101",
+      "term": "2026W2",
+      "subject": "ENGL",
+      "courseNumber": "319",
+      "title": "ROMANT/FRIEND (B)",
+      "section": "B_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-ENGL327-A_101",
+      "term": "2026W2",
+      "subject": "ENGL",
+      "courseNumber": "327",
+      "title": "Canadian Poetry (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-ENGL344-A_101",
+      "term": "2026W2",
+      "subject": "ENGL",
+      "courseNumber": "344",
+      "title": "EARLY ENGL MYST (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-ENGL353-101",
       "term": "2026W2",
       "subject": "ENGL",
@@ -31327,6 +32393,19 @@
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-ENGL355-D_101",
+      "term": "2026W2",
+      "subject": "ENGL",
+      "courseNumber": "355",
+      "title": "ANIMAL FARM LIT (D)",
+      "section": "D_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
       "credits": "3",
       "delivery": "In Person Learning"
     },
@@ -31342,6 +32421,19 @@
       "status": "Waitlist",
       "credits": "3",
       "delivery": "Hybrid Learning"
+    },
+    {
+      "id": "2026W2-ENGL395-D_101",
+      "term": "2026W2",
+      "subject": "ENGL",
+      "courseNumber": "395",
+      "title": "FANTASY (D)",
+      "section": "D_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
     },
     {
       "id": "2026W2-ENGL457-101",
@@ -31366,6 +32458,58 @@
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-ENGL470-M_101",
+      "term": "2026W2",
+      "subject": "ENGL",
+      "courseNumber": "470",
+      "title": "RECONCILIATIONS (M)",
+      "section": "M_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-ENGL502-A_101",
+      "term": "2026W2",
+      "subject": "ENGL",
+      "courseNumber": "502",
+      "title": "MED RACE GENDER (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-ENGL521-A_101",
+      "term": "2026W2",
+      "subject": "ENGL",
+      "courseNumber": "521",
+      "title": "MOD CRT THRY IDM (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-ENGL523-P_101",
+      "term": "2026W2",
+      "subject": "ENGL",
+      "courseNumber": "523",
+      "title": "CDN ENVIR WRIT (P)",
+      "section": "P_101",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Closed",
       "credits": "3",
       "delivery": "In Person Learning"
     },
@@ -33489,6 +34633,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-ENGR598-L_002",
+      "term": "2026W2",
+      "subject": "ENGR",
+      "courseNumber": "598",
+      "title": "ADVANCEDENGMATH (L)",
+      "section": "L_002",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-FREN101-101",
       "term": "2026W2",
       "subject": "FREN",
@@ -33560,6 +34717,19 @@
       "courseNumber": "223",
       "title": "French Language and Style II",
       "section": "101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-FREN380-D_101",
+      "term": "2026W2",
+      "subject": "FREN",
+      "courseNumber": "380",
+      "title": "SEX/MARR COMEDY (D)",
+      "section": "D_101",
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Open",
@@ -33976,6 +35146,19 @@
       "courseNumber": "340",
       "title": "Writing the Self: Theory and Practice",
       "section": "101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-GWST415-A_101",
+      "term": "2026W2",
+      "subject": "GWST",
+      "courseNumber": "415",
+      "title": "POP CULTURE (A)",
+      "section": "A_101",
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Closed",
@@ -35088,6 +36271,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-HES495-E_001",
+      "term": "2026W2",
+      "subject": "HES",
+      "courseNumber": "495",
+      "title": "ROOTEDINRELATION (E)",
+      "section": "E_001",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-HES506-001",
       "term": "2026W2",
       "subject": "HES",
@@ -35322,6 +36518,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-HIST430-A_101",
+      "term": "2026W2",
+      "subject": "HIST",
+      "courseNumber": "430",
+      "title": "MDVL & E MOD EUR (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-HIST469-101",
       "term": "2026W2",
       "subject": "HIST",
@@ -35361,12 +36570,77 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-IGS502-A_002",
+      "term": "2026W2",
+      "subject": "IGS",
+      "courseNumber": "502",
+      "title": "Seminar in Digital Arts and Humanities (A)",
+      "section": "A_002",
+      "activity": "Seminar",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-IGS503-S_001",
+      "term": "2026W2",
+      "subject": "IGS",
+      "courseNumber": "503",
+      "title": "INDG METHODS (S)",
+      "section": "S_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-IGS524-A_001",
+      "term": "2026W2",
+      "subject": "IGS",
+      "courseNumber": "524",
+      "title": "IGS PROSEM A (A)",
+      "section": "A_001",
+      "activity": "Seminar",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-IGS524-A_002",
+      "term": "2026W2",
+      "subject": "IGS",
+      "courseNumber": "524",
+      "title": "IGS PROSEM A (A)",
+      "section": "A_002",
+      "activity": "Seminar",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "Online Learning"
+    },
+    {
       "id": "2026W2-IGS585-101",
       "term": "2026W2",
       "subject": "IGS",
       "courseNumber": "585",
       "title": "Knowledge Mobilization and Sustainability Policy",
       "section": "101",
+      "activity": "Seminar",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-IGS586-A_001",
+      "term": "2026W2",
+      "subject": "IGS",
+      "courseNumber": "586",
+      "title": "COMM ENG SOC EQ (A)",
+      "section": "A_001",
       "activity": "Seminar",
       "level": "Graduate",
       "status": "Open",
@@ -35489,6 +36763,19 @@
       "status": "Open",
       "credits": "3",
       "delivery": "Hybrid Learning"
+    },
+    {
+      "id": "2026W2-INDG295-A_101",
+      "term": "2026W2",
+      "subject": "INDG",
+      "courseNumber": "295",
+      "title": "INDG HEALTH SERV (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
     },
     {
       "id": "2026W2-INDG301-101",
@@ -36115,6 +37402,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-MATH590-K_101",
+      "term": "2026W2",
+      "subject": "MATH",
+      "courseNumber": "590",
+      "title": "Graduate Seminar (K)",
+      "section": "K_101",
+      "activity": "Seminar",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "1",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-MDST120-101",
       "term": "2026W2",
       "subject": "MDST",
@@ -36437,6 +37737,45 @@
       "level": "Graduate",
       "status": "Open",
       "credits": "1.5",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-MGMT542-A_101",
+      "term": "2026W2",
+      "subject": "MGMT",
+      "courseNumber": "542",
+      "title": "CAREER DEV (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "1",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-MGMT542-A_102",
+      "term": "2026W2",
+      "subject": "MGMT",
+      "courseNumber": "542",
+      "title": "CAREER DEV (A)",
+      "section": "A_102",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "1",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-MGMT542-B_101",
+      "term": "2026W2",
+      "subject": "MGMT",
+      "courseNumber": "542",
+      "title": "CAREER DEV II (B)",
+      "section": "B_101",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "1",
       "delivery": "In Person Learning"
     },
     {
@@ -39794,6 +41133,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-POLI454-A_101",
+      "term": "2026W2",
+      "subject": "POLI",
+      "courseNumber": "454",
+      "title": "BEAUTY & JUSTICE (A)",
+      "section": "A_101",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-POLI473-101",
       "term": "2026W2",
       "subject": "POLI",
@@ -40067,6 +41419,19 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-PSYO420-A_001",
+      "term": "2026W2",
+      "subject": "PSYO",
+      "courseNumber": "420",
+      "title": "INEQU IN DEVELOP (A)",
+      "section": "A_001",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-PSYO442-001",
       "term": "2026W2",
       "subject": "PSYO",
@@ -40076,6 +41441,97 @@
       "activity": "Seminar",
       "level": "Undergraduate",
       "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-PSYO455-A_001",
+      "term": "2026W2",
+      "subject": "PSYO",
+      "courseNumber": "455",
+      "title": "EMRGNGTECHCRIME (A)",
+      "section": "A_001",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-PSYO480-N_101",
+      "term": "2026W2",
+      "subject": "PSYO",
+      "courseNumber": "480",
+      "title": "CREATIVE PROCESS (N)",
+      "section": "N_101",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "Online Learning"
+    },
+    {
+      "id": "2026W2-PSYO480-P_001",
+      "term": "2026W2",
+      "subject": "PSYO",
+      "courseNumber": "480",
+      "title": "RSH TEC NEUROSCI (P)",
+      "section": "P_001",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-PSYO486-A_001",
+      "term": "2026W2",
+      "subject": "PSYO",
+      "courseNumber": "486",
+      "title": "Student Directed Seminar (A)",
+      "section": "A_001",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-PSYO486-A_002",
+      "term": "2026W2",
+      "subject": "PSYO",
+      "courseNumber": "486",
+      "title": "Student Directed Seminar (A)",
+      "section": "A_002",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-PSYO508-A_101",
+      "term": "2026W2",
+      "subject": "PSYO",
+      "courseNumber": "508",
+      "title": "CREATIVE PROCESS (A)",
+      "section": "A_101",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "Online Learning"
+    },
+    {
+      "id": "2026W2-PSYO508-R_001",
+      "term": "2026W2",
+      "subject": "PSYO",
+      "courseNumber": "508",
+      "title": "RSH TEC NEUROSCI (R)",
+      "section": "R_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
       "credits": "3",
       "delivery": "In Person Learning"
     },
@@ -40284,6 +41740,19 @@
       "activity": "Lecture",
       "level": "Undergraduate",
       "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-SOCI496-C_001",
+      "term": "2026W2",
+      "subject": "SOCI",
+      "courseNumber": "496",
+      "title": "UKRAINE 2022 (C)",
+      "section": "C_001",
+      "activity": "Seminar",
+      "level": "Undergraduate",
+      "status": "Open",
       "credits": "3",
       "delivery": "In Person Learning"
     },
@@ -40691,6 +42160,32 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-STAT547-I_001",
+      "term": "2026W2",
+      "subject": "STAT",
+      "courseNumber": "547",
+      "title": "ENVIRONMETRICS (I)",
+      "section": "I_001",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-STAT547-J_101",
+      "term": "2026W2",
+      "subject": "STAT",
+      "courseNumber": "547",
+      "title": "PROB & STAT INFR (J)",
+      "section": "J_101",
+      "activity": "Lecture",
+      "level": "Graduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-STAT560-001",
       "term": "2026W2",
       "subject": "STAT",
@@ -40782,6 +42277,32 @@
       "delivery": "In Person Learning"
     },
     {
+      "id": "2026W2-THTR280-C_101",
+      "term": "2026W2",
+      "subject": "THTR",
+      "courseNumber": "280",
+      "title": "Devised Public Performance (C)",
+      "section": "C_101",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-THTR301-A_101",
+      "term": "2026W2",
+      "subject": "THTR",
+      "courseNumber": "301",
+      "title": "Special Topics in Performance Styles (A)",
+      "section": "A_101",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
       "id": "2026W2-THTR384-101",
       "term": "2026W2",
       "subject": "THTR",
@@ -40791,6 +42312,19 @@
       "activity": "Studio",
       "level": "Undergraduate",
       "status": "Closed",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-THTR480-H_101",
+      "term": "2026W2",
+      "subject": "THTR",
+      "courseNumber": "480",
+      "title": "DEV PUB PERFORM (H)",
+      "section": "H_101",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Open",
       "credits": "3",
       "delivery": "In Person Learning"
     },
@@ -41009,6 +42543,97 @@
       "courseNumber": "283",
       "title": "Drawing IV",
       "section": "101",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-VISA300-B_101",
+      "term": "2026W2",
+      "subject": "VISA",
+      "courseNumber": "300",
+      "title": "ADV DRAWING (B)",
+      "section": "B_101",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-VISA312-E_101",
+      "term": "2026W2",
+      "subject": "VISA",
+      "courseNumber": "312",
+      "title": "Advanced Practice in Painting (E)",
+      "section": "E_101",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-VISA312-E_102",
+      "term": "2026W2",
+      "subject": "VISA",
+      "courseNumber": "312",
+      "title": "Advanced Practice in Painting (E)",
+      "section": "E_102",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Waitlist",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-VISA322-C_101",
+      "term": "2026W2",
+      "subject": "VISA",
+      "courseNumber": "322",
+      "title": "Advanced Practice in Sculpture (C)",
+      "section": "C_101",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-VISA336-C_101",
+      "term": "2026W2",
+      "subject": "VISA",
+      "courseNumber": "336",
+      "title": "Advanced Practice in Printmaking (C)",
+      "section": "C_101",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-VISA362-B_101",
+      "term": "2026W2",
+      "subject": "VISA",
+      "courseNumber": "362",
+      "title": "Advanced Practice in Photography (B)",
+      "section": "B_101",
+      "activity": "Studio",
+      "level": "Undergraduate",
+      "status": "Open",
+      "credits": "3",
+      "delivery": "In Person Learning"
+    },
+    {
+      "id": "2026W2-VISA382-E_101",
+      "term": "2026W2",
+      "subject": "VISA",
+      "courseNumber": "382",
+      "title": "Advanced Practice in Media Arts (E)",
+      "section": "E_101",
       "activity": "Studio",
       "level": "Undergraduate",
       "status": "Waitlist",
@@ -41745,6 +43370,19 @@
       "startDate": "2026-09-08",
       "endDate": "2026-11-05",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-COSC590-J_001-Tue-08:00-FIP-239-2026-09-08-0",
+      "sectionId": "2026W1-COSC590-J_001",
+      "roomId": "FIP-239",
+      "days": [
+        "Tue"
+      ],
+      "start": "08:00",
+      "end": "11:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-03",
+      "kind": "Seminar"
     },
     {
       "id": "2026W1-BIOL116-L03-Tue-08:00-FIP-247-2026-09-08-0",
@@ -42828,6 +44466,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-VISA312-A_002-Tue-10:00-CCS-224-2026-09-08-0",
+      "sectionId": "2026W1-VISA312-A_002",
+      "roomId": "CCS-224",
+      "days": [
+        "Tue"
+      ],
+      "start": "10:00",
+      "end": "14:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-03",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W1-NRSG201-L03-Tue-10:00-CCS-252-2026-09-08-0",
       "sectionId": "2026W1-NRSG201-L03",
       "roomId": "CCS-252",
@@ -43141,6 +44792,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-HIST382-B_001-Tue-11:00-ART-206-2026-09-08-0",
+      "sectionId": "2026W1-HIST382-B_001",
+      "roomId": "ART-206",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-COMM105-D01-Tue-11:00-ART-208-2026-09-08-0",
       "sectionId": "2026W1-COMM105-D01",
       "roomId": "ART-208",
@@ -43259,6 +44924,19 @@
       "startDate": "2026-09-08",
       "endDate": "2026-11-03",
       "kind": "Workshop"
+    },
+    {
+      "id": "2026W1-SOCI496-E_001-Tue-11:00-ART-365-2026-09-08-0",
+      "sectionId": "2026W1-SOCI496-E_001",
+      "roomId": "ART-365",
+      "days": [
+        "Tue"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-03",
+      "kind": "Seminar"
     },
     {
       "id": "2026W1-PSYO310-001-Tue-11:00-ART-366-2026-09-08-0",
@@ -43498,6 +45176,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-COMM399-A_001-Tue-11:00-FIP-121-2026-09-08-0",
+      "sectionId": "2026W1-COMM399-A_001",
+      "roomId": "FIP-121",
+      "days": [
+        "Tue"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-03",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-DIHU407-001-Tue-11:00-FIP-138-2026-09-08-0",
       "sectionId": "2026W1-DIHU407-001",
       "roomId": "FIP-138",
@@ -43513,6 +45204,19 @@
     {
       "id": "2026W1-ENGL407-001-Tue-11:00-FIP-138-2026-09-08-0",
       "sectionId": "2026W1-ENGL407-001",
+      "roomId": "FIP-138",
+      "days": [
+        "Tue"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-03",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL521-C_001-Tue-11:00-FIP-138-2026-09-08-0",
+      "sectionId": "2026W1-ENGL521-C_001",
       "roomId": "FIP-138",
       "days": [
         "Tue"
@@ -43709,6 +45413,20 @@
       "startDate": "2026-09-08",
       "endDate": "2026-11-03",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-PSYO380-Y_002-Tue-11:00-SCI-333-2026-09-08-0",
+      "sectionId": "2026W1-PSYO380-Y_002",
+      "roomId": "SCI-333",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-NRSG115-001-Tue-11:00-SCI-337-2026-09-08-0",
@@ -43921,6 +45639,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-DATA419-B_001-Tue-12:30-ART-110-2026-09-08-0",
+      "sectionId": "2026W1-DATA419-B_001",
+      "roomId": "ART-110",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-STAT400-001-Tue-12:30-ART-110-2026-09-08-0",
       "sectionId": "2026W1-STAT400-001",
       "roomId": "ART-110",
@@ -43966,6 +45698,20 @@
       "id": "2026W1-PHIL111-002-Tue-12:30-ART-114-2026-09-08-0",
       "sectionId": "2026W1-PHIL111-002",
       "roomId": "ART-114",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGR598-Z_001-Tue-12:30-ART-202-2026-09-08-0",
+      "sectionId": "2026W1-ENGR598-Z_001",
+      "roomId": "ART-202",
       "days": [
         "Tue",
         "Thu"
@@ -44036,6 +45782,20 @@
       "id": "2026W1-WRLD159-001-Tue-12:30-ART-222-2026-09-08-0",
       "sectionId": "2026W1-WRLD159-001",
       "roomId": "ART-222",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-BIOL430-C_001-Tue-12:30-ART-281-2026-09-08-0",
+      "sectionId": "2026W1-BIOL430-C_001",
+      "roomId": "ART-281",
       "days": [
         "Tue",
         "Thu"
@@ -44227,6 +45987,20 @@
       "startDate": "2026-09-08",
       "endDate": "2026-11-05",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-POLI454-B_001-Tue-12:30-EME-2202-2026-09-08-0",
+      "sectionId": "2026W1-POLI454-B_001",
+      "roomId": "EME-2202",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-05",
+      "kind": "Seminar"
     },
     {
       "id": "2026W1-APSC259-L2T-Tue-12:30-EME-2223-2026-09-08-0",
@@ -44883,6 +46657,20 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-ENGL374-A_001-Tue-14:00-ART-218-2026-09-08-0",
+      "sectionId": "2026W1-ENGL374-A_001",
+      "roomId": "ART-218",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-FREN103-001-Tue-14:00-ART-220-2026-09-08-0",
       "sectionId": "2026W1-FREN103-001",
       "roomId": "ART-220",
@@ -44953,6 +46741,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-BIOL430-O_001-Tue-14:00-ART-382-2026-09-08-0",
+      "sectionId": "2026W1-BIOL430-O_001",
+      "roomId": "ART-382",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-EESC314-001-Tue-14:00-ART-386-2026-09-08-0",
       "sectionId": "2026W1-EESC314-001",
       "roomId": "ART-386",
@@ -45005,6 +46807,19 @@
       "startDate": "2026-09-08",
       "endDate": "2026-11-03",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-VISA336-A_001-Tue-14:00-CCS-127-2026-09-08-0",
+      "sectionId": "2026W1-VISA336-A_001",
+      "roomId": "CCS-127",
+      "days": [
+        "Tue"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-03",
+      "kind": "Studio"
     },
     {
       "id": "2026W1-GERM100-002-Tue-14:00-CCS-142-2026-09-08-0",
@@ -45478,6 +47293,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-IGS501-C_002-Tue-14:30-noroom-2026-09-08-0",
+      "sectionId": "2026W1-IGS501-C_002",
+      "roomId": null,
+      "days": [
+        "Tue"
+      ],
+      "start": "14:30",
+      "end": "17:30",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-03",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-IMTC507-002-Tue-14:30-noroom-2026-09-08-0",
       "sectionId": "2026W1-IMTC507-002",
       "roomId": null,
@@ -45847,6 +47675,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-ENGL350-D_001-Tue-15:30-CCS-142-2026-09-08-0",
+      "sectionId": "2026W1-ENGL350-D_001",
+      "roomId": "CCS-142",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-PHYS111-001-Tue-15:30-COM-201-2026-09-08-0",
       "sectionId": "2026W1-PHYS111-001",
       "roomId": "COM-201",
@@ -45960,6 +47802,20 @@
     {
       "id": "2026W1-ENGL428-001-Tue-15:30-FIP-250-2026-09-08-0",
       "sectionId": "2026W1-ENGL428-001",
+      "roomId": "FIP-250",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL524-E_001-Tue-15:30-FIP-250-2026-09-08-0",
+      "sectionId": "2026W1-ENGL524-E_001",
       "roomId": "FIP-250",
       "days": [
         "Tue",
@@ -46096,6 +47952,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-PSYO490-B_S01-Tue-16:00-ART-108-2026-09-08-0",
+      "sectionId": "2026W1-PSYO490-B_S01",
+      "roomId": "ART-108",
+      "days": [
+        "Tue"
+      ],
+      "start": "16:00",
+      "end": "18:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-11-03",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W1-APSC172-T1B-Tue-16:00-ART-208-2026-09-08-0",
       "sectionId": "2026W1-APSC172-T1B",
       "roomId": "ART-208",
@@ -46147,6 +48016,19 @@
       "startDate": "2026-09-08",
       "endDate": "2026-11-03",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-MGMT542-A_001-Tue-16:00-EME-2111-2026-09-08-0",
+      "sectionId": "2026W1-MGMT542-A_001",
+      "roomId": "EME-2111",
+      "days": [
+        "Tue"
+      ],
+      "start": "16:00",
+      "end": "18:00",
+      "startDate": "2026-09-08",
+      "endDate": "2026-12-01",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-APSC252-T2A-Tue-16:00-EME-2181-2026-09-08-0",
@@ -47114,6 +48996,34 @@
       "kind": "Studio"
     },
     {
+      "id": "2026W1-CULT312-A_001-Mon-08:00-noroom-2026-09-09-0",
+      "sectionId": "2026W1-CULT312-A_001",
+      "roomId": null,
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "08:00",
+      "end": "09:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-DIHU312-A_001-Mon-08:00-noroom-2026-09-09-0",
+      "sectionId": "2026W1-DIHU312-A_001",
+      "roomId": null,
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "08:00",
+      "end": "09:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-PSYO523-001-Wed-08:00-noroom-2026-09-09-0",
       "sectionId": "2026W1-PSYO523-001",
       "roomId": null,
@@ -47319,6 +49229,21 @@
     {
       "id": "2026W1-CHEM337-101-Mon-08:00-ART-219-2026-09-09-0",
       "sectionId": "2026W1-CHEM337-101",
+      "roomId": "ART-219",
+      "days": [
+        "Mon",
+        "Wed",
+        "Fri"
+      ],
+      "start": "08:00",
+      "end": "09:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-06",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-CHEM521-F_101-Mon-08:00-ART-219-2026-09-09-0",
+      "sectionId": "2026W1-CHEM521-F_101",
       "roomId": "ART-219",
       "days": [
         "Mon",
@@ -48047,6 +49972,34 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-CULT371-A_001-Mon-09:30-ART-281-2026-09-09-0",
+      "sectionId": "2026W1-CULT371-A_001",
+      "roomId": "ART-281",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL309-A_001-Mon-09:30-ART-281-2026-09-09-0",
+      "sectionId": "2026W1-ENGL309-A_001",
+      "roomId": "ART-281",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-ENGL112-003-Wed-09:30-ART-365-2026-09-09-0",
       "sectionId": "2026W1-ENGL112-003",
       "roomId": "ART-365",
@@ -48156,6 +50109,19 @@
       "startDate": "2026-09-09",
       "endDate": "2026-12-02",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-VISA322-A_001-Wed-09:30-CCS-123-2026-09-09-0",
+      "sectionId": "2026W1-VISA322-A_001",
+      "roomId": "CCS-123",
+      "days": [
+        "Wed"
+      ],
+      "start": "09:30",
+      "end": "13:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Studio"
     },
     {
       "id": "2026W1-ENGR310-101-Mon-09:30-COM-201-2026-09-09-0",
@@ -48798,6 +50764,34 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W1-ENGL394-H_001-Mon-11:00-ADM-026-2026-09-09-0",
+      "sectionId": "2026W1-ENGL394-H_001",
+      "roomId": "ADM-026",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL395-J_001-Mon-11:00-ADM-026-2026-09-09-0",
+      "sectionId": "2026W1-ENGL395-J_001",
+      "roomId": "ADM-026",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-APSC176-109-Mon-11:00-ART-102-2026-09-09-0",
       "sectionId": "2026W1-APSC176-109",
       "roomId": "ART-102",
@@ -48974,6 +50968,19 @@
       "startDate": "2026-09-09",
       "endDate": "2026-11-04",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-PSYO280-A_001-Wed-11:00-ART-214-2026-09-09-0",
+      "sectionId": "2026W1-PSYO280-A_001",
+      "roomId": "ART-214",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-ECON327-T02-Wed-11:00-ART-215-2026-09-09-0",
@@ -49360,9 +51367,49 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-CRWR470-C_001-Wed-11:00-FIP-140-2026-09-09-0",
+      "sectionId": "2026W1-CRWR470-C_001",
+      "roomId": "FIP-140",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-CRWR582-C_001-Wed-11:00-FIP-140-2026-09-09-0",
+      "sectionId": "2026W1-CRWR582-C_001",
+      "roomId": "FIP-140",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-HES101-001-Mon-11:00-FIP-204-2026-09-09-0",
       "sectionId": "2026W1-HES101-001",
       "roomId": "FIP-204",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-MATH432-A_101-Mon-11:00-FIP-239-2026-09-09-0",
+      "sectionId": "2026W1-MATH432-A_101",
+      "roomId": "FIP-239",
       "days": [
         "Mon",
         "Wed"
@@ -49620,6 +51667,20 @@
       "id": "2026W1-INDG102-001-Mon-12:30-noroom-2026-09-09-0",
       "sectionId": "2026W1-INDG102-001",
       "roomId": null,
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ARTH160-A_001-Mon-12:30-ADM-026-2026-09-09-0",
+      "sectionId": "2026W1-ARTH160-A_001",
+      "roomId": "ADM-026",
       "days": [
         "Mon",
         "Wed"
@@ -50146,6 +52207,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-ENGR598-A_001-Mon-12:30-SCI-333-2026-09-09-0",
+      "sectionId": "2026W1-ENGR598-A_001",
+      "roomId": "SCI-333",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-HES120-L05-Wed-12:30-UCH-010-2026-09-09-0",
       "sectionId": "2026W1-HES120-L05",
       "roomId": "UCH-010",
@@ -50428,6 +52503,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-CULT301-A_001-Wed-14:00-noroom-2026-09-09-0",
+      "sectionId": "2026W1-CULT301-A_001",
+      "roomId": null,
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-FILM371-001-Wed-14:00-noroom-2026-09-09-0",
       "sectionId": "2026W1-FILM371-001",
       "roomId": null,
@@ -50436,6 +52524,19 @@
       ],
       "start": "14:00",
       "end": "17:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Studio"
+    },
+    {
+      "id": "2026W1-VISA382-A_001-Wed-14:00-noroom-2026-09-09-0",
+      "sectionId": "2026W1-VISA382-A_001",
+      "roomId": null,
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "18:00",
       "startDate": "2026-09-09",
       "endDate": "2026-11-04",
       "kind": "Studio"
@@ -50582,6 +52683,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-ENGL355-C_001-Mon-14:00-ART-110-2026-09-09-0",
+      "sectionId": "2026W1-ENGL355-C_001",
+      "roomId": "ART-110",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-GEOG351-001-Mon-14:00-ART-112-2026-09-09-0",
       "sectionId": "2026W1-GEOG351-001",
       "roomId": "ART-112",
@@ -50667,6 +52782,34 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-PHIL405-A_001-Mon-14:00-ART-208-2026-09-09-0",
+      "sectionId": "2026W1-PHIL405-A_001",
+      "roomId": "ART-208",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W1-POLI405-A_001-Mon-14:00-ART-208-2026-09-09-0",
+      "sectionId": "2026W1-POLI405-A_001",
+      "roomId": "ART-208",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W1-ENGL112-001-Wed-14:00-ART-210-2026-09-09-0",
       "sectionId": "2026W1-ENGL112-001",
       "roomId": "ART-210",
@@ -50705,6 +52848,33 @@
       "end": "15:30",
       "startDate": "2026-09-09",
       "endDate": "2026-11-06",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-SOCI411-C_001-Wed-14:00-ART-219-2026-09-09-0",
+      "sectionId": "2026W1-SOCI411-C_001",
+      "roomId": "ART-219",
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W1-FREN327-A_001-Mon-14:00-ART-220-2026-09-09-0",
+      "sectionId": "2026W1-FREN327-A_001",
+      "roomId": "ART-220",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
       "kind": "Lecture"
     },
     {
@@ -50987,6 +53157,34 @@
       "id": "2026W1-INDG203-001-Mon-14:00-FIP-121-2026-09-09-0",
       "sectionId": "2026W1-INDG203-001",
       "roomId": "FIP-121",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-CULT400-K_001-Mon-14:00-FIP-124-2026-09-09-0",
+      "sectionId": "2026W1-CULT400-K_001",
+      "roomId": "FIP-124",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL493-K_001-Mon-14:00-FIP-124-2026-09-09-0",
+      "sectionId": "2026W1-ENGL493-K_001",
+      "roomId": "FIP-124",
       "days": [
         "Mon",
         "Wed"
@@ -51402,6 +53600,20 @@
       "end": "17:00",
       "startDate": "2026-09-09",
       "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-PHYS548-A_001-Wed-15:30-noroom-2026-09-09-0",
+      "sectionId": "2026W1-PHYS548-A_001",
+      "roomId": null,
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-06",
       "kind": "Lecture"
     },
     {
@@ -51985,6 +54197,33 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W1-FREN420-D_001-Mon-16:00-ART-220-2026-09-09-0",
+      "sectionId": "2026W1-FREN420-D_001",
+      "roomId": "ART-220",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "16:00",
+      "end": "17:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-GERM303-A_001-Wed-16:00-CCS-142-2026-09-09-0",
+      "sectionId": "2026W1-GERM303-A_001",
+      "roomId": "CCS-142",
+      "days": [
+        "Wed"
+      ],
+      "start": "16:00",
+      "end": "19:00",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-COSC305-L04-Wed-16:00-EME-2205-2026-09-09-0",
       "sectionId": "2026W1-COSC305-L04",
       "roomId": "EME-2205",
@@ -52285,6 +54524,20 @@
       "id": "2026W1-COMM190-002-Mon-17:00-ART-214-2026-09-09-0",
       "sectionId": "2026W1-COMM190-002",
       "roomId": "ART-214",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "17:00",
+      "end": "18:30",
+      "startDate": "2026-09-09",
+      "endDate": "2026-11-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL333-B_001-Mon-17:00-ART-218-2026-09-09-0",
+      "sectionId": "2026W1-ENGL333-B_001",
+      "roomId": "ART-218",
       "days": [
         "Mon",
         "Wed"
@@ -53614,6 +55867,19 @@
       "kind": "Studio"
     },
     {
+      "id": "2026W1-VISA312-A_001-Thu-10:00-CCS-224-2026-09-10-0",
+      "sectionId": "2026W1-VISA312-A_001",
+      "roomId": "CCS-224",
+      "days": [
+        "Thu"
+      ],
+      "start": "10:00",
+      "end": "14:00",
+      "startDate": "2026-09-10",
+      "endDate": "2026-11-05",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W1-NRSG201-L09-Thu-10:00-CCS-252-2026-09-10-0",
       "sectionId": "2026W1-NRSG201-L09",
       "roomId": "CCS-252",
@@ -53861,6 +56127,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-COSC519-J_001-Thu-11:00-ART-374-2026-09-10-0",
+      "sectionId": "2026W1-COSC519-J_001",
+      "roomId": "ART-374",
+      "days": [
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-10",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-IMTC505-001-Thu-11:00-ART-374-2026-09-10-0",
       "sectionId": "2026W1-IMTC505-001",
       "roomId": "ART-374",
@@ -53967,6 +56246,19 @@
     {
       "id": "2026W1-ENGL402-001-Thu-11:00-FIP-239-2026-09-10-0",
       "sectionId": "2026W1-ENGL402-001",
+      "roomId": "FIP-239",
+      "days": [
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-10",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL525-E_001-Thu-11:00-FIP-239-2026-09-10-0",
+      "sectionId": "2026W1-ENGL525-E_001",
       "roomId": "FIP-239",
       "days": [
         "Thu"
@@ -54474,6 +56766,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-CULT362-A_001-Thu-14:00-noroom-2026-09-10-0",
+      "sectionId": "2026W1-CULT362-A_001",
+      "roomId": null,
+      "days": [
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2026-09-10",
+      "endDate": "2026-11-05",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-ENGR381-T1B-Thu-14:00-noroom-2026-09-10-0",
       "sectionId": "2026W1-ENGR381-T1B",
       "roomId": null,
@@ -54498,6 +56803,19 @@
       "startDate": "2026-09-10",
       "endDate": "2026-11-05",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-VISA362-A_001-Thu-14:00-noroom-2026-09-10-0",
+      "sectionId": "2026W1-VISA362-A_001",
+      "roomId": null,
+      "days": [
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2026-09-10",
+      "endDate": "2026-11-05",
+      "kind": "Studio"
     },
     {
       "id": "2026W1-THTR180-001-Thu-14:00-ADM-026-2026-09-10-0",
@@ -54719,6 +57037,19 @@
       "startDate": "2026-09-10",
       "endDate": "2026-11-05",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-MATH590-J_001-Thu-14:00-EME-2202-2026-09-10-0",
+      "sectionId": "2026W1-MATH590-J_001",
+      "roomId": "EME-2202",
+      "days": [
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2026-09-10",
+      "endDate": "2026-11-05",
+      "kind": "Seminar"
     },
     {
       "id": "2026W1-COSC305-L03-Thu-14:00-EME-2205-2026-09-10-0",
@@ -55854,6 +58185,19 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W1-VISA300-A_001-Fri-09:00-CCS-221-2026-09-11-0",
+      "sectionId": "2026W1-VISA300-A_001",
+      "roomId": "CCS-221",
+      "days": [
+        "Fri"
+      ],
+      "start": "09:00",
+      "end": "13:00",
+      "startDate": "2026-09-11",
+      "endDate": "2026-11-06",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W1-ENGR310-L1I-Fri-09:00-EDL-004-2026-09-11-0",
       "sectionId": "2026W1-ENGR310-L1I",
       "roomId": "EDL-004",
@@ -56309,6 +58653,20 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-CHEM507-B_101-Mon-10:30-noroom-2026-09-11-0",
+      "sectionId": "2026W1-CHEM507-B_101",
+      "roomId": null,
+      "days": [
+        "Mon",
+        "Fri"
+      ],
+      "start": "10:30",
+      "end": "12:00",
+      "startDate": "2026-09-11",
+      "endDate": "2026-11-06",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-VISA110-001-Fri-11:00-noroom-2026-09-11-0",
       "sectionId": "2026W1-VISA110-001",
       "roomId": null,
@@ -56504,9 +58862,35 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W1-COMM399-C_001-Fri-11:00-EME-2202-2026-09-11-0",
+      "sectionId": "2026W1-COMM399-C_001",
+      "roomId": "EME-2202",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-11",
+      "endDate": "2026-11-06",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-INDG104-001-Fri-11:00-FIP-121-2026-09-11-0",
       "sectionId": "2026W1-INDG104-001",
       "roomId": "FIP-121",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-11",
+      "endDate": "2026-11-06",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-HIST495-B_101-Fri-11:00-FIP-124-2026-09-11-0",
+      "sectionId": "2026W1-HIST495-B_101",
+      "roomId": "FIP-124",
       "days": [
         "Fri"
       ],
@@ -56736,6 +59120,19 @@
       "startDate": "2026-09-11",
       "endDate": "2026-11-06",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-EDUC462-D_001-Fri-12:00-EME-1123-2026-09-11-0",
+      "sectionId": "2026W1-EDUC462-D_001",
+      "roomId": "EME-1123",
+      "days": [
+        "Fri"
+      ],
+      "start": "12:00",
+      "end": "15:00",
+      "startDate": "2026-09-11",
+      "endDate": "2026-11-06",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-GEOG201-001-Fri-12:00-EME-2181-2026-09-11-0",
@@ -58584,6 +60981,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-IGS515-A_001-Mon-11:00-FIP-124-2026-09-14-0",
+      "sectionId": "2026W1-IGS515-A_001",
+      "roomId": "FIP-124",
+      "days": [
+        "Mon"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-14",
+      "endDate": "2026-11-02",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W1-ENGL503-001-Mon-11:00-FIP-138-2026-09-14-0",
       "sectionId": "2026W1-ENGL503-001",
       "roomId": "FIP-138",
@@ -58634,6 +61044,19 @@
       "startDate": "2026-09-14",
       "endDate": "2026-11-02",
       "kind": "Seminar"
+    },
+    {
+      "id": "2026W1-ANTH409-D_001-Mon-11:00-LIB-306-2026-09-14-0",
+      "sectionId": "2026W1-ANTH409-D_001",
+      "roomId": "LIB-306",
+      "days": [
+        "Mon"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-09-14",
+      "endDate": "2026-11-02",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-NRSG229-001-Mon-11:00-LIB-312-2026-09-14-0",
@@ -59167,6 +61590,32 @@
       "startDate": "2026-09-14",
       "endDate": "2026-10-05",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-CRWR381-A_001-Mon-14:00-noroom-2026-09-14-0",
+      "sectionId": "2026W1-CRWR381-A_001",
+      "roomId": null,
+      "days": [
+        "Mon"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2026-09-14",
+      "endDate": "2026-11-02",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-CRWR581-C_001-Mon-14:00-noroom-2026-09-14-0",
+      "sectionId": "2026W1-CRWR581-C_001",
+      "roomId": null,
+      "days": [
+        "Mon"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2026-09-14",
+      "endDate": "2026-11-02",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-CCS250-001-Mon-14:00-ADM-026-2026-09-14-0",
@@ -60246,6 +62695,19 @@
       "startDate": "2026-09-15",
       "endDate": "2026-10-27",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-MGMT542-B_001-Tue-16:00-EME-2111-2026-09-15-0",
+      "sectionId": "2026W1-MGMT542-B_001",
+      "roomId": "EME-2111",
+      "days": [
+        "Tue"
+      ],
+      "start": "16:00",
+      "end": "18:00",
+      "startDate": "2026-09-15",
+      "endDate": "2026-10-27",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-CMPE465-L01-Tue-16:00-EME-2220-2026-09-15-0",
@@ -61598,6 +64060,20 @@
       "kind": "Workshop"
     },
     {
+      "id": "2026W1-CULT312-A_001-Mon-08:00-noroom-2026-11-16-2",
+      "sectionId": "2026W1-CULT312-A_001",
+      "roomId": null,
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "08:00",
+      "end": "09:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-DATA311-L01-Mon-08:00-noroom-2026-11-16-2",
       "sectionId": "2026W1-DATA311-L01",
       "roomId": null,
@@ -61609,6 +64085,20 @@
       "startDate": "2026-11-16",
       "endDate": "2026-12-07",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-DIHU312-A_001-Mon-08:00-noroom-2026-11-16-2",
+      "sectionId": "2026W1-DIHU312-A_001",
+      "roomId": null,
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "08:00",
+      "end": "09:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-PSYO514-001-Mon-08:00-noroom-2026-11-16-2",
@@ -61733,6 +64223,21 @@
     {
       "id": "2026W1-CHEM337-101-Mon-08:00-ART-219-2026-11-16-2",
       "sectionId": "2026W1-CHEM337-101",
+      "roomId": "ART-219",
+      "days": [
+        "Mon",
+        "Wed",
+        "Fri"
+      ],
+      "start": "08:00",
+      "end": "09:00",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-CHEM521-F_101-Mon-08:00-ART-219-2026-11-16-2",
+      "sectionId": "2026W1-CHEM521-F_101",
       "roomId": "ART-219",
       "days": [
         "Mon",
@@ -62359,6 +64864,34 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-CULT371-A_001-Mon-09:30-ART-281-2026-11-16-2",
+      "sectionId": "2026W1-CULT371-A_001",
+      "roomId": "ART-281",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL309-A_001-Mon-09:30-ART-281-2026-11-16-2",
+      "sectionId": "2026W1-ENGL309-A_001",
+      "roomId": "ART-281",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-COSC407-101-Mon-09:30-ART-376-2026-11-16-2",
       "sectionId": "2026W1-COSC407-101",
       "roomId": "ART-376",
@@ -62876,6 +65409,20 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-CHEM507-B_101-Mon-10:30-noroom-2026-11-16-2",
+      "sectionId": "2026W1-CHEM507-B_101",
+      "roomId": null,
+      "days": [
+        "Mon",
+        "Fri"
+      ],
+      "start": "10:30",
+      "end": "12:00",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-07",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-EAP103-001-Mon-11:00-noroom-2026-11-16-2",
       "sectionId": "2026W1-EAP103-001",
       "roomId": null,
@@ -62957,6 +65504,34 @@
       "startDate": "2026-11-16",
       "endDate": "2026-12-07",
       "kind": "Discussion"
+    },
+    {
+      "id": "2026W1-ENGL394-H_001-Mon-11:00-ADM-026-2026-11-16-2",
+      "sectionId": "2026W1-ENGL394-H_001",
+      "roomId": "ADM-026",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL395-J_001-Mon-11:00-ADM-026-2026-11-16-2",
+      "sectionId": "2026W1-ENGL395-J_001",
+      "roomId": "ADM-026",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-APSC176-109-Mon-11:00-ART-102-2026-11-16-2",
@@ -63384,6 +65959,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-IGS515-A_001-Mon-11:00-FIP-124-2026-11-16-2",
+      "sectionId": "2026W1-IGS515-A_001",
+      "roomId": "FIP-124",
+      "days": [
+        "Mon"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-07",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W1-ENGL503-001-Mon-11:00-FIP-138-2026-11-16-2",
       "sectionId": "2026W1-ENGL503-001",
       "roomId": "FIP-138",
@@ -63413,6 +66001,20 @@
       "id": "2026W1-HES101-001-Mon-11:00-FIP-204-2026-11-16-2",
       "sectionId": "2026W1-HES101-001",
       "roomId": "FIP-204",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-MATH432-A_101-Mon-11:00-FIP-239-2026-11-16-2",
+      "sectionId": "2026W1-MATH432-A_101",
+      "roomId": "FIP-239",
       "days": [
         "Mon",
         "Wed"
@@ -63461,6 +66063,19 @@
       "end": "12:30",
       "startDate": "2026-11-16",
       "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ANTH409-D_001-Mon-11:00-LIB-306-2026-11-16-2",
+      "sectionId": "2026W1-ANTH409-D_001",
+      "roomId": "LIB-306",
+      "days": [
+        "Mon"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-07",
       "kind": "Lecture"
     },
     {
@@ -63707,6 +66322,20 @@
       "id": "2026W1-INDG102-001-Mon-12:30-noroom-2026-11-16-2",
       "sectionId": "2026W1-INDG102-001",
       "roomId": null,
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ARTH160-A_001-Mon-12:30-ADM-026-2026-11-16-2",
+      "sectionId": "2026W1-ARTH160-A_001",
+      "roomId": "ADM-026",
       "days": [
         "Mon",
         "Wed"
@@ -64105,6 +66734,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-ENGR598-A_001-Mon-12:30-SCI-333-2026-11-16-2",
+      "sectionId": "2026W1-ENGR598-A_001",
+      "roomId": "SCI-333",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-HES120-L02-Mon-12:30-UCH-010-2026-11-16-2",
       "sectionId": "2026W1-HES120-L02",
       "roomId": "UCH-010",
@@ -64380,6 +67023,32 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-CRWR381-A_001-Mon-14:00-noroom-2026-11-16-2",
+      "sectionId": "2026W1-CRWR381-A_001",
+      "roomId": null,
+      "days": [
+        "Mon"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-07",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-CRWR581-C_001-Mon-14:00-noroom-2026-11-16-2",
+      "sectionId": "2026W1-CRWR581-C_001",
+      "roomId": null,
+      "days": [
+        "Mon"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-07",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-CCS250-001-Mon-14:00-ADM-026-2026-11-16-2",
       "sectionId": "2026W1-CCS250-001",
       "roomId": "ADM-026",
@@ -64422,6 +67091,20 @@
       "id": "2026W1-ENGR534-101-Mon-14:00-ART-108-2026-11-16-2",
       "sectionId": "2026W1-ENGR534-101",
       "roomId": "ART-108",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL355-C_001-Mon-14:00-ART-110-2026-11-16-2",
+      "sectionId": "2026W1-ENGL355-C_001",
+      "roomId": "ART-110",
       "days": [
         "Mon",
         "Wed"
@@ -64504,6 +67187,34 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-PHIL405-A_001-Mon-14:00-ART-208-2026-11-16-2",
+      "sectionId": "2026W1-PHIL405-A_001",
+      "roomId": "ART-208",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W1-POLI405-A_001-Mon-14:00-ART-208-2026-11-16-2",
+      "sectionId": "2026W1-POLI405-A_001",
+      "roomId": "ART-208",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W1-PHYS112-T01-Mon-14:00-ART-218-2026-11-16-2",
       "sectionId": "2026W1-PHYS112-T01",
       "roomId": "ART-218",
@@ -64515,6 +67226,20 @@
       "startDate": "2026-11-16",
       "endDate": "2026-12-07",
       "kind": "Discussion"
+    },
+    {
+      "id": "2026W1-FREN327-A_001-Mon-14:00-ART-220-2026-11-16-2",
+      "sectionId": "2026W1-FREN327-A_001",
+      "roomId": "ART-220",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-SPAN101-003-Mon-14:00-ART-222-2026-11-16-2",
@@ -64804,6 +67529,34 @@
       "id": "2026W1-INDG203-001-Mon-14:00-FIP-121-2026-11-16-2",
       "sectionId": "2026W1-INDG203-001",
       "roomId": "FIP-121",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-CULT400-K_001-Mon-14:00-FIP-124-2026-11-16-2",
+      "sectionId": "2026W1-CULT400-K_001",
+      "roomId": "FIP-124",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL493-K_001-Mon-14:00-FIP-124-2026-11-16-2",
+      "sectionId": "2026W1-ENGL493-K_001",
+      "roomId": "FIP-124",
       "days": [
         "Mon",
         "Wed"
@@ -65590,6 +68343,20 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-FREN420-D_001-Mon-16:00-ART-220-2026-11-16-2",
+      "sectionId": "2026W1-FREN420-D_001",
+      "roomId": "ART-220",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "16:00",
+      "end": "17:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-COMM101-W12-Mon-16:00-ART-281-2026-11-16-2",
       "sectionId": "2026W1-COMM101-W12",
       "roomId": "ART-281",
@@ -65864,6 +68631,20 @@
       "id": "2026W1-COMM190-002-Mon-17:00-ART-214-2026-11-16-2",
       "sectionId": "2026W1-COMM190-002",
       "roomId": "ART-214",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "17:00",
+      "end": "18:30",
+      "startDate": "2026-11-16",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL333-B_001-Mon-17:00-ART-218-2026-11-16-2",
+      "sectionId": "2026W1-ENGL333-B_001",
+      "roomId": "ART-218",
       "days": [
         "Mon",
         "Wed"
@@ -66937,6 +69718,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-COSC590-J_001-Tue-08:00-FIP-239-2026-11-17-2",
+      "sectionId": "2026W1-COSC590-J_001",
+      "roomId": "FIP-239",
+      "days": [
+        "Tue"
+      ],
+      "start": "08:00",
+      "end": "11:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W1-BIOL116-L03-Tue-08:00-FIP-247-2026-11-17-2",
       "sectionId": "2026W1-BIOL116-L03",
       "roomId": "FIP-247",
@@ -67923,6 +70717,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-VISA312-A_002-Tue-10:00-CCS-224-2026-11-17-2",
+      "sectionId": "2026W1-VISA312-A_002",
+      "roomId": "CCS-224",
+      "days": [
+        "Tue"
+      ],
+      "start": "10:00",
+      "end": "14:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W1-NRSG201-L03-Tue-10:00-CCS-252-2026-11-17-2",
       "sectionId": "2026W1-NRSG201-L03",
       "roomId": "CCS-252",
@@ -68219,6 +71026,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-HIST382-B_001-Tue-11:00-ART-206-2026-11-17-2",
+      "sectionId": "2026W1-HIST382-B_001",
+      "roomId": "ART-206",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-COMM105-D01-Tue-11:00-ART-208-2026-11-17-2",
       "sectionId": "2026W1-COMM105-D01",
       "roomId": "ART-208",
@@ -68337,6 +71158,19 @@
       "startDate": "2026-11-17",
       "endDate": "2026-12-08",
       "kind": "Workshop"
+    },
+    {
+      "id": "2026W1-SOCI496-E_001-Tue-11:00-ART-365-2026-11-17-2",
+      "sectionId": "2026W1-SOCI496-E_001",
+      "roomId": "ART-365",
+      "days": [
+        "Tue"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Seminar"
     },
     {
       "id": "2026W1-PSYO310-001-Tue-11:00-ART-366-2026-11-17-2",
@@ -68590,6 +71424,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-COMM399-A_001-Tue-11:00-FIP-121-2026-11-17-2",
+      "sectionId": "2026W1-COMM399-A_001",
+      "roomId": "FIP-121",
+      "days": [
+        "Tue"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-DIHU407-001-Tue-11:00-FIP-138-2026-11-17-2",
       "sectionId": "2026W1-DIHU407-001",
       "roomId": "FIP-138",
@@ -68605,6 +71452,19 @@
     {
       "id": "2026W1-ENGL407-001-Tue-11:00-FIP-138-2026-11-17-2",
       "sectionId": "2026W1-ENGL407-001",
+      "roomId": "FIP-138",
+      "days": [
+        "Tue"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL521-C_001-Tue-11:00-FIP-138-2026-11-17-2",
+      "sectionId": "2026W1-ENGL521-C_001",
       "roomId": "FIP-138",
       "days": [
         "Tue"
@@ -68776,6 +71636,20 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-PSYO380-Y_002-Tue-11:00-SCI-333-2026-11-17-2",
+      "sectionId": "2026W1-PSYO380-Y_002",
+      "roomId": "SCI-333",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-NRSG115-001-Tue-11:00-SCI-337-2026-11-17-2",
       "sectionId": "2026W1-NRSG115-001",
       "roomId": "SCI-337",
@@ -68934,6 +71808,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-DATA419-B_001-Tue-12:30-ART-110-2026-11-17-2",
+      "sectionId": "2026W1-DATA419-B_001",
+      "roomId": "ART-110",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-STAT400-001-Tue-12:30-ART-110-2026-11-17-2",
       "sectionId": "2026W1-STAT400-001",
       "roomId": "ART-110",
@@ -68979,6 +71867,20 @@
       "id": "2026W1-PHIL111-002-Tue-12:30-ART-114-2026-11-17-2",
       "sectionId": "2026W1-PHIL111-002",
       "roomId": "ART-114",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGR598-Z_001-Tue-12:30-ART-202-2026-11-17-2",
+      "sectionId": "2026W1-ENGR598-Z_001",
+      "roomId": "ART-202",
       "days": [
         "Tue",
         "Thu"
@@ -69049,6 +71951,20 @@
       "id": "2026W1-WRLD159-001-Tue-12:30-ART-222-2026-11-17-2",
       "sectionId": "2026W1-WRLD159-001",
       "roomId": "ART-222",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-BIOL430-C_001-Tue-12:30-ART-281-2026-11-17-2",
+      "sectionId": "2026W1-BIOL430-C_001",
+      "roomId": "ART-281",
       "days": [
         "Tue",
         "Thu"
@@ -69240,6 +72156,20 @@
       "startDate": "2026-11-17",
       "endDate": "2026-12-08",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-POLI454-B_001-Tue-12:30-EME-2202-2026-11-17-2",
+      "sectionId": "2026W1-POLI454-B_001",
+      "roomId": "EME-2202",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Seminar"
     },
     {
       "id": "2026W1-BIOL202-L03-Tue-12:30-FIP-129-2026-11-17-2",
@@ -69784,6 +72714,20 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-ENGL374-A_001-Tue-14:00-ART-218-2026-11-17-2",
+      "sectionId": "2026W1-ENGL374-A_001",
+      "roomId": "ART-218",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-FREN103-001-Tue-14:00-ART-220-2026-11-17-2",
       "sectionId": "2026W1-FREN103-001",
       "roomId": "ART-220",
@@ -69854,6 +72798,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-BIOL430-O_001-Tue-14:00-ART-382-2026-11-17-2",
+      "sectionId": "2026W1-BIOL430-O_001",
+      "roomId": "ART-382",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-EESC314-001-Tue-14:00-ART-386-2026-11-17-2",
       "sectionId": "2026W1-EESC314-001",
       "roomId": "ART-386",
@@ -69906,6 +72864,19 @@
       "startDate": "2026-11-17",
       "endDate": "2026-12-08",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-VISA336-A_001-Tue-14:00-CCS-127-2026-11-17-2",
+      "sectionId": "2026W1-VISA336-A_001",
+      "roomId": "CCS-127",
+      "days": [
+        "Tue"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Studio"
     },
     {
       "id": "2026W1-GERM100-002-Tue-14:00-CCS-142-2026-11-17-2",
@@ -70366,6 +73337,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-IGS501-C_002-Tue-14:30-noroom-2026-11-17-2",
+      "sectionId": "2026W1-IGS501-C_002",
+      "roomId": null,
+      "days": [
+        "Tue"
+      ],
+      "start": "14:30",
+      "end": "17:30",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-IMTC507-002-Tue-14:30-noroom-2026-11-17-2",
       "sectionId": "2026W1-IMTC507-002",
       "roomId": null,
@@ -70669,6 +73653,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-ENGL350-D_001-Tue-15:30-CCS-142-2026-11-17-2",
+      "sectionId": "2026W1-ENGL350-D_001",
+      "roomId": "CCS-142",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-PHYS111-001-Tue-15:30-COM-201-2026-11-17-2",
       "sectionId": "2026W1-PHYS111-001",
       "roomId": "COM-201",
@@ -70769,6 +73767,20 @@
     {
       "id": "2026W1-ENGL428-001-Tue-15:30-FIP-250-2026-11-17-2",
       "sectionId": "2026W1-ENGL428-001",
+      "roomId": "FIP-250",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2026-11-17",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL524-E_001-Tue-15:30-FIP-250-2026-11-17-2",
+      "sectionId": "2026W1-ENGL524-E_001",
       "roomId": "FIP-250",
       "days": [
         "Tue",
@@ -72452,6 +75464,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-VISA322-A_001-Wed-09:30-CCS-123-2026-11-18-2",
+      "sectionId": "2026W1-VISA322-A_001",
+      "roomId": "CCS-123",
+      "days": [
+        "Wed"
+      ],
+      "start": "09:30",
+      "end": "13:30",
+      "startDate": "2026-11-18",
+      "endDate": "2026-12-09",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W1-CMPE201-001-Wed-09:30-EME-1101-2026-11-18-2",
       "sectionId": "2026W1-CMPE201-001",
       "roomId": "EME-1101",
@@ -72932,6 +75957,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-PSYO280-A_001-Wed-11:00-ART-214-2026-11-18-2",
+      "sectionId": "2026W1-PSYO280-A_001",
+      "roomId": "ART-214",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-18",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-ECON327-T02-Wed-11:00-ART-215-2026-11-18-2",
       "sectionId": "2026W1-ECON327-T02",
       "roomId": "ART-215",
@@ -73123,6 +76161,32 @@
       "id": "2026W1-IMTC506-001-Wed-11:00-FIP-138-2026-11-18-2",
       "sectionId": "2026W1-IMTC506-001",
       "roomId": "FIP-138",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-18",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-CRWR470-C_001-Wed-11:00-FIP-140-2026-11-18-2",
+      "sectionId": "2026W1-CRWR470-C_001",
+      "roomId": "FIP-140",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-18",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-CRWR582-C_001-Wed-11:00-FIP-140-2026-11-18-2",
+      "sectionId": "2026W1-CRWR582-C_001",
+      "roomId": "FIP-140",
       "days": [
         "Wed"
       ],
@@ -73695,6 +76759,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-CULT301-A_001-Wed-14:00-noroom-2026-11-18-2",
+      "sectionId": "2026W1-CULT301-A_001",
+      "roomId": null,
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2026-11-18",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-FILM371-001-Wed-14:00-noroom-2026-11-18-2",
       "sectionId": "2026W1-FILM371-001",
       "roomId": null,
@@ -73703,6 +76780,19 @@
       ],
       "start": "14:00",
       "end": "17:00",
+      "startDate": "2026-11-18",
+      "endDate": "2026-12-09",
+      "kind": "Studio"
+    },
+    {
+      "id": "2026W1-VISA382-A_001-Wed-14:00-noroom-2026-11-18-2",
+      "sectionId": "2026W1-VISA382-A_001",
+      "roomId": null,
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "18:00",
       "startDate": "2026-11-18",
       "endDate": "2026-12-09",
       "kind": "Studio"
@@ -73815,6 +76905,19 @@
       "startDate": "2026-11-18",
       "endDate": "2026-12-09",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-SOCI411-C_001-Wed-14:00-ART-219-2026-11-18-2",
+      "sectionId": "2026W1-SOCI411-C_001",
+      "roomId": "ART-219",
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2026-11-18",
+      "endDate": "2026-12-09",
+      "kind": "Seminar"
     },
     {
       "id": "2026W1-ENGR381-101-Wed-14:00-ART-366-2026-11-18-2",
@@ -74205,6 +77308,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-PHYS548-A_001-Wed-15:30-noroom-2026-11-18-2",
+      "sectionId": "2026W1-PHYS548-A_001",
+      "roomId": null,
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2026-11-18",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-COSC221-001-Wed-15:30-ART-103-2026-11-18-2",
       "sectionId": "2026W1-COSC221-001",
       "roomId": "ART-103",
@@ -74448,6 +77565,19 @@
       "startDate": "2026-11-18",
       "endDate": "2026-12-09",
       "kind": "Discussion"
+    },
+    {
+      "id": "2026W1-GERM303-A_001-Wed-16:00-CCS-142-2026-11-18-2",
+      "sectionId": "2026W1-GERM303-A_001",
+      "roomId": "CCS-142",
+      "days": [
+        "Wed"
+      ],
+      "start": "16:00",
+      "end": "19:00",
+      "startDate": "2026-11-18",
+      "endDate": "2026-12-09",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-COSC305-L04-Wed-16:00-EME-2205-2026-11-18-2",
@@ -75444,6 +78574,19 @@
       "kind": "Studio"
     },
     {
+      "id": "2026W1-VISA312-A_001-Thu-10:00-CCS-224-2026-11-19-2",
+      "sectionId": "2026W1-VISA312-A_001",
+      "roomId": "CCS-224",
+      "days": [
+        "Thu"
+      ],
+      "start": "10:00",
+      "end": "14:00",
+      "startDate": "2026-11-19",
+      "endDate": "2026-12-03",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W1-NRSG201-L09-Thu-10:00-CCS-252-2026-11-19-2",
       "sectionId": "2026W1-NRSG201-L09",
       "roomId": "CCS-252",
@@ -75678,6 +78821,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W1-COSC519-J_001-Thu-11:00-ART-374-2026-11-19-2",
+      "sectionId": "2026W1-COSC519-J_001",
+      "roomId": "ART-374",
+      "days": [
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-19",
+      "endDate": "2026-12-03",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-IMTC505-001-Thu-11:00-ART-374-2026-11-19-2",
       "sectionId": "2026W1-IMTC505-001",
       "roomId": "ART-374",
@@ -75784,6 +78940,19 @@
     {
       "id": "2026W1-ENGL402-001-Thu-11:00-FIP-239-2026-11-19-2",
       "sectionId": "2026W1-ENGL402-001",
+      "roomId": "FIP-239",
+      "days": [
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-19",
+      "endDate": "2026-12-03",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-ENGL525-E_001-Thu-11:00-FIP-239-2026-11-19-2",
+      "sectionId": "2026W1-ENGL525-E_001",
       "roomId": "FIP-239",
       "days": [
         "Thu"
@@ -76185,6 +79354,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W1-CULT362-A_001-Thu-14:00-noroom-2026-11-19-2",
+      "sectionId": "2026W1-CULT362-A_001",
+      "roomId": null,
+      "days": [
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2026-11-19",
+      "endDate": "2026-12-03",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-ENGR381-T1B-Thu-14:00-noroom-2026-11-19-2",
       "sectionId": "2026W1-ENGR381-T1B",
       "roomId": null,
@@ -76209,6 +79391,19 @@
       "startDate": "2026-11-19",
       "endDate": "2026-12-03",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-VISA362-A_001-Thu-14:00-noroom-2026-11-19-2",
+      "sectionId": "2026W1-VISA362-A_001",
+      "roomId": null,
+      "days": [
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2026-11-19",
+      "endDate": "2026-12-03",
+      "kind": "Studio"
     },
     {
       "id": "2026W1-THTR180-001-Thu-14:00-ADM-026-2026-11-19-2",
@@ -76417,6 +79612,19 @@
       "startDate": "2026-11-19",
       "endDate": "2026-12-03",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-MATH590-J_001-Thu-14:00-EME-2202-2026-11-19-2",
+      "sectionId": "2026W1-MATH590-J_001",
+      "roomId": "EME-2202",
+      "days": [
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2026-11-19",
+      "endDate": "2026-12-03",
+      "kind": "Seminar"
     },
     {
       "id": "2026W1-COSC305-L03-Thu-14:00-EME-2205-2026-11-19-2",
@@ -77394,6 +80602,19 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W1-VISA300-A_001-Fri-09:00-CCS-221-2026-11-20-2",
+      "sectionId": "2026W1-VISA300-A_001",
+      "roomId": "CCS-221",
+      "days": [
+        "Fri"
+      ],
+      "start": "09:00",
+      "end": "13:00",
+      "startDate": "2026-11-20",
+      "endDate": "2026-12-04",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W1-BIOL202-L06-Fri-09:30-ASC-165-2026-11-20-2",
       "sectionId": "2026W1-BIOL202-L06",
       "roomId": "ASC-165",
@@ -77966,9 +81187,35 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W1-COMM399-C_001-Fri-11:00-EME-2202-2026-11-20-2",
+      "sectionId": "2026W1-COMM399-C_001",
+      "roomId": "EME-2202",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-20",
+      "endDate": "2026-12-04",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W1-INDG104-001-Fri-11:00-FIP-121-2026-11-20-2",
       "sectionId": "2026W1-INDG104-001",
       "roomId": "FIP-121",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2026-11-20",
+      "endDate": "2026-12-04",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W1-HIST495-B_101-Fri-11:00-FIP-124-2026-11-20-2",
+      "sectionId": "2026W1-HIST495-B_101",
+      "roomId": "FIP-124",
       "days": [
         "Fri"
       ],
@@ -78198,6 +81445,19 @@
       "startDate": "2026-11-20",
       "endDate": "2026-12-04",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-EDUC462-D_001-Fri-12:00-EME-1123-2026-11-20-2",
+      "sectionId": "2026W1-EDUC462-D_001",
+      "roomId": "EME-1123",
+      "days": [
+        "Fri"
+      ],
+      "start": "12:00",
+      "end": "15:00",
+      "startDate": "2026-11-20",
+      "endDate": "2026-12-04",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-GEOG201-001-Fri-12:00-EME-2181-2026-11-20-2",
@@ -79368,6 +82628,19 @@
       "startDate": "2026-11-24",
       "endDate": "2026-12-08",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W1-MGMT542-B_001-Tue-16:00-EME-2111-2026-11-24-2",
+      "sectionId": "2026W1-MGMT542-B_001",
+      "roomId": "EME-2111",
+      "days": [
+        "Tue"
+      ],
+      "start": "16:00",
+      "end": "18:00",
+      "startDate": "2026-11-24",
+      "endDate": "2026-12-08",
+      "kind": "Lecture"
     },
     {
       "id": "2026W1-CMPE465-L01-Tue-16:00-EME-2220-2026-11-24-2",
@@ -81320,6 +84593,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-FREN380-D_101-Tue-09:30-ART-220-2027-01-05-0",
+      "sectionId": "2026W2-FREN380-D_101",
+      "roomId": "ART-220",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-ENGL112-108-Tue-09:30-ART-365-2027-01-05-0",
       "sectionId": "2026W2-ENGL112-108",
       "roomId": "ART-365",
@@ -81538,6 +84825,20 @@
       "startDate": "2027-01-05",
       "endDate": "2027-02-09",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-INDG295-A_101-Tue-09:30-EME-2111-2027-01-05-0",
+      "sectionId": "2026W2-INDG295-A_101",
+      "roomId": "EME-2111",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-COMM365-101-Tue-09:30-EME-2141-2027-01-05-0",
@@ -81861,6 +85162,19 @@
       "startDate": "2027-01-05",
       "endDate": "2027-02-09",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-VISA312-E_102-Tue-10:00-CCS-224-2027-01-05-0",
+      "sectionId": "2026W2-VISA312-E_102",
+      "roomId": "CCS-224",
+      "days": [
+        "Tue"
+      ],
+      "start": "10:00",
+      "end": "14:00",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-09",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-NRSG202-L03-Tue-10:00-CCS-252-2027-01-05-0",
@@ -82233,6 +85547,19 @@
       "end": "12:30",
       "startDate": "2027-01-05",
       "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-CULT313-B_101-Tue-11:00-ART-219-2027-01-05-0",
+      "sectionId": "2026W2-CULT313-B_101",
+      "roomId": "ART-219",
+      "days": [
+        "Tue"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-09",
       "kind": "Lecture"
     },
     {
@@ -82978,6 +86305,20 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-ARTH360-D_101-Tue-12:30-ADM-026-2027-01-05-0",
+      "sectionId": "2026W2-ARTH360-D_101",
+      "roomId": "ADM-026",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-POLI358-101-Tue-12:30-ART-104-2027-01-05-0",
       "sectionId": "2026W2-POLI358-101",
       "roomId": "ART-104",
@@ -83065,6 +86406,20 @@
       "id": "2026W2-GEOG452-101-Tue-12:30-ART-206-2027-01-05-0",
       "sectionId": "2026W2-GEOG452-101",
       "roomId": "ART-206",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-ENGL344-A_101-Tue-12:30-ART-208-2027-01-05-0",
+      "sectionId": "2026W2-ENGL344-A_101",
+      "roomId": "ART-208",
       "days": [
         "Tue",
         "Thu"
@@ -83853,6 +87208,20 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-ENGR598-L_002-Tue-14:00-ART-218-2027-01-05-0",
+      "sectionId": "2026W2-ENGR598-L_002",
+      "roomId": "ART-218",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-DATA410-101-Tue-14:00-ART-219-2027-01-05-0",
       "sectionId": "2026W2-DATA410-101",
       "roomId": "ART-219",
@@ -84003,6 +87372,19 @@
       "startDate": "2027-01-05",
       "endDate": "2027-02-11",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-VISA336-C_101-Tue-14:00-CCS-127-2027-01-05-0",
+      "sectionId": "2026W2-VISA336-C_101",
+      "roomId": "CCS-127",
+      "days": [
+        "Tue"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-09",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-GERM110-102-Tue-14:00-CCS-142-2027-01-05-0",
@@ -84193,6 +87575,19 @@
       "startDate": "2027-01-05",
       "endDate": "2027-02-09",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-COSC590-K_101-Tue-14:00-FIP-140-2027-01-05-0",
+      "sectionId": "2026W2-COSC590-K_101",
+      "roomId": "FIP-140",
+      "days": [
+        "Tue"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-09",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-PSYO271-101-Tue-14:00-FIP-204-2027-01-05-0",
@@ -84865,9 +88260,37 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-STAT547-I_001-Tue-15:30-FIP-250-2027-01-05-0",
+      "sectionId": "2026W2-STAT547-I_001",
+      "roomId": "FIP-250",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-MATH126-101-Tue-15:30-LIB-303-2027-01-05-0",
       "sectionId": "2026W2-MATH126-101",
       "roomId": "LIB-303",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2027-01-05",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-ENGL395-D_101-Tue-15:30-LIB-305-2027-01-05-0",
+      "sectionId": "2026W2-ENGL395-D_101",
+      "roomId": "LIB-305",
       "days": [
         "Tue",
         "Thu"
@@ -86450,6 +89873,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-ENGL523-P_101-Mon-08:00-FIP-138-2027-01-06-0",
+      "sectionId": "2026W2-ENGL523-P_101",
+      "roomId": "FIP-138",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "08:00",
+      "end": "09:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-CHEM317-001-Mon-08:00-FIP-140-2027-01-06-0",
       "sectionId": "2026W2-CHEM317-001",
       "roomId": "FIP-140",
@@ -86468,6 +89905,20 @@
       "id": "2026W2-CHEM123-002-Wed-08:00-FIP-204-2027-01-06-0",
       "sectionId": "2026W2-CHEM123-002",
       "roomId": "FIP-204",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "08:00",
+      "end": "09:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-12",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-HIST430-A_101-Wed-08:00-FIP-239-2027-01-06-0",
+      "sectionId": "2026W2-HIST430-A_101",
+      "roomId": "FIP-239",
       "days": [
         "Wed",
         "Fri"
@@ -86774,6 +90225,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-VISA322-C_101-Wed-09:00-CCS-123-2027-01-06-0",
+      "sectionId": "2026W2-VISA322-C_101",
+      "roomId": "CCS-123",
+      "days": [
+        "Wed"
+      ],
+      "start": "09:00",
+      "end": "13:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W2-SPAN102-101-Mon-09:00-CCS-142-2027-01-06-0",
       "sectionId": "2026W2-SPAN102-101",
       "roomId": "CCS-142",
@@ -86852,6 +90316,20 @@
       "startDate": "2027-01-06",
       "endDate": "2027-02-10",
       "kind": "Discussion"
+    },
+    {
+      "id": "2026W2-ARTH360-C_101-Wed-09:30-noroom-2027-01-06-0",
+      "sectionId": "2026W2-ARTH360-C_101",
+      "roomId": null,
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-12",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-ARTH451-101-Mon-09:30-ADM-026-2027-01-06-0",
@@ -87397,6 +90875,34 @@
       "kind": "Experiential"
     },
     {
+      "id": "2026W2-PSYO480-P_001-Wed-09:30-FIP-139-2027-01-06-0",
+      "sectionId": "2026W2-PSYO480-P_001",
+      "roomId": "FIP-139",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-12",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W2-PSYO508-R_001-Wed-09:30-FIP-139-2027-01-06-0",
+      "sectionId": "2026W2-PSYO508-R_001",
+      "roomId": "FIP-139",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-12",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-PSYO346-101-Wed-09:30-FIP-204-2027-01-06-0",
       "sectionId": "2026W2-PSYO346-101",
       "roomId": "FIP-204",
@@ -87467,6 +90973,20 @@
     {
       "id": "2026W2-STAT401-101-Mon-09:30-LIB-306-2027-01-06-0",
       "sectionId": "2026W2-STAT401-101",
+      "roomId": "LIB-306",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-STAT547-J_101-Mon-09:30-LIB-306-2027-01-06-0",
+      "sectionId": "2026W2-STAT547-J_101",
       "roomId": "LIB-306",
       "days": [
         "Mon",
@@ -87940,6 +91460,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-GWST415-A_101-Wed-11:00-ART-104-2027-01-06-0",
+      "sectionId": "2026W2-GWST415-A_101",
+      "roomId": "ART-104",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-GEOG257-101-Mon-11:00-ART-106-2027-01-06-0",
       "sectionId": "2026W2-GEOG257-101",
       "roomId": "ART-106",
@@ -87982,6 +91515,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-ENGL319-B_101-Mon-11:00-ART-112-2027-01-06-0",
+      "sectionId": "2026W2-ENGL319-B_101",
+      "roomId": "ART-112",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-ENGR406-001-Wed-11:00-ART-114-2027-01-06-0",
       "sectionId": "2026W2-ENGR406-001",
       "roomId": "ART-114",
@@ -88021,6 +91568,47 @@
       "end": "12:30",
       "startDate": "2027-01-06",
       "endDate": "2027-02-12",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-ENGL203-A_101-Wed-11:00-ART-206-2027-01-06-0",
+      "sectionId": "2026W2-ENGL203-A_101",
+      "roomId": "ART-206",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-12",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-SOCI496-C_001-Wed-11:00-ART-208-2027-01-06-0",
+      "sectionId": "2026W2-SOCI496-C_001",
+      "roomId": "ART-208",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W2-ENGL355-D_101-Mon-11:00-ART-210-2027-01-06-0",
+      "sectionId": "2026W2-ENGL355-D_101",
+      "roomId": "ART-210",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
       "kind": "Lecture"
     },
     {
@@ -88105,6 +91693,19 @@
       "startDate": "2027-01-06",
       "endDate": "2027-02-12",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-IGS586-A_001-Wed-11:00-ART-374-2027-01-06-0",
+      "sectionId": "2026W2-IGS586-A_001",
+      "roomId": "ART-374",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-COSC210-101-Mon-11:00-ART-376-2027-01-06-0",
@@ -88391,6 +91992,19 @@
       ],
       "start": "11:00",
       "end": "12:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-COMM499-D_101-Wed-11:00-FIP-124-2027-01-06-0",
+      "sectionId": "2026W2-COMM499-D_101",
+      "roomId": "FIP-124",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
       "startDate": "2027-01-06",
       "endDate": "2027-02-10",
       "kind": "Lecture"
@@ -89023,6 +92637,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-EESC496-A_101-Wed-12:30-ART-206-2027-01-06-0",
+      "sectionId": "2026W2-EESC496-A_101",
+      "roomId": "ART-206",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-12",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-ENGL150-101-Mon-12:30-ART-210-2027-01-06-0",
       "sectionId": "2026W2-ENGL150-101",
       "roomId": "ART-210",
@@ -89165,6 +92793,20 @@
     {
       "id": "2026W2-COSC414-001-Mon-12:30-ASC-130-2027-01-06-0",
       "sectionId": "2026W2-COSC414-001",
+      "roomId": "ASC-130",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-COSC536-I_101-Mon-12:30-ASC-130-2027-01-06-0",
+      "sectionId": "2026W2-COSC536-I_101",
       "roomId": "ASC-130",
       "days": [
         "Mon",
@@ -89655,6 +93297,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-VISA382-E_101-Wed-14:00-noroom-2027-01-06-0",
+      "sectionId": "2026W2-VISA382-E_101",
+      "roomId": null,
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W2-EDUC446-003-Wed-14:00-noroom-2027-01-06-0",
       "sectionId": "2026W2-EDUC446-003",
       "roomId": null,
@@ -89945,6 +93600,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-ENGL327-A_101-Wed-14:00-ART-218-2027-01-06-0",
+      "sectionId": "2026W2-ENGL327-A_101",
+      "roomId": "ART-218",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-12",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-ENGL233-101-Wed-14:00-ART-219-2027-01-06-0",
       "sectionId": "2026W2-ENGL233-101",
       "roomId": "ART-219",
@@ -90014,6 +93683,19 @@
       "startDate": "2027-01-06",
       "endDate": "2027-02-10",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-PSYO455-A_001-Wed-14:00-ART-374-2027-01-06-0",
+      "sectionId": "2026W2-PSYO455-A_001",
+      "roomId": "ART-374",
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-ENGR331-001-Mon-14:00-ART-376-2027-01-06-0",
@@ -90307,6 +93989,19 @@
       "id": "2026W2-SOCI474-101-Wed-14:00-FIP-124-2027-01-06-0",
       "sectionId": "2026W2-SOCI474-101",
       "roomId": "FIP-124",
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-COMM499-C_101-Wed-14:00-FIP-138-2027-01-06-0",
+      "sectionId": "2026W2-COMM499-C_101",
+      "roomId": "FIP-138",
       "days": [
         "Wed"
       ],
@@ -91173,6 +94868,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-ENGL470-M_101-Mon-15:30-FIP-250-2027-01-06-0",
+      "sectionId": "2026W2-ENGL470-M_101",
+      "roomId": "FIP-250",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-CRWR475-101-Mon-15:30-LIB-303-2027-01-06-0",
       "sectionId": "2026W2-CRWR475-101",
       "roomId": "LIB-303",
@@ -91507,6 +95216,20 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W2-ARTH360-B_101-Mon-17:00-noroom-2027-01-06-0",
+      "sectionId": "2026W2-ARTH360-B_101",
+      "roomId": null,
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "17:00",
+      "end": "18:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-ENGR380-T2C-Wed-17:00-noroom-2027-01-06-0",
       "sectionId": "2026W2-ENGR380-T2C",
       "roomId": null,
@@ -91825,6 +95548,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-POLI454-A_101-Mon-17:00-EME-2202-2027-01-06-0",
+      "sectionId": "2026W2-POLI454-A_101",
+      "roomId": "EME-2202",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "17:00",
+      "end": "18:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W2-APSC258-L2E-Wed-17:00-EME-2205-2027-01-06-0",
       "sectionId": "2026W2-APSC258-L2E",
       "roomId": "EME-2205",
@@ -91882,6 +95619,20 @@
     {
       "id": "2026W2-ENGL457-101-Mon-17:00-FIP-239-2027-01-06-0",
       "sectionId": "2026W2-ENGL457-101",
+      "roomId": "FIP-239",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "17:00",
+      "end": "18:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-ENGL521-A_101-Mon-17:00-FIP-239-2027-01-06-0",
+      "sectionId": "2026W2-ENGL521-A_101",
       "roomId": "FIP-239",
       "days": [
         "Mon",
@@ -91989,6 +95740,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-EESC496-A_L01-Wed-17:00-SCI-374-2027-01-06-0",
+      "sectionId": "2026W2-EESC496-A_L01",
+      "roomId": "SCI-374",
+      "days": [
+        "Wed"
+      ],
+      "start": "17:00",
+      "end": "20:00",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-10",
+      "kind": "Laboratory"
+    },
+    {
       "id": "2026W2-HES105-L13-Wed-17:00-UCH-110-2027-01-06-0",
       "sectionId": "2026W2-HES105-L13",
       "roomId": "UCH-110",
@@ -92000,6 +95764,34 @@
       "startDate": "2027-01-06",
       "endDate": "2027-02-10",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-THTR280-C_101-Wed-18:00-ADM-026-2027-01-06-0",
+      "sectionId": "2026W2-THTR280-C_101",
+      "roomId": "ADM-026",
+      "days": [
+        "Wed",
+        "Thu"
+      ],
+      "start": "18:00",
+      "end": "20:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-11",
+      "kind": "Studio"
+    },
+    {
+      "id": "2026W2-THTR480-H_101-Wed-18:00-ADM-026-2027-01-06-0",
+      "sectionId": "2026W2-THTR480-H_101",
+      "roomId": "ADM-026",
+      "days": [
+        "Wed",
+        "Thu"
+      ],
+      "start": "18:00",
+      "end": "20:30",
+      "startDate": "2027-01-06",
+      "endDate": "2027-02-11",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-APSC181-T2D-Wed-18:00-ART-210-2027-01-06-0",
@@ -92621,6 +96413,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-IGS503-S_001-Thu-08:00-FIP-250-2027-01-07-0",
+      "sectionId": "2026W2-IGS503-S_001",
+      "roomId": "FIP-250",
+      "days": [
+        "Thu"
+      ],
+      "start": "08:00",
+      "end": "11:00",
+      "startDate": "2027-01-07",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-NRSG238-P16-Thu-08:00-LIB-303-2027-01-07-0",
       "sectionId": "2026W2-NRSG238-P16",
       "roomId": "LIB-303",
@@ -93051,6 +96856,19 @@
       "kind": "Studio"
     },
     {
+      "id": "2026W2-VISA312-E_101-Thu-10:00-CCS-224-2027-01-07-0",
+      "sectionId": "2026W2-VISA312-E_101",
+      "roomId": "CCS-224",
+      "days": [
+        "Thu"
+      ],
+      "start": "10:00",
+      "end": "14:00",
+      "startDate": "2027-01-07",
+      "endDate": "2027-02-11",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W2-NRSG202-L09-Thu-10:00-CCS-252-2027-01-07-0",
       "sectionId": "2026W2-NRSG202-L09",
       "roomId": "CCS-252",
@@ -93194,6 +97012,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-IGS502-A_002-Thu-11:00-noroom-2027-01-07-0",
+      "sectionId": "2026W2-IGS502-A_002",
+      "roomId": null,
+      "days": [
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-07",
+      "endDate": "2027-02-11",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W2-COMM101-W21-Thu-11:00-ART-108-2027-01-07-0",
       "sectionId": "2026W2-COMM101-W21",
       "roomId": "ART-108",
@@ -93298,6 +97129,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-HES495-E_001-Thu-11:00-FIP-124-2027-01-07-0",
+      "sectionId": "2026W2-HES495-E_001",
+      "roomId": "FIP-124",
+      "days": [
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-07",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-HES506-001-Thu-11:00-FIP-133-2027-01-07-0",
       "sectionId": "2026W2-HES506-001",
       "roomId": "FIP-133",
@@ -93348,6 +97192,19 @@
       "startDate": "2027-01-07",
       "endDate": "2027-02-11",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-PSYO420-A_001-Thu-11:00-FIP-250-2027-01-07-0",
+      "sectionId": "2026W2-PSYO420-A_001",
+      "roomId": "FIP-250",
+      "days": [
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-07",
+      "endDate": "2027-02-11",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-BIOL133-L12-Thu-11:00-SCI-119-2027-01-07-0",
@@ -93844,6 +97701,19 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W2-CULT400-N_101-Thu-14:00-noroom-2027-01-07-0",
+      "sectionId": "2026W2-CULT400-N_101",
+      "roomId": null,
+      "days": [
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-01-07",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-ENGR320-T2A-Thu-14:00-ART-202-2027-01-07-0",
       "sectionId": "2026W2-ENGR320-T2A",
       "roomId": "ART-202",
@@ -93868,6 +97738,19 @@
       "startDate": "2027-01-07",
       "endDate": "2027-02-11",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-ENGL502-A_101-Thu-14:00-ART-382-2027-01-07-0",
+      "sectionId": "2026W2-ENGL502-A_101",
+      "roomId": "ART-382",
+      "days": [
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-01-07",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-VISA253-101-Thu-14:00-CCS-127-2027-01-07-0",
@@ -94234,6 +98117,34 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-COSC419-B_101-Mon-15:30-LIB-312-2027-01-07-0",
+      "sectionId": "2026W2-COSC419-B_101",
+      "roomId": "LIB-312",
+      "days": [
+        "Mon",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2027-01-07",
+      "endDate": "2027-02-11",
+      "kind": "Experiential"
+    },
+    {
+      "id": "2026W2-COSC519-B_101-Mon-15:30-LIB-312-2027-01-07-0",
+      "sectionId": "2026W2-COSC519-B_101",
+      "roomId": "LIB-312",
+      "days": [
+        "Mon",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2027-01-07",
+      "endDate": "2027-02-11",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-BIOC495-L02-Thu-15:30-SCI-322-2027-01-07-0",
       "sectionId": "2026W2-BIOC495-L02",
       "roomId": "SCI-322",
@@ -94388,6 +98299,19 @@
       "startDate": "2027-01-07",
       "endDate": "2027-02-11",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-IGS524-A_002-Thu-17:00-noroom-2027-01-07-0",
+      "sectionId": "2026W2-IGS524-A_002",
+      "roomId": null,
+      "days": [
+        "Thu"
+      ],
+      "start": "17:00",
+      "end": "20:00",
+      "startDate": "2027-01-07",
+      "endDate": "2027-02-11",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-COMM101-W22-Thu-17:00-ART-102-2027-01-07-0",
@@ -95080,6 +99004,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-MGMT542-A_102-Fri-08:00-SCI-247-2027-01-08-0",
+      "sectionId": "2026W2-MGMT542-A_102",
+      "roomId": "SCI-247",
+      "days": [
+        "Fri"
+      ],
+      "start": "08:00",
+      "end": "10:00",
+      "startDate": "2027-01-08",
+      "endDate": "2027-02-05",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-HES111-L08-Fri-08:00-UCH-010-2027-01-08-0",
       "sectionId": "2026W2-HES111-L08",
       "roomId": "UCH-010",
@@ -95130,6 +99067,19 @@
       "startDate": "2027-01-08",
       "endDate": "2027-02-12",
       "kind": "Discussion"
+    },
+    {
+      "id": "2026W2-VISA300-B_101-Fri-09:00-CCS-221-2027-01-08-0",
+      "sectionId": "2026W2-VISA300-B_101",
+      "roomId": "CCS-221",
+      "days": [
+        "Fri"
+      ],
+      "start": "09:00",
+      "end": "13:00",
+      "startDate": "2027-01-08",
+      "endDate": "2027-02-12",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-APSC183-L2R-Fri-09:00-EDL-002-2027-01-08-0",
@@ -95548,6 +99498,19 @@
       "kind": "Seminar"
     },
     {
+      "id": "2026W2-MATH590-K_101-Fri-11:00-ART-374-2027-01-08-0",
+      "sectionId": "2026W2-MATH590-K_101",
+      "roomId": "ART-374",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-08",
+      "endDate": "2027-02-12",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W2-COMM491-101-Fri-11:00-ART-376-2027-01-08-0",
       "sectionId": "2026W2-COMM491-101",
       "roomId": "ART-376",
@@ -95572,6 +99535,19 @@
       "startDate": "2027-01-08",
       "endDate": "2027-02-12",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-THTR301-A_101-Fri-11:00-CCS-144-2027-01-08-0",
+      "sectionId": "2026W2-THTR301-A_101",
+      "roomId": "CCS-144",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-08",
+      "endDate": "2027-02-12",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-MGMT525-101-Fri-11:00-EME-1101-2027-01-08-0",
@@ -95626,6 +99602,19 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W2-IGS524-A_001-Fri-11:00-EME-2202-2027-01-08-0",
+      "sectionId": "2026W2-IGS524-A_001",
+      "roomId": "EME-2202",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-08",
+      "endDate": "2027-02-12",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W2-CMPE301-L0C-Fri-11:00-EME-2220-2027-01-08-0",
       "sectionId": "2026W2-CMPE301-L0C",
       "roomId": "EME-2220",
@@ -95668,6 +99657,19 @@
       "id": "2026W2-SOCI446-101-Fri-11:00-FIP-124-2027-01-08-0",
       "sectionId": "2026W2-SOCI446-101",
       "roomId": "FIP-124",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-08",
+      "endDate": "2027-02-12",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W2-PSYO486-A_002-Fri-11:00-FIP-139-2027-01-08-0",
+      "sectionId": "2026W2-PSYO486-A_002",
+      "roomId": "FIP-139",
       "days": [
         "Fri"
       ],
@@ -96079,6 +100081,32 @@
       "startDate": "2027-01-08",
       "endDate": "2027-02-12",
       "kind": "Discussion"
+    },
+    {
+      "id": "2026W2-CULT362-B_101-Fri-14:00-noroom-2027-01-08-0",
+      "sectionId": "2026W2-CULT362-B_101",
+      "roomId": null,
+      "days": [
+        "Fri"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2027-01-08",
+      "endDate": "2027-02-12",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-VISA362-B_101-Fri-14:00-noroom-2027-01-08-0",
+      "sectionId": "2026W2-VISA362-B_101",
+      "roomId": null,
+      "days": [
+        "Fri"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2027-01-08",
+      "endDate": "2027-02-12",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-SOCW555-003-Fri-14:00-noroom-2027-01-08-0",
@@ -97628,6 +101656,32 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-CULT406-A_101-Mon-11:00-ART-374-2027-01-11-0",
+      "sectionId": "2026W2-CULT406-A_101",
+      "roomId": "ART-374",
+      "days": [
+        "Mon"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-11",
+      "endDate": "2027-02-08",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W2-DIHU406-A_101-Mon-11:00-ART-374-2027-01-11-0",
+      "sectionId": "2026W2-DIHU406-A_101",
+      "roomId": "ART-374",
+      "days": [
+        "Mon"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-11",
+      "endDate": "2027-02-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-IGS588-001-Mon-11:00-ART-382-2027-01-11-0",
       "sectionId": "2026W2-IGS588-001",
       "roomId": "ART-382",
@@ -97730,6 +101784,19 @@
       "startDate": "2027-01-11",
       "endDate": "2027-02-08",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-PSYO486-A_001-Mon-11:00-FIP-124-2027-01-11-0",
+      "sectionId": "2026W2-PSYO486-A_001",
+      "roomId": "FIP-124",
+      "days": [
+        "Mon"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-01-11",
+      "endDate": "2027-02-08",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-EESC356-L02-Mon-11:00-FIP-135-2027-01-11-0",
@@ -98237,6 +102304,32 @@
       "startDate": "2027-01-11",
       "endDate": "2027-02-08",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-PSYO480-N_101-Mon-14:00-noroom-2027-01-11-0",
+      "sectionId": "2026W2-PSYO480-N_101",
+      "roomId": null,
+      "days": [
+        "Mon"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-01-11",
+      "endDate": "2027-02-08",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W2-PSYO508-A_101-Mon-14:00-noroom-2027-01-11-0",
+      "sectionId": "2026W2-PSYO508-A_101",
+      "roomId": null,
+      "days": [
+        "Mon"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-01-11",
+      "endDate": "2027-02-08",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-CCS150-101-Mon-14:00-ADM-026-2027-01-11-0",
@@ -99474,6 +103567,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-MGMT542-A_101-Fri-08:00-SCI-247-2027-01-15-0",
+      "sectionId": "2026W2-MGMT542-A_101",
+      "roomId": "SCI-247",
+      "days": [
+        "Fri"
+      ],
+      "start": "08:00",
+      "end": "10:00",
+      "startDate": "2027-01-15",
+      "endDate": "2027-04-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-APSC255-L1E-Fri-09:00-EME-1220-2027-01-15-0",
       "sectionId": "2026W2-APSC255-L1E",
       "roomId": "EME-1220",
@@ -99823,6 +103929,19 @@
       "startDate": "2027-01-18",
       "endDate": "2027-02-01",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-MGMT542-B_101-Mon-16:00-ART-376-2027-01-18-0",
+      "sectionId": "2026W2-MGMT542-B_101",
+      "roomId": "ART-376",
+      "days": [
+        "Mon"
+      ],
+      "start": "16:00",
+      "end": "18:00",
+      "startDate": "2027-01-18",
+      "endDate": "2027-02-01",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-ENGR352-L2E-Mon-16:00-EME-1220-2027-01-18-0",
@@ -100421,6 +104540,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-ENGL523-P_101-Mon-08:00-FIP-138-2027-02-22-2",
+      "sectionId": "2026W2-ENGL523-P_101",
+      "roomId": "FIP-138",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "08:00",
+      "end": "09:30",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-07",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-CHEM317-001-Mon-08:00-FIP-140-2027-02-22-2",
       "sectionId": "2026W2-CHEM317-001",
       "roomId": "FIP-140",
@@ -100944,6 +105077,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-STAT547-J_101-Mon-09:30-LIB-306-2027-02-22-2",
+      "sectionId": "2026W2-STAT547-J_101",
+      "roomId": "LIB-306",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-07",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-COSC270-101-Mon-09:30-LIB-317-2027-02-22-2",
       "sectionId": "2026W2-COSC270-101",
       "roomId": "LIB-317",
@@ -101380,6 +105527,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-ENGL319-B_101-Mon-11:00-ART-112-2027-02-22-2",
+      "sectionId": "2026W2-ENGL319-B_101",
+      "roomId": "ART-112",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-07",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-NRSG432-005-Mon-11:00-ART-203-2027-02-22-2",
       "sectionId": "2026W2-NRSG432-005",
       "roomId": "ART-203",
@@ -101429,6 +105590,20 @@
       "end": "14:00",
       "startDate": "2027-02-22",
       "endDate": "2027-04-05",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-ENGL355-D_101-Mon-11:00-ART-210-2027-02-22-2",
+      "sectionId": "2026W2-ENGL355-D_101",
+      "roomId": "ART-210",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-07",
       "kind": "Lecture"
     },
     {
@@ -101517,6 +105692,32 @@
       "id": "2026W2-PSYO356-001-Mon-11:00-ART-366-2027-02-22-2",
       "sectionId": "2026W2-PSYO356-001",
       "roomId": "ART-366",
+      "days": [
+        "Mon"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-05",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-CULT406-A_101-Mon-11:00-ART-374-2027-02-22-2",
+      "sectionId": "2026W2-CULT406-A_101",
+      "roomId": "ART-374",
+      "days": [
+        "Mon"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-05",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W2-DIHU406-A_101-Mon-11:00-ART-374-2027-02-22-2",
+      "sectionId": "2026W2-DIHU406-A_101",
+      "roomId": "ART-374",
       "days": [
         "Mon"
       ],
@@ -101729,6 +105930,19 @@
       "startDate": "2027-02-22",
       "endDate": "2027-04-07",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-PSYO486-A_001-Mon-11:00-FIP-124-2027-02-22-2",
+      "sectionId": "2026W2-PSYO486-A_001",
+      "roomId": "FIP-124",
+      "days": [
+        "Mon"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-05",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-EESC356-L02-Mon-11:00-FIP-135-2027-02-22-2",
@@ -102306,6 +106520,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-COSC536-I_101-Mon-12:30-ASC-130-2027-02-22-2",
+      "sectionId": "2026W2-COSC536-I_101",
+      "roomId": "ASC-130",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-07",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-APSC178-201-Mon-12:30-ASC-140-2027-02-22-2",
       "sectionId": "2026W2-APSC178-201",
       "roomId": "ASC-140",
@@ -102672,6 +106900,32 @@
       "startDate": "2027-02-22",
       "endDate": "2027-04-07",
       "kind": "Seminar"
+    },
+    {
+      "id": "2026W2-PSYO480-N_101-Mon-14:00-noroom-2027-02-22-2",
+      "sectionId": "2026W2-PSYO480-N_101",
+      "roomId": null,
+      "days": [
+        "Mon"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-05",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W2-PSYO508-A_101-Mon-14:00-noroom-2027-02-22-2",
+      "sectionId": "2026W2-PSYO508-A_101",
+      "roomId": null,
+      "days": [
+        "Mon"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-05",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-CCS150-101-Mon-14:00-ADM-026-2027-02-22-2",
@@ -103609,6 +107863,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-ENGL470-M_101-Mon-15:30-FIP-250-2027-02-22-2",
+      "sectionId": "2026W2-ENGL470-M_101",
+      "roomId": "FIP-250",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-07",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-CRWR475-101-Mon-15:30-LIB-303-2027-02-22-2",
       "sectionId": "2026W2-CRWR475-101",
       "roomId": "LIB-303",
@@ -103620,6 +107888,34 @@
       "end": "17:00",
       "startDate": "2027-02-22",
       "endDate": "2027-04-07",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-COSC419-B_101-Mon-15:30-LIB-312-2027-02-22-2",
+      "sectionId": "2026W2-COSC419-B_101",
+      "roomId": "LIB-312",
+      "days": [
+        "Mon",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-08",
+      "kind": "Experiential"
+    },
+    {
+      "id": "2026W2-COSC519-B_101-Mon-15:30-LIB-312-2027-02-22-2",
+      "sectionId": "2026W2-COSC519-B_101",
+      "roomId": "LIB-312",
+      "days": [
+        "Mon",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-08",
       "kind": "Lecture"
     },
     {
@@ -103780,6 +108076,20 @@
       "startDate": "2027-02-22",
       "endDate": "2027-04-05",
       "kind": "Discussion"
+    },
+    {
+      "id": "2026W2-ARTH360-B_101-Mon-17:00-noroom-2027-02-22-2",
+      "sectionId": "2026W2-ARTH360-B_101",
+      "roomId": null,
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "17:00",
+      "end": "18:30",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-07",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-DIHU155-101-Mon-17:00-ADM-026-2027-02-22-2",
@@ -104114,6 +108424,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-POLI454-A_101-Mon-17:00-EME-2202-2027-02-22-2",
+      "sectionId": "2026W2-POLI454-A_101",
+      "roomId": "EME-2202",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "17:00",
+      "end": "18:30",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-07",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W2-BIOC309-101-Mon-17:00-FIP-121-2027-02-22-2",
       "sectionId": "2026W2-BIOC309-101",
       "roomId": "FIP-121",
@@ -104171,6 +108495,20 @@
     {
       "id": "2026W2-ENGL457-101-Mon-17:00-FIP-239-2027-02-22-2",
       "sectionId": "2026W2-ENGL457-101",
+      "roomId": "FIP-239",
+      "days": [
+        "Mon",
+        "Wed"
+      ],
+      "start": "17:00",
+      "end": "18:30",
+      "startDate": "2027-02-22",
+      "endDate": "2027-04-07",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-ENGL521-A_101-Mon-17:00-FIP-239-2027-02-22-2",
+      "sectionId": "2026W2-ENGL521-A_101",
       "roomId": "FIP-239",
       "days": [
         "Mon",
@@ -105590,6 +109928,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-FREN380-D_101-Tue-09:30-ART-220-2027-02-23-2",
+      "sectionId": "2026W2-FREN380-D_101",
+      "roomId": "ART-220",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-ENGL112-108-Tue-09:30-ART-365-2027-02-23-2",
       "sectionId": "2026W2-ENGL112-108",
       "roomId": "ART-365",
@@ -105781,6 +110133,20 @@
       "startDate": "2027-02-23",
       "endDate": "2027-04-06",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-INDG295-A_101-Tue-09:30-EME-2111-2027-02-23-2",
+      "sectionId": "2026W2-INDG295-A_101",
+      "roomId": "EME-2111",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-COMM365-101-Tue-09:30-EME-2141-2027-02-23-2",
@@ -106104,6 +110470,19 @@
       "startDate": "2027-02-23",
       "endDate": "2027-04-06",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-VISA312-E_102-Tue-10:00-CCS-224-2027-02-23-2",
+      "sectionId": "2026W2-VISA312-E_102",
+      "roomId": "CCS-224",
+      "days": [
+        "Tue"
+      ],
+      "start": "10:00",
+      "end": "14:00",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-06",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-NRSG202-L03-Tue-10:00-CCS-252-2027-02-23-2",
@@ -106463,6 +110842,19 @@
       "end": "12:30",
       "startDate": "2027-02-23",
       "endDate": "2027-04-08",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-CULT313-B_101-Tue-11:00-ART-219-2027-02-23-2",
+      "sectionId": "2026W2-CULT313-B_101",
+      "roomId": "ART-219",
+      "days": [
+        "Tue"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-06",
       "kind": "Lecture"
     },
     {
@@ -107142,6 +111534,20 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-ARTH360-D_101-Tue-12:30-ADM-026-2027-02-23-2",
+      "sectionId": "2026W2-ARTH360-D_101",
+      "roomId": "ADM-026",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-POLI358-101-Tue-12:30-ART-104-2027-02-23-2",
       "sectionId": "2026W2-POLI358-101",
       "roomId": "ART-104",
@@ -107229,6 +111635,20 @@
       "id": "2026W2-GEOG452-101-Tue-12:30-ART-206-2027-02-23-2",
       "sectionId": "2026W2-GEOG452-101",
       "roomId": "ART-206",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-ENGL344-A_101-Tue-12:30-ART-208-2027-02-23-2",
+      "sectionId": "2026W2-ENGL344-A_101",
+      "roomId": "ART-208",
       "days": [
         "Tue",
         "Thu"
@@ -107963,6 +112383,20 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-ENGR598-L_002-Tue-14:00-ART-218-2027-02-23-2",
+      "sectionId": "2026W2-ENGR598-L_002",
+      "roomId": "ART-218",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-DATA410-101-Tue-14:00-ART-219-2027-02-23-2",
       "sectionId": "2026W2-DATA410-101",
       "roomId": "ART-219",
@@ -108113,6 +112547,19 @@
       "startDate": "2027-02-23",
       "endDate": "2027-04-08",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-VISA336-C_101-Tue-14:00-CCS-127-2027-02-23-2",
+      "sectionId": "2026W2-VISA336-C_101",
+      "roomId": "CCS-127",
+      "days": [
+        "Tue"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-06",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-GERM110-102-Tue-14:00-CCS-142-2027-02-23-2",
@@ -108290,6 +112737,19 @@
       "startDate": "2027-02-23",
       "endDate": "2027-04-06",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-COSC590-K_101-Tue-14:00-FIP-140-2027-02-23-2",
+      "sectionId": "2026W2-COSC590-K_101",
+      "roomId": "FIP-140",
+      "days": [
+        "Tue"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-06",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-PSYO271-101-Tue-14:00-FIP-204-2027-02-23-2",
@@ -108949,9 +113409,37 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-STAT547-I_001-Tue-15:30-FIP-250-2027-02-23-2",
+      "sectionId": "2026W2-STAT547-I_001",
+      "roomId": "FIP-250",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-MATH126-101-Tue-15:30-LIB-303-2027-02-23-2",
       "sectionId": "2026W2-MATH126-101",
       "roomId": "LIB-303",
+      "days": [
+        "Tue",
+        "Thu"
+      ],
+      "start": "15:30",
+      "end": "17:00",
+      "startDate": "2027-02-23",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-ENGL395-D_101-Tue-15:30-LIB-305-2027-02-23-2",
+      "sectionId": "2026W2-ENGL395-D_101",
+      "roomId": "LIB-305",
       "days": [
         "Tue",
         "Thu"
@@ -110285,6 +114773,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-HIST430-A_101-Wed-08:00-FIP-239-2027-02-24-2",
+      "sectionId": "2026W2-HIST430-A_101",
+      "roomId": "FIP-239",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "08:00",
+      "end": "09:30",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-BIOL125-L06-Wed-08:00-FIP-247-2027-02-24-2",
       "sectionId": "2026W2-BIOL125-L06",
       "roomId": "FIP-247",
@@ -110482,6 +114984,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-VISA322-C_101-Wed-09:00-CCS-123-2027-02-24-2",
+      "sectionId": "2026W2-VISA322-C_101",
+      "roomId": "CCS-123",
+      "days": [
+        "Wed"
+      ],
+      "start": "09:00",
+      "end": "13:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-07",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W2-APSC183-L2P-Wed-09:00-EDL-002-2027-02-24-2",
       "sectionId": "2026W2-APSC183-L2P",
       "roomId": "EDL-002",
@@ -110532,6 +115047,20 @@
       "startDate": "2027-02-24",
       "endDate": "2027-04-07",
       "kind": "Discussion"
+    },
+    {
+      "id": "2026W2-ARTH360-C_101-Wed-09:30-noroom-2027-02-24-2",
+      "sectionId": "2026W2-ARTH360-C_101",
+      "roomId": null,
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-09",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-ENGR479-001-Wed-09:30-ART-103-2027-02-24-2",
@@ -110895,6 +115424,34 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-PSYO480-P_001-Wed-09:30-FIP-139-2027-02-24-2",
+      "sectionId": "2026W2-PSYO480-P_001",
+      "roomId": "FIP-139",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-09",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W2-PSYO508-R_001-Wed-09:30-FIP-139-2027-02-24-2",
+      "sectionId": "2026W2-PSYO508-R_001",
+      "roomId": "FIP-139",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "09:30",
+      "end": "11:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-PSYO346-101-Wed-09:30-FIP-204-2027-02-24-2",
       "sectionId": "2026W2-PSYO346-101",
       "roomId": "FIP-204",
@@ -111238,6 +115795,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-GWST415-A_101-Wed-11:00-ART-104-2027-02-24-2",
+      "sectionId": "2026W2-GWST415-A_101",
+      "roomId": "ART-104",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-07",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-NRSG313-005-Wed-11:00-ART-108-2027-02-24-2",
       "sectionId": "2026W2-NRSG313-005",
       "roomId": "ART-108",
@@ -111293,6 +115863,33 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-ENGL203-A_101-Wed-11:00-ART-206-2027-02-24-2",
+      "sectionId": "2026W2-ENGL203-A_101",
+      "roomId": "ART-206",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "12:30",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-SOCI496-C_001-Wed-11:00-ART-208-2027-02-24-2",
+      "sectionId": "2026W2-SOCI496-C_001",
+      "roomId": "ART-208",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-07",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W2-COMM190-L20-Wed-11:00-ART-365-2027-02-24-2",
       "sectionId": "2026W2-COMM190-L20",
       "roomId": "ART-365",
@@ -111318,6 +115915,19 @@
       "startDate": "2027-02-24",
       "endDate": "2027-04-09",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-IGS586-A_001-Wed-11:00-ART-374-2027-02-24-2",
+      "sectionId": "2026W2-IGS586-A_001",
+      "roomId": "ART-374",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-07",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-HES487-001-Wed-11:00-ART-386-2027-02-24-2",
@@ -111467,6 +116077,19 @@
       "startDate": "2027-02-24",
       "endDate": "2027-04-07",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-COMM499-D_101-Wed-11:00-FIP-124-2027-02-24-2",
+      "sectionId": "2026W2-COMM499-D_101",
+      "roomId": "FIP-124",
+      "days": [
+        "Wed"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-07",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-HES203-001-Wed-11:00-FIP-204-2027-02-24-2",
@@ -111829,6 +116452,20 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-EESC496-A_101-Wed-12:30-ART-206-2027-02-24-2",
+      "sectionId": "2026W2-EESC496-A_101",
+      "roomId": "ART-206",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "12:30",
+      "end": "14:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-EESC304-101-Wed-12:30-ART-214-2027-02-24-2",
       "sectionId": "2026W2-EESC304-101",
       "roomId": "ART-214",
@@ -112154,6 +116791,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-VISA382-E_101-Wed-14:00-noroom-2027-02-24-2",
+      "sectionId": "2026W2-VISA382-E_101",
+      "roomId": null,
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-07",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W2-CRWR384-101-Wed-14:00-ADM-026-2027-02-24-2",
       "sectionId": "2026W2-CRWR384-101",
       "roomId": "ADM-026",
@@ -112317,6 +116967,20 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W2-ENGL327-A_101-Wed-14:00-ART-218-2027-02-24-2",
+      "sectionId": "2026W2-ENGL327-A_101",
+      "roomId": "ART-218",
+      "days": [
+        "Wed",
+        "Fri"
+      ],
+      "start": "14:00",
+      "end": "15:30",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-09",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-ENGL233-101-Wed-14:00-ART-219-2027-02-24-2",
       "sectionId": "2026W2-ENGL233-101",
       "roomId": "ART-219",
@@ -112343,6 +117007,19 @@
       "startDate": "2027-02-24",
       "endDate": "2027-04-09",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-PSYO455-A_001-Wed-14:00-ART-374-2027-02-24-2",
+      "sectionId": "2026W2-PSYO455-A_001",
+      "roomId": "ART-374",
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-07",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-IGS591-101-Wed-14:00-ART-382-2027-02-24-2",
@@ -112524,6 +117201,19 @@
       "id": "2026W2-SOCI474-101-Wed-14:00-FIP-124-2027-02-24-2",
       "sectionId": "2026W2-SOCI474-101",
       "roomId": "FIP-124",
+      "days": [
+        "Wed"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-07",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-COMM499-C_101-Wed-14:00-FIP-138-2027-02-24-2",
+      "sectionId": "2026W2-COMM499-C_101",
+      "roomId": "FIP-138",
       "days": [
         "Wed"
       ],
@@ -113391,6 +118081,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-EESC496-A_L01-Wed-17:00-SCI-374-2027-02-24-2",
+      "sectionId": "2026W2-EESC496-A_L01",
+      "roomId": "SCI-374",
+      "days": [
+        "Wed"
+      ],
+      "start": "17:00",
+      "end": "20:00",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-07",
+      "kind": "Laboratory"
+    },
+    {
       "id": "2026W2-HES105-L13-Wed-17:00-UCH-110-2027-02-24-2",
       "sectionId": "2026W2-HES105-L13",
       "roomId": "UCH-110",
@@ -113402,6 +118105,34 @@
       "startDate": "2027-02-24",
       "endDate": "2027-04-07",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-THTR280-C_101-Wed-18:00-ADM-026-2027-02-24-2",
+      "sectionId": "2026W2-THTR280-C_101",
+      "roomId": "ADM-026",
+      "days": [
+        "Wed",
+        "Thu"
+      ],
+      "start": "18:00",
+      "end": "20:30",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-08",
+      "kind": "Studio"
+    },
+    {
+      "id": "2026W2-THTR480-H_101-Wed-18:00-ADM-026-2027-02-24-2",
+      "sectionId": "2026W2-THTR480-H_101",
+      "roomId": "ADM-026",
+      "days": [
+        "Wed",
+        "Thu"
+      ],
+      "start": "18:00",
+      "end": "20:30",
+      "startDate": "2027-02-24",
+      "endDate": "2027-04-08",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-APSC181-T2D-Wed-18:00-ART-210-2027-02-24-2",
@@ -113969,6 +118700,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-IGS503-S_001-Thu-08:00-FIP-250-2027-02-25-2",
+      "sectionId": "2026W2-IGS503-S_001",
+      "roomId": "FIP-250",
+      "days": [
+        "Thu"
+      ],
+      "start": "08:00",
+      "end": "11:00",
+      "startDate": "2027-02-25",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-NRSG238-P16-Thu-08:00-LIB-303-2027-02-25-2",
       "sectionId": "2026W2-NRSG238-P16",
       "roomId": "LIB-303",
@@ -114346,6 +119090,19 @@
       "kind": "Studio"
     },
     {
+      "id": "2026W2-VISA312-E_101-Thu-10:00-CCS-224-2027-02-25-2",
+      "sectionId": "2026W2-VISA312-E_101",
+      "roomId": "CCS-224",
+      "days": [
+        "Thu"
+      ],
+      "start": "10:00",
+      "end": "14:00",
+      "startDate": "2027-02-25",
+      "endDate": "2027-04-08",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W2-NRSG202-L09-Thu-10:00-CCS-252-2027-02-25-2",
       "sectionId": "2026W2-NRSG202-L09",
       "roomId": "CCS-252",
@@ -114476,6 +119233,19 @@
       "kind": "Lecture"
     },
     {
+      "id": "2026W2-IGS502-A_002-Thu-11:00-noroom-2027-02-25-2",
+      "sectionId": "2026W2-IGS502-A_002",
+      "roomId": null,
+      "days": [
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-25",
+      "endDate": "2027-04-08",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W2-COMM101-W21-Thu-11:00-ART-108-2027-02-25-2",
       "sectionId": "2026W2-COMM101-W21",
       "roomId": "ART-108",
@@ -114580,6 +119350,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-HES495-E_001-Thu-11:00-FIP-124-2027-02-25-2",
+      "sectionId": "2026W2-HES495-E_001",
+      "roomId": "FIP-124",
+      "days": [
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-25",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-HES506-001-Thu-11:00-FIP-133-2027-02-25-2",
       "sectionId": "2026W2-HES506-001",
       "roomId": "FIP-133",
@@ -114630,6 +119413,19 @@
       "startDate": "2027-02-25",
       "endDate": "2027-04-08",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-PSYO420-A_001-Thu-11:00-FIP-250-2027-02-25-2",
+      "sectionId": "2026W2-PSYO420-A_001",
+      "roomId": "FIP-250",
+      "days": [
+        "Thu"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-25",
+      "endDate": "2027-04-08",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-BIOL133-L12-Thu-11:00-SCI-119-2027-02-25-2",
@@ -115074,6 +119870,19 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W2-CULT400-N_101-Thu-14:00-noroom-2027-02-25-2",
+      "sectionId": "2026W2-CULT400-N_101",
+      "roomId": null,
+      "days": [
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-02-25",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-ENGR320-T2A-Thu-14:00-ART-202-2027-02-25-2",
       "sectionId": "2026W2-ENGR320-T2A",
       "roomId": "ART-202",
@@ -115098,6 +119907,19 @@
       "startDate": "2027-02-25",
       "endDate": "2027-04-08",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-ENGL502-A_101-Thu-14:00-ART-382-2027-02-25-2",
+      "sectionId": "2026W2-ENGL502-A_101",
+      "roomId": "ART-382",
+      "days": [
+        "Thu"
+      ],
+      "start": "14:00",
+      "end": "17:00",
+      "startDate": "2027-02-25",
+      "endDate": "2027-04-08",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-VISA253-101-Thu-14:00-CCS-127-2027-02-25-2",
@@ -115592,6 +120414,19 @@
       "startDate": "2027-02-25",
       "endDate": "2027-04-08",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-IGS524-A_002-Thu-17:00-noroom-2027-02-25-2",
+      "sectionId": "2026W2-IGS524-A_002",
+      "roomId": null,
+      "days": [
+        "Thu"
+      ],
+      "start": "17:00",
+      "end": "20:00",
+      "startDate": "2027-02-25",
+      "endDate": "2027-04-08",
+      "kind": "Seminar"
     },
     {
       "id": "2026W2-COMM101-W22-Thu-17:00-ART-102-2027-02-25-2",
@@ -116270,6 +121105,19 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W2-VISA300-B_101-Fri-09:00-CCS-221-2027-02-26-2",
+      "sectionId": "2026W2-VISA300-B_101",
+      "roomId": "CCS-221",
+      "days": [
+        "Fri"
+      ],
+      "start": "09:00",
+      "end": "13:00",
+      "startDate": "2027-02-26",
+      "endDate": "2027-04-09",
+      "kind": "Studio"
+    },
+    {
       "id": "2026W2-APSC183-L2R-Fri-09:00-EDL-002-2027-02-26-2",
       "sectionId": "2026W2-APSC183-L2R",
       "roomId": "EDL-002",
@@ -116660,6 +121508,19 @@
       "kind": "Seminar"
     },
     {
+      "id": "2026W2-MATH590-K_101-Fri-11:00-ART-374-2027-02-26-2",
+      "sectionId": "2026W2-MATH590-K_101",
+      "roomId": "ART-374",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-26",
+      "endDate": "2027-04-09",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W2-COMM491-101-Fri-11:00-ART-376-2027-02-26-2",
       "sectionId": "2026W2-COMM491-101",
       "roomId": "ART-376",
@@ -116684,6 +121545,19 @@
       "startDate": "2027-02-26",
       "endDate": "2027-04-09",
       "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-THTR301-A_101-Fri-11:00-CCS-144-2027-02-26-2",
+      "sectionId": "2026W2-THTR301-A_101",
+      "roomId": "CCS-144",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-26",
+      "endDate": "2027-04-09",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-MGMT525-101-Fri-11:00-EME-1101-2027-02-26-2",
@@ -116725,6 +121599,19 @@
       "kind": "Discussion"
     },
     {
+      "id": "2026W2-IGS524-A_001-Fri-11:00-EME-2202-2027-02-26-2",
+      "sectionId": "2026W2-IGS524-A_001",
+      "roomId": "EME-2202",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-26",
+      "endDate": "2027-04-09",
+      "kind": "Seminar"
+    },
+    {
       "id": "2026W2-CMPE301-L0C-Fri-11:00-EME-2220-2027-02-26-2",
       "sectionId": "2026W2-CMPE301-L0C",
       "roomId": "EME-2220",
@@ -116754,6 +121641,19 @@
       "id": "2026W2-SOCI446-101-Fri-11:00-FIP-124-2027-02-26-2",
       "sectionId": "2026W2-SOCI446-101",
       "roomId": "FIP-124",
+      "days": [
+        "Fri"
+      ],
+      "start": "11:00",
+      "end": "14:00",
+      "startDate": "2027-02-26",
+      "endDate": "2027-04-09",
+      "kind": "Seminar"
+    },
+    {
+      "id": "2026W2-PSYO486-A_002-Fri-11:00-FIP-139-2027-02-26-2",
+      "sectionId": "2026W2-PSYO486-A_002",
+      "roomId": "FIP-139",
       "days": [
         "Fri"
       ],
@@ -117139,6 +122039,32 @@
       "startDate": "2027-02-26",
       "endDate": "2027-04-09",
       "kind": "Discussion"
+    },
+    {
+      "id": "2026W2-CULT362-B_101-Fri-14:00-noroom-2027-02-26-2",
+      "sectionId": "2026W2-CULT362-B_101",
+      "roomId": null,
+      "days": [
+        "Fri"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2027-02-26",
+      "endDate": "2027-04-09",
+      "kind": "Lecture"
+    },
+    {
+      "id": "2026W2-VISA362-B_101-Fri-14:00-noroom-2027-02-26-2",
+      "sectionId": "2026W2-VISA362-B_101",
+      "roomId": null,
+      "days": [
+        "Fri"
+      ],
+      "start": "14:00",
+      "end": "18:00",
+      "startDate": "2027-02-26",
+      "endDate": "2027-04-09",
+      "kind": "Studio"
     },
     {
       "id": "2026W2-SOCW555-003-Fri-14:00-noroom-2027-02-26-2",
@@ -118038,6 +122964,19 @@
       "kind": "Laboratory"
     },
     {
+      "id": "2026W2-MGMT542-B_101-Mon-16:00-ART-376-2027-03-01-2",
+      "sectionId": "2026W2-MGMT542-B_101",
+      "roomId": "ART-376",
+      "days": [
+        "Mon"
+      ],
+      "start": "16:00",
+      "end": "18:00",
+      "startDate": "2027-03-01",
+      "endDate": "2027-03-29",
+      "kind": "Lecture"
+    },
+    {
       "id": "2026W2-ENGR352-L2E-Mon-16:00-EME-1220-2027-03-01-2",
       "sectionId": "2026W2-ENGR352-L2E",
       "roomId": "EME-1220",
@@ -118530,6 +123469,19 @@
       "startDate": "2027-03-05",
       "endDate": "2027-04-02",
       "kind": "Laboratory"
+    },
+    {
+      "id": "2026W2-MGMT542-A_102-Fri-08:00-SCI-247-2027-03-05-2",
+      "sectionId": "2026W2-MGMT542-A_102",
+      "roomId": "SCI-247",
+      "days": [
+        "Fri"
+      ],
+      "start": "08:00",
+      "end": "10:00",
+      "startDate": "2027-03-05",
+      "endDate": "2027-04-02",
+      "kind": "Lecture"
     },
     {
       "id": "2026W2-APSC255-L1F-Fri-09:00-EME-1220-2027-03-05-2",
