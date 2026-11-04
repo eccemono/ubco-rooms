@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261112";
+} from "./data.js?v=20261115";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -15,7 +15,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261112";
+} from "./engine.js?v=20261115";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -27,6 +27,7 @@ const state = {
   lastSearch: null,
   visibleExact: 8,
   showCombos: false,
+  showPartial: false,
   otherTimes: [],
 };
 
@@ -105,7 +106,7 @@ function renderDayGlance() {
   }
 
   const term = termForDate(state.dataset.meta, date);
-  note.textContent = `${term ? formatTerm(term.key, state.dataset.meta).replace("2026-27 ", "") + " · " : ""}Teaching day · ${plural(result.rooms, "standard room")} considered · solid green = a free 15-minute block`;
+  note.textContent = `${term ? formatTerm(term.key, state.dataset.meta).replace("2026-27 ", "") + " · " : ""}Teaching day`;
   const parseInput = (value) => {
     const [h, m] = (value || "0:0").split(":").map(Number);
     return h * 60 + (m || 0);
@@ -360,6 +361,7 @@ function searchFromForm() {
   state.lastSearch = result;
   state.visibleExact = 8;
   state.showCombos = false;
+  state.showPartial = false;
   state.otherTimes = otherTimeOptions(result);
   renderSearchResult(result);
   renderDayGlance();
@@ -394,17 +396,12 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
     .map((ev) => {
       const left = pct(ev.start, viewStart, span);
       const width = pct(ev.end, viewStart, span) - left;
-      const code = ev.section ? `${ev.section.subject} ${ev.section.courseNumber} ${ev.section.section || ""}`.trim() : "Class";
-      const activity = ev.section?.activity || ev.kind || "Class";
-      const title = ev.section?.title ? ` · ${ev.section.title}` : "";
-      const tooltip = `${code} · ${activity} · ${minutesToLabel(ev.start)}–${minutesToLabel(ev.end)}${title}`;
+      const code = ev.section ? `${ev.section.subject}${ev.section.courseNumber}` : "Class";
       const label =
-        width >= 10
-          ? `<span class="bar-busy-label">Occupied</span>`
-          : width >= 4.5
-            ? `<span class="bar-busy-label">Occ</span>`
-            : "";
-      return `<button type="button" class="bar-busy" style="left:${left}%;width:${width}%" data-info="${escapeHtml(tooltip)}" aria-label="${escapeHtml(tooltip)}">${label}</button>`;
+        width >= 4.5
+          ? `<span class="bar-busy-label">${width >= 10 ? "Occupied" : "Occ"}<span class="bar-busy-code">(${escapeHtml(code)})</span></span>`
+          : "";
+      return `<span class="bar-busy" style="left:${left}%;width:${width}%">${label}</span>`;
     })
     .join("");
 
@@ -426,12 +423,12 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
 
 function renderAxis(viewStart, viewEnd) {
   const span = viewEnd - viewStart;
-  const step = span <= 180 ? 60 : span <= 480 ? 120 : 180;
+  const step = span <= 360 ? 30 : 60;
   const ticks = new Set([viewStart, viewEnd]);
   for (let t = Math.ceil(viewStart / step) * step; t < viewEnd; t += step) ticks.add(t);
   return `<div class="bar-axis">${[...ticks]
     .sort((a, b) => a - b)
-    .map((t) => `<span style="left:${pct(t, viewStart, span)}%">${minutesToLabel(t)}</span>`)
+    .map((t) => `<span class="${t % 60 === 0 ? "major" : "minor"}" style="left:${pct(t, viewStart, span)}%">${minutesToLabel(t)}</span>`)
     .join("")}</div>`;
 }
 
@@ -475,21 +472,24 @@ function renderSearchResult(result) {
   }
 
   const requested = formatDuration(result.requestedMinutes);
-  const title = `${prettyDate(result.date)} · ${minutesToLabel(result.startMin)}–${minutesToLabel(result.endMin)}`;
+  const title = `${prettyDate(result.date)} from ${minutesToLabel(result.startMin)}–${minutesToLabel(result.endMin)}`;
   const total = result.exact.length;
+  const partial = result.partial || [];
   const visible = Math.min(state.visibleExact, total);
-  const showCombos = state.showCombos || total === 0;
+  const showPartial = state.showPartial || (total === 0 && partial.length > 0);
+  const showCombos = state.showCombos || (total === 0 && partial.length === 0);
 
   let statusBits;
   if (total) {
     statusBits = [
       `<strong>${plural(total, "room")}</strong> with no scheduled class ${escapeHtml(title)} (${requested}).`,
-      `Sorted by cushion, then building.`,
+      `Ranked by usable free time, then cushion and building.`,
     ];
     if (visible < total) statusBits.push(`Showing ${visible} of ${total}; more are below.`);
   } else {
     statusBits = [`<strong>No single room</strong> covers the full window ${escapeHtml(title)}.`];
-    if (result.combos.length) statusBits.push("Room-change options are below.");
+    if (partial.length) statusBits.push("The best partial blocks are below.");
+    else if (result.combos.length) statusBits.push("Room-change options are below.");
     else statusBits.push("Try one of the other times below or the Advanced option.");
   }
   if (!result.allowLabs) statusBits.push("Lab rooms are hidden.");
@@ -500,6 +500,11 @@ function renderSearchResult(result) {
   result.exact.slice(0, state.visibleExact).forEach((item, index) => {
     cards.push(renderRoomCard(item, index === 0, viewStart, viewEnd));
   });
+  if (showPartial) {
+    partial.slice(0, 6).forEach((item) => {
+      cards.push(renderRoomCard(item, false, viewStart, viewEnd));
+    });
+  }
   if (showCombos) {
     result.combos.forEach((combo, index) => {
       cards.push(renderComboCard(combo, index, viewStart, viewEnd));
@@ -509,6 +514,9 @@ function renderSearchResult(result) {
   const foot = [];
   if (visible < total) {
     foot.push(`<button class="btn btn-ghost" type="button" id="show-more-rooms">Show ${Math.min(8, total - visible)} more rooms</button>`);
+  }
+  if (partial.length && !showPartial) {
+    foot.push(`<button class="btn btn-ghost" type="button" id="show-partial-rooms">Show ${Math.min(6, partial.length)} partial rooms</button>`);
   }
   if (result.combos.length && !showCombos) {
     foot.push(`<button class="btn btn-ghost" type="button" id="show-room-changes">Show room changes</button>`);
@@ -528,17 +536,12 @@ function renderSearchResult(result) {
   $$("[data-room-jump]", results).forEach((btn) => {
     btn.addEventListener("click", () => jumpToRoom(btn.dataset.roomJump, btn.dataset.roomDate || result.date));
   });
-  $$(".bar-busy", results).forEach((btn) => {
-    btn.addEventListener("click", (event) => {
-      event.stopPropagation();
-      const info = btn.closest(".plot")?.querySelector(".occupied-info");
-      if (!info) return;
-      info.textContent = btn.dataset.info || "";
-      info.hidden = false;
-    });
-  });
   $("#show-more-rooms")?.addEventListener("click", () => {
     state.visibleExact += 8;
+    renderSearchResult(result);
+  });
+  $("#show-partial-rooms")?.addEventListener("click", () => {
+    state.showPartial = true;
     renderSearchResult(result);
   });
   $("#show-room-changes")?.addEventListener("click", () => {
@@ -561,11 +564,10 @@ function renderRoomCard(item, best, viewStart, viewEnd) {
       <div class="room-cell">
         ${roomButton(room, item.date)}
         <span class="room-building">${escapeHtml(room.buildingName)}</span>
-        ${best ? '<span class="tag room-best">Best</span>' : ""}
+        ${item.partial ? `<span class="tag tag-warn room-best">Partial · ${formatDuration(item.usableMinutes)}</span>` : best ? '<span class="tag room-best">Best</span>' : ""}
         ${state.dataset.labRoomIds.has(room.id) ? '<span class="tag tag-warn room-best">Lab room</span>' : ""}
       </div>
       <div class="plot">
-        <div class="occupied-info" hidden></div>
         ${renderBar({ block, events, startMin, endMin, viewStart, viewEnd })}
         ${renderAxis(viewStart, viewEnd)}
       </div>
@@ -575,7 +577,7 @@ function renderRoomCard(item, best, viewStart, viewEnd) {
 function renderComboCard(combo, index, viewStart, viewEnd) {
   const firstView = roomDayView(state.dataset, combo.first.room.id, combo.date);
   const secondView = roomDayView(state.dataset, combo.second.room.id, combo.date);
-  const transfer = combo.transfer || 15;
+  const transfer = combo.transfer || 5;
   const gap = combo.gap || transfer;
   const hasGap = gap > transfer;
   const row = (part, view, label) => `
@@ -586,7 +588,6 @@ function renderComboCard(combo, index, viewStart, viewEnd) {
       </div>
       <div class="plot">
         <div class="plot-head"><span class="plot-free">${label} · ${minutesToLabel(part.start)}–${minutesToLabel(part.end)}</span></div>
-        <div class="occupied-info" hidden></div>
         ${renderBar({
           block: part.block,
           events: view?.events || [],

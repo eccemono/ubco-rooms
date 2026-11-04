@@ -7,7 +7,7 @@
 <meta name="description" content="Find UBCO classrooms with no scheduled class at a given date and time.">
 <meta name="theme-color" content="#002145">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23002145'/%3E%3Cpath d='M18 18v18c0 8 6 12 14 12s14-4 14-12V18h-8v18c0 4-2 6-6 6s-6-2-6-6V18z' fill='%23fff'/%3E%3Crect x='14' y='50' width='36' height='5' rx='2.5' fill='%23f2a900'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/styles.css?v=20261112">
+<link rel="stylesheet" href="assets/styles.css?v=20261115">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -73,7 +73,6 @@
       </fieldset>
 
       <div class="form-foot">
-        <p class="fine-print">“No class listed” is not a guarantee. Events, exams and private bookings may be missing.</p>
         <button class="btn btn-primary" type="submit">Find free rooms</button>
       </div>
     </form>
@@ -200,9 +199,9 @@
     <div class="card prose">
       <h2>How availability is calculated</h2>
       <p>Every meeting pattern from the course schedule becomes a dated event using its section’s start and end dates. A room is shown as free when the requested interval does not overlap any event in that room, and the room is inside its listed building hours.</p>
-      <p>Results are ranked by the cushion of free time before and after your window, then by building preference (ASC, ART, EME, FIP, SCI, COM). The ranking reserves about 10 minutes of transition before the next class so you are not studying right up to the door.</p>
+      <p>Results first maximise usable free time in the room’s block, then use cushion and building preference as secondary preferences. The ranking reserves about 10 minutes of transition before the next class so you are not studying right up to the door.</p>
       <p>Rooms used by any laboratory section are hidden by default; the <strong>Advanced</strong> toggle can include them. ADM, UCH, and CCS studio rooms are never shown.</p>
-      <p>Room changes are only suggested when a single room cannot cover the whole window. A 15-minute transfer is included between rooms; walking time is not counted as study time.</p>
+      <p>Room changes are only suggested when a single room cannot cover the whole window. A 5-minute transfer is included between rooms; walking time is not counted as study time.</p>
       <h2>What this cannot know</h2>
       <ul>
         <li>Ad-hoc bookings, exams, events, maintenance closures and department-controlled spaces.</li>
@@ -238,6 +237,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/app.js?v=20261112"></script>
+<script type="module" src="assets/app.js?v=20261115"></script>
 </body>
 </html>

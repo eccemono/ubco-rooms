@@ -10,11 +10,11 @@ import {
   prettyDate,
   termForDate,
   weekdayName,
-} from "./data.js?v=20261112";
+} from "./data.js?v=20261115";
 
 const BUILDING_PRIORITY = ["ASC", "ART", "EME", "FIP", "SCI", "COM"];
 const NEVER_SHOW_BUILDINGS = new Set(["ADM", "UCH"]);
-const TRANSFER_MINUTES = 15;
+const TRANSFER_MINUTES = 5;
 const MAX_GAP_MINUTES = 120;
 const TRANSITION_MINUTES = 10;
 const MAX_EXACT_RESULTS = 40;
@@ -57,13 +57,14 @@ export function searchAvailability(dataset, options) {
   const endMin = hmToMinutes(end);
   const issues = detectInputIssues(dataset.meta, date, startMin, endMin);
   if (issues.length) {
-    return { issues, exact: [], combos: [], date, startMin, endMin, transfer: TRANSFER_MINUTES };
+    return { issues, exact: [], partial: [], combos: [], date, startMin, endMin, transfer: TRANSFER_MINUTES };
   }
 
   if (Array.isArray(buildings) && buildings.length === 0) {
     return {
       issues: ["Select at least one building."],
       exact: [],
+      partial: [],
       combos: [],
       date,
       startMin,
@@ -75,42 +76,87 @@ export function searchAvailability(dataset, options) {
   const term = termForDate(dataset.meta, date);
   const rooms = filterRooms(dataset, { buildings, building, allowLabs });
   const candidates = [];
+  const partialCandidates = [];
 
   for (const room of rooms) {
     const { hours, events, blocks } = freeIntervalsForRoom(dataset, room, date);
     if (!hours) continue;
     const block = findContainingBlock(blocks, startMin, endMin);
-    if (!block) continue;
+    if (block) {
+      const slackBefore = startMin - block.start;
+      const slackAfter = block.end - endMin;
+      const cushion = cushionScore(slackBefore, slackAfter);
+      const nextEvent = events.find((ev) => ev.start >= endMin) || null;
+      const prevEvent = [...events].reverse().find((ev) => ev.end <= startMin) || null;
 
-    const slackBefore = startMin - block.start;
-    const slackAfter = block.end - endMin;
+      candidates.push({
+        kind: "exact",
+        room,
+        block,
+        hours,
+        events,
+        nextEvent,
+        prevEvent,
+        slackBefore,
+        slackAfter,
+        usableAfter: Math.max(0, cushion.usableAfter),
+        cushion,
+        freeDuration: block.end - block.start,
+        buildingRank: buildingRank(room.buildingCode),
+        sameBuilding: Boolean(building && room.buildingCode === building),
+      });
+      continue;
+    }
+
+    // A room can still be useful for part of the requested window.
+    let best = null;
+    for (const candidateBlock of blocks) {
+      const usableStart = Math.max(candidateBlock.start, startMin);
+      const usableEnd = Math.min(candidateBlock.end, endMin);
+      const usableMinutes = usableEnd - usableStart;
+      if (usableMinutes < 30) continue;
+      if (!best || usableMinutes > best.usableMinutes) {
+        best = { block: candidateBlock, usableStart, usableEnd, usableMinutes };
+      }
+    }
+    if (!best) continue;
+    const slackBefore = best.usableStart - best.block.start;
+    const slackAfter = best.block.end - best.usableEnd;
     const cushion = cushionScore(slackBefore, slackAfter);
-    const nextEvent = events.find((ev) => ev.start >= endMin) || null;
-    const prevEvent = [...events].reverse().find((ev) => ev.end <= startMin) || null;
-
-    candidates.push({
-      kind: "exact",
+    partialCandidates.push({
+      kind: "partial",
       room,
-      block,
+      block: best.block,
       hours,
       events,
-      nextEvent,
-      prevEvent,
+      usableStart: best.usableStart,
+      usableEnd: best.usableEnd,
+      usableMinutes: best.usableMinutes,
+      nextEvent: events.find((ev) => ev.start >= best.usableEnd) || null,
+      prevEvent: [...events].reverse().find((ev) => ev.end <= best.usableStart) || null,
       slackBefore,
       slackAfter,
       usableAfter: Math.max(0, cushion.usableAfter),
       cushion,
-      freeDuration: block.end - block.start,
+      freeDuration: best.block.end - best.block.start,
       buildingRank: buildingRank(room.buildingCode),
       sameBuilding: Boolean(building && room.buildingCode === building),
+      partial: true,
     });
   }
 
+  // Primary: maximize usable study time. Cushion is a secondary preference.
   candidates.sort((a, b) => {
+    if (a.freeDuration !== b.freeDuration) return b.freeDuration - a.freeDuration;
+    if (a.cushion.tier !== b.cushion.tier) return a.cushion.tier - b.cushion.tier;
+    if (a.cushion.min !== b.cushion.min) return b.cushion.min - a.cushion.min;
+    if (a.buildingRank !== b.buildingRank) return a.buildingRank - b.buildingRank;
+    return a.room.name.localeCompare(b.room.name);
+  });
+  partialCandidates.sort((a, b) => {
+    if (a.usableMinutes !== b.usableMinutes) return b.usableMinutes - a.usableMinutes;
     if (a.cushion.tier !== b.cushion.tier) return a.cushion.tier - b.cushion.tier;
     if (a.buildingRank !== b.buildingRank) return a.buildingRank - b.buildingRank;
-    if (a.cushion.min !== b.cushion.min) return b.cushion.min - a.cushion.min;
-    if (a.freeDuration !== b.freeDuration) return b.freeDuration - a.freeDuration;
     return a.room.name.localeCompare(b.room.name);
   });
 
@@ -120,6 +166,14 @@ export function searchAvailability(dataset, options) {
     date,
     startMin,
     endMin,
+    requestedMinutes: endMin - startMin,
+  }));
+  const partial = partialCandidates.slice(0, 20).map((p) => ({
+    ...p,
+    term,
+    date,
+    startMin: p.usableStart,
+    endMin: p.usableEnd,
     requestedMinutes: endMin - startMin,
   }));
 
@@ -138,6 +192,7 @@ export function searchAvailability(dataset, options) {
   return {
     issues: [],
     exact,
+    partial,
     combos,
     date,
     startMin,

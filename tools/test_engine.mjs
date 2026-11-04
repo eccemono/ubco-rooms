@@ -67,7 +67,7 @@ for (const option of combo.combos) {
   );
   check(
     `combo transfer is honoured (${option.rooms.map((r) => r.name).join(" → ")})`,
-    option.second.start - option.first.end >= 15
+    option.second.start - option.first.end >= 5
   );
 }
 
@@ -89,6 +89,13 @@ const overview = dayAvailability(dataset, { date, buildings: ["ASC", "ART", "EME
 check("day overview has 15-minute slots", overview.slots.length === 60);
 check("day overview has some available slots", overview.slots.some((s) => s.count > 0));
 check("empty building selection is explicit", dayAvailability(dataset, { date, buildings: [] }).issues.length > 0);
+
+const partialSearch = searchAvailability(dataset, { date, start: "13:15", end: "16:15", allowLabs: false });
+check("partial blocks are returned when no full room exists", partialSearch.exact.length === 0 && partialSearch.partial.length > 0);
+check(
+  "partial blocks stay inside the requested window",
+  partialSearch.partial.every((p) => p.usableStart >= 13 * 60 + 15 && p.usableEnd <= 16 * 60 + 15)
+);
 
 const roomId = dataset.rooms[0].id;
 const day = roomDayView(dataset, roomId, date);

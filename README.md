@@ -16,13 +16,15 @@ The report showed **3,844 results**; the raw text contains **3,775 unique sectio
 
 - **A static website** (`index.html`, `assets/`) that runs entirely in the browser.
   - Date + time room search.
-  - Horizontal availability bars for each room, ranked by cushion before/after and building preference.
+  - Horizontal availability bars for each room, ranked by usable free time, then cushion and building preference.
   - Lab-used rooms hidden by default; ADM, UCH, and CCS studio rooms never shown.
   - “Show more” reveals additional rooms, room-change options, and nearby time windows.
   - Building checkboxes are all on by default; UCH, ADM and CCS studio rooms are hidden.
   - Day-at-a-glance strip from 7am to 10pm in 15-minute blocks, solid green where a standard room is free. Click one block, or drag across blocks for a longer window; mobile uses one continuous spectrum.
   - Clicking an occupied block shows the class above the bar instead of relying on a hover tooltip.
-  - Room-change options can include a flagged gap when no continuous hand-off is possible.
+  - Room-change options can include a flagged gap when no continuous hand-off is possible; the walk allowance is 5 minutes.
+  - Occupied blocks show the course code under “Occupied”.
+  - Partial room blocks are shown when no room covers the full window.
   - Previous/next day arrows skip weekends, midterm breaks and university holidays.
   - Two-room combination finder when no single room covers the whole window.
   - Day timetable for any room.
@@ -231,7 +233,7 @@ Check whether your Workday export or derived dataset may be redistributed before
 3. It subtracts those meetings from the room’s listed building hours.
 4. A room is a match if a free interval contains the requested window.
 5. Results prefer rooms that fit the group, are in the selected building, and have useful free time around the session.
-6. If no single room covers the window, the combination finder looks for two rooms with a 10-minute transfer.
+6. If no single room covers the window, the combination finder looks for two rooms with a 5-minute transfer.
 
 All calculations use **America/Vancouver** wall-clock times. The site does not currently model alternating-week patterns unless they are represented as separate date-ranged meetings in the source.
 
