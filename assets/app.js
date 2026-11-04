@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261120";
+} from "./data.js?v=20261123";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -16,7 +16,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261120";
+} from "./engine.js?v=20261123";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -410,29 +410,29 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
     freeWidth >= 14
       ? `<span class="bar-free-label" style="left:${freeLeft}%;width:${freeWidth}%">free</span>`
       : "";
+  const cushionBefore = clip(block.start, startMin);
+  const cushionAfter = clip(endMin, block.end);
+  const cushionHtml = [
+    cushionBefore.end > cushionBefore.start ? { ...cushionBefore, label: "cushion" } : null,
+    cushionAfter.end > cushionAfter.start ? { ...cushionAfter, label: "cushion" } : null,
+  ]
+    .filter(Boolean)
+    .map((c) => {
+      const left = pct(c.start, viewStart, span);
+      const width = pct(c.end, viewStart, span) - left;
+      return `<span class="bar-cushion" style="left:${left}%;width:${width}%">${width >= 10 ? '<span class="bar-cushion-label">cushion</span>' : ""}</span>`;
+    })
+    .join("");
 
   const gridCount = Math.max(1, Math.round((viewEnd - viewStart) / 15));
   return `
     <div class="availability-bar">
       <span class="bar-grid" style="background-size:${100 / gridCount}% 100%"></span>
       <span class="bar-free" style="left:${freeLeft}%;width:${freeWidth}%"></span>
+      ${cushionHtml}
       ${eventHtml}
+      <span class="bar-selected" style="left:${selLeft}%;width:${selWidth}%"></span>
       ${freeLabel}
-    </div>`;
-}
-
-function renderArrow(startMin, endMin, viewStart, viewEnd) {
-  const span = viewEnd - viewStart;
-  const left = pct(startMin, viewStart, span);
-  const width = Math.max(0, pct(endMin, viewStart, span) - left);
-  const label = `${minutesToLabel(startMin)}–${minutesToLabel(endMin)} · ${formatDuration(endMin - startMin)}`;
-  return `
-    <div class="bar-arrow-wrap">
-      <div class="bar-arrow" style="left:${left}%;width:${width}%">
-        <span class="bar-arrow-head left"></span>
-        <span class="bar-arrow-label">${escapeHtml(label)}</span>
-        <span class="bar-arrow-head right"></span>
-      </div>
     </div>`;
 }
 
@@ -575,10 +575,12 @@ function bestComfortableRoute(result) {
   const partial = [...result.partial].sort(
     (a, b) => b.usableMinutes - a.usableMinutes || compareComfort(a, b)
   )[0];
-  if (combo && (!partial || combo.first.end - combo.first.start + (combo.second.end - combo.second.start) >= partial.usableMinutes)) {
+  const comboStudy = combo ? combo.first.end - combo.first.start + (combo.second.end - combo.second.start) : -1;
+  if (combo && (!partial || comboStudy >= partial.usableMinutes + 15)) {
     return routeFromCombo(combo);
   }
   if (partial) return routeFromPartial(partial, result);
+  if (combo) return routeFromCombo(combo);
   return null;
 }
 
@@ -598,6 +600,99 @@ function bestStudyRoute(result) {
   return null;
 }
 
+function renderBreakRow(start, end, label, viewStart, viewEnd) {
+  const span = viewEnd - viewStart;
+  const left = pct(start, viewStart, span);
+  const width = Math.max(0, pct(end, viewStart, span) - left);
+  return `
+    <div class="route-segment route-break">
+      <div class="room-cell"><span class="break-label">${escapeHtml(label)}</span></div>
+      <div class="plot">
+        <div class="availability-bar break-bar">
+          <span class="break-block" style="left:${left}%;width:${width}%">${escapeHtml(label)} · ${formatDuration(end - start)}</span>
+        </div>
+      </div>
+    </div>`;
+}
+
+function aggressiveRoute(result) {
+  const selected = new Set(selectedBuildings());
+  const allowLabs = $("#allow-labs")?.checked || false;
+  const rooms = state.dataset.rooms.filter((room) => {
+    if (NEVER_SHOW_BUILDINGS.has(room.buildingCode)) return false;
+    if (state.dataset.specializedRoomIds.has(room.id)) return false;
+    if (!selected.has(room.buildingCode)) return false;
+    if (!allowLabs && state.dataset.labRoomIds.has(room.id)) return false;
+    return true;
+  });
+
+  const candidates = [];
+  for (const room of rooms) {
+    const view = roomDayView(state.dataset, room.id, result.date);
+    if (!view?.hours) continue;
+    for (const segment of view.segments) {
+      if (segment.type !== "free") continue;
+      const start = Math.max(segment.start, result.startMin);
+      const end = Math.min(segment.end, result.endMin);
+      if (end - start < 15) continue;
+      candidates.push({
+        room,
+        start,
+        end,
+        block: { start: segment.start, end: segment.end },
+        events: view.events,
+      });
+    }
+  }
+  candidates.sort((a, b) => a.start - b.start || a.end - b.end);
+
+  const dp = candidates.map((candidate, index) => ({
+    study: candidate.end - candidate.start,
+    count: 1,
+    prev: -1,
+    index,
+  }));
+  for (let i = 0; i < candidates.length; i += 1) {
+    for (let j = 0; j < i; j += 1) {
+      if (candidates[j].end + 5 > candidates[i].start) continue;
+      const study = dp[j].study + (candidates[i].end - candidates[i].start);
+      const count = dp[j].count + 1;
+      if (study > dp[i].study || (study === dp[i].study && count < dp[i].count)) {
+        dp[i] = { study, count, prev: j, index: i };
+      }
+    }
+  }
+
+  let best = null;
+  for (const entry of dp) {
+    if (!best || entry.study > best.study || (entry.study === best.study && entry.count < best.count)) best = entry;
+  }
+  if (!best) return null;
+
+  const chosen = [];
+  let cursor = best;
+  while (cursor) {
+    chosen.push(candidates[cursor.index]);
+    cursor = cursor.prev >= 0 ? dp[cursor.prev] : null;
+  }
+  chosen.reverse();
+  return {
+    kind: "aggressive",
+    segments: chosen.map((item) => ({
+      room: item.room,
+      start: item.start,
+      end: item.end,
+      block: item.block,
+      events: item.events,
+    })),
+    requestedStart: result.startMin,
+    requestedEnd: result.endMin,
+    studyMinutes: best.study,
+    switches: chosen.length - 1,
+    date: result.date,
+  };
+}
+
 function renderRouteTimeline(route) {
   const { viewStart, viewEnd } = viewWindow({
     startMin: route.requestedStart,
@@ -608,7 +703,7 @@ function renderRouteTimeline(route) {
   for (const segment of route.segments) {
     if (segment.start > cursor + 5) {
       const label = cursor === route.requestedStart ? "Not available" : "Break";
-      rows.push(`<div class="route-gap">${label} · ${formatDuration(segment.start - cursor)}</div>`);
+      rows.push(renderBreakRow(cursor, segment.start, label, viewStart, viewEnd));
     }
     rows.push(`
       <div class="route-segment">
@@ -618,14 +713,13 @@ function renderRouteTimeline(route) {
         </div>
         <div class="plot">
           ${renderBar({ block: segment.block, events: segment.events, startMin: segment.start, endMin: segment.end, viewStart, viewEnd })}
-          ${renderArrow(segment.start, segment.end, viewStart, viewEnd)}
           ${renderAxis(viewStart, viewEnd, segment.block, segment.events, segment.start, segment.end)}
         </div>
       </div>`);
     cursor = segment.end;
   }
   if (cursor < route.requestedEnd - 5) {
-    rows.push(`<div class="route-gap">Not available · ${formatDuration(route.requestedEnd - cursor)}</div>`);
+    rows.push(renderBreakRow(cursor, route.requestedEnd, "Not available", viewStart, viewEnd));
   }
   return rows.join("");
 }
@@ -644,6 +738,14 @@ function routeSubtitle(route) {
   if (route.kind === "partial") return "Best available block";
   if (route.kind === "combo") {
     return route.gap > 5 ? `1 room change · ${formatDuration(route.gap)} break` : "1 room change · 5 min walk";
+  }
+  if (route.kind === "aggressive") {
+    const full = route.studyMinutes >= route.requestedEnd - route.requestedStart;
+    const study = `${formatDuration(route.studyMinutes)} study`;
+    if (route.switches > 0) {
+      return `${study} · ${route.switches} room change${route.switches === 1 ? "" : "s"}`;
+    }
+    return full ? "Covers the full requested window" : study;
   }
   return "Covers the full requested window";
 }
@@ -680,42 +782,35 @@ function roomChoicesFor(result) {
       });
     }
   });
+  for (const segment of result.aggressiveRoute?.segments || []) {
+    if (choices.has(segment.room.id)) continue;
+    choices.set(segment.room.id, {
+      room: segment.room,
+      date: result.date,
+      startMin: segment.start,
+      endMin: segment.end,
+      block: segment.block,
+      events: segment.events,
+      partial: false,
+    });
+  }
   return [...choices.values()].sort(
     (a, b) => buildingRank(a.room.buildingCode) - buildingRank(b.room.buildingCode) || a.room.name.localeCompare(b.room.name)
   );
 }
 
-function renderRoomPicker(result) {
+function renderRoomList(result) {
   const choices = roomChoicesFor(result);
   if (!choices.length) return "";
   state.roomChoices = choices;
   const { viewStart, viewEnd } = viewWindow(result);
-  const options = choices
-    .map((choice, index) => `<option value="${index}">${escapeHtml(choice.room.name)} — ${escapeHtml(choice.room.buildingName)}</option>`)
-    .join("");
   return `
-    <section class="room-picker card">
-      <label class="field">
-        <span>By room</span>
-        <select id="room-picker">${options}</select>
-      </label>
-      <div id="room-picker-view">${renderRoomCard(choices[0], false, viewStart, viewEnd)}</div>
+    <section class="room-list">
+      <h2 class="room-list-title">By room</h2>
+      <div class="room-list-cards">
+        ${choices.map((choice) => renderRoomCard(choice, false, viewStart, viewEnd)).join("")}
+      </div>
     </section>`;
-}
-
-function attachRoomPicker(result) {
-  const picker = $("#room-picker");
-  if (!picker) return;
-  const { viewStart, viewEnd } = viewWindow(result);
-  const renderChoice = () => {
-    const choice = state.roomChoices[Number(picker.value)];
-    if (!choice) return;
-    $("#room-picker-view").innerHTML = renderRoomCard(choice, false, viewStart, viewEnd);
-    $$("[data-room-jump]", $("#room-picker-view")).forEach((btn) => {
-      btn.addEventListener("click", () => jumpToRoom(btn.dataset.roomJump, btn.dataset.roomDate || result.date));
-    });
-  };
-  picker.addEventListener("change", renderChoice);
 }
 
 function renderSearchResult(result) {
@@ -730,7 +825,8 @@ function renderSearchResult(result) {
 
   const title = `${prettyDate(result.date)} from ${minutesToLabel(result.startMin)}–${minutesToLabel(result.endMin)}`;
   const comfort = bestComfortableRoute(result);
-  const study = bestStudyRoute(result);
+  const study = aggressiveRoute(result) || bestStudyRoute(result);
+  result.aggressiveRoute = study?.kind === "aggressive" ? study : null;
   const other = state.otherTimes?.[0];
   const cards = [];
 
@@ -740,7 +836,7 @@ function renderSearchResult(result) {
   if (other?.route) {
     cards.push(
       renderRouteCard(
-        "Best Other Time",
+        "Best Alternative Time",
         other.route,
         `${prettyDate(result.date, { withYear: false })} · ${minutesToLabel(other.startMin)}–${minutesToLabel(other.endMin)} · ${routeSubtitle(other.route)}`
       )
@@ -749,7 +845,7 @@ function renderSearchResult(result) {
   if (study) {
     cards.push(renderRouteCard("Most Study Time", study, routeSubtitle(study)));
   }
-  cards.push(renderRoomPicker(result));
+  cards.push(renderRoomList(result));
 
   if (!comfort && !study && !other?.route) {
     setStatus(status, `No usable room block found for ${escapeHtml(title)}.`);
@@ -762,7 +858,6 @@ function renderSearchResult(result) {
   $$("[data-room-jump]", results).forEach((btn) => {
     btn.addEventListener("click", () => jumpToRoom(btn.dataset.roomJump, btn.dataset.roomDate || result.date));
   });
-  attachRoomPicker(result);
 }
 
 function renderRoomCard(item, best, viewStart, viewEnd) {
@@ -777,7 +872,6 @@ function renderRoomCard(item, best, viewStart, viewEnd) {
       </div>
       <div class="plot">
         ${renderBar({ block, events, startMin, endMin, viewStart, viewEnd })}
-        ${renderArrow(startMin, endMin, viewStart, viewEnd)}
         ${renderAxis(viewStart, viewEnd, block, events, startMin, endMin)}
       </div>
     </article>`;
@@ -805,7 +899,6 @@ function renderComboCard(combo, index, viewStart, viewEnd) {
           viewStart,
           viewEnd,
         })}
-        ${renderArrow(part.start, part.end, viewStart, viewEnd)}
         ${renderAxis(viewStart, viewEnd, part.block, view?.events || [], part.start, part.end)}
       </div>
     </div>`;

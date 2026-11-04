@@ -580,3 +580,25 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
   .route-segment { grid-template-columns: 1fr; gap: .4rem; }
   .route-gap { margin-left: 0; }
 }
+.bar-cushion {
+  position: absolute; top: 7px; bottom: 7px;
+  background: #dbeafe; border: 1px solid #93c5fd; border-radius: 8px;
+  overflow: hidden;
+}
+.bar-cushion-label {
+  display: block; text-align: center; line-height: 28px;
+  color: #1e5f9e; font-size: .58rem; font-weight: 700;
+  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+}
+.break-label { color: var(--ink-soft); font-size: .78rem; font-weight: 700; }
+.break-bar { position: relative; background: #f7f4e9; border-style: dashed; }
+.break-block {
+  position: absolute; top: 5px; bottom: 5px;
+  background: #fce7a8; border: 1px solid #e5c265; border-radius: 7px;
+  color: #6b4b08; font-size: .7rem; font-weight: 700;
+  display: flex; align-items: center; justify-content: center;
+  white-space: nowrap; overflow: hidden;
+}
+.room-list { margin-top: .4rem; }
+.room-list-title { font-size: 1rem; margin: 1.2rem 0 .6rem; letter-spacing: -.01em; }
+.room-list-cards { display: grid; gap: .7rem; }

@@ -25,8 +25,8 @@ The report showed **3,844 results**; the raw text contains **3,775 unique sectio
   - Room-change options can include a flagged gap when no continuous hand-off is possible; the walk allowance is 5 minutes.
   - Occupied blocks show the course code under “Occupied”.
   - Partial room blocks are shown when no room covers the full window.
-  - Results are led by **Best Route · Most Comfortable**, **Best Other Time**, and **Most Study Time**, each with a room timeline and double-ended time arrows.
-  - A **By room** dropdown below the routes shows each available room's bar.
+  - Results are led by **Best Route · Most Comfortable**, **Best Alternative Time**, and **Most Study Time**, each with a room timeline.
+  - A **By room** list below the routes shows each available room's bar.
   - A “Best route” summary appears above the results, including gap-aware room changes.
   - Room-bar time labels are built from real transition points (selected edges, free edges, class start/end) instead of fixed 30-minute ticks.
   - Previous/next day arrows skip weekends, midterm breaks and university holidays.
