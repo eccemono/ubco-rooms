@@ -6,7 +6,7 @@ A static website and Excel workbook for answering one question:
 
 The project is built for UBC Okanagan’s 2026–27 Winter Terms 1 and 2. It is a personal student project, not an official UBC service.
 
-**The bundled dataset is a real Workday capture** from 4 November 2026: 3,054 sections, 8,828 meeting patterns, and 110 rooms across both 2026–27 winter terms. It was captured from the Find Course Sections report in five course-level slices (100–500). Sections with no dated meeting pattern — work terms, asynchronous online, arranged studies — are not in the room dataset, so the catalogue is not literally every row of the 3,844-result report.
+**The bundled dataset is a real Workday capture** from 4 November 2026: 3,054 sections, 5,797 meeting patterns, and 110 rooms across both 2026–27 winter terms. It was captured from the Find Course Sections report in five course-level slices (100–500). Sections with no dated meeting pattern — work terms, asynchronous online, arranged studies — are not in the room dataset, so the catalogue is not literally every row of the 3,844-result report.
 
 ---
 

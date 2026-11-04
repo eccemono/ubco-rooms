@@ -121,7 +121,6 @@ function populateControls() {
       label: `${code} · ${rooms.find((r) => r.buildingCode === code)?.buildingName || code}`,
     }));
 
-  fillSelect($("#term"), termOptions, { placeholder: "Auto from date" });
   fillSelect($("#building"), buildings, { placeholder: "Any building" });
   fillSelect($("#course-term"), termOptions, { placeholder: "All terms" });
 
@@ -157,22 +156,79 @@ function searchFromForm() {
   const date = $("#date").value;
   const start = $("#start").value;
   const end = $("#end").value;
-  const people = Math.max(1, Number($("#people").value) || 1);
   const building = $("#building").value;
-  const termKey = $("#term").value;
-  const allowMoves = $("#allow-moves").checked;
 
   const result = searchAvailability(state.dataset, {
     date,
     start,
     end,
-    people,
     building,
-    termKey,
-    allowMoves,
   });
   state.lastSearch = result;
   renderSearchResult(result);
+}
+
+function viewWindow(result) {
+  const pad = 120;
+  const viewStart = Math.max(6 * 60, Math.floor((result.startMin - pad) / 30) * 30);
+  const viewEnd = Math.min(23 * 60, Math.ceil((result.endMin + pad) / 30) * 30);
+  return { viewStart, viewEnd, span: Math.max(60, viewEnd - viewStart) };
+}
+
+function pct(minutes, viewStart, span) {
+  return Math.max(0, Math.min(100, ((minutes - viewStart) / span) * 100));
+}
+
+function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd }) {
+  const span = viewEnd - viewStart;
+  const clip = (a, b) => ({ start: Math.max(a, viewStart), end: Math.min(b, viewEnd) });
+  const free = clip(block.start, block.end);
+  const selected = clip(startMin, endMin);
+  const visibleEvents = events
+    .map((ev) => ({ ...ev, ...clip(ev.start, ev.end) }))
+    .filter((ev) => ev.end > ev.start);
+
+  const freeLeft = pct(free.start, viewStart, span);
+  const freeWidth = pct(free.end, viewStart, span) - freeLeft;
+  const selLeft = pct(selected.start, viewStart, span);
+  const selWidth = pct(selected.end, viewStart, span) - selLeft;
+
+  const eventHtml = visibleEvents
+    .map((ev) => {
+      const left = pct(ev.start, viewStart, span);
+      const width = pct(ev.end, viewStart, span) - left;
+      const code = ev.section ? `${ev.section.subject} ${ev.section.courseNumber}` : "Class";
+      return `<span class="bar-busy" style="left:${left}%;width:${width}%" title="${escapeHtml(code)} ${minutesToLabel(ev.start)}–${minutesToLabel(ev.end)}"></span>`;
+    })
+    .join("");
+
+  const freeLabel =
+    freeWidth >= 14
+      ? `<span class="bar-free-label" style="left:${freeLeft}%;width:${freeWidth}%">free</span>`
+      : "";
+
+  return `
+    <div class="availability-bar">
+      <span class="bar-free" style="left:${freeLeft}%;width:${freeWidth}%"></span>
+      ${eventHtml}
+      <span class="bar-selected" style="left:${selLeft}%;width:${selWidth}%"></span>
+      ${freeLabel}
+    </div>`;
+}
+
+function renderAxis(viewStart, viewEnd) {
+  const span = viewEnd - viewStart;
+  const step = span <= 180 ? 60 : span <= 480 ? 120 : 180;
+  const ticks = new Set([viewStart, viewEnd]);
+  for (let t = Math.ceil(viewStart / step) * step; t < viewEnd; t += step) ticks.add(t);
+  return `<div class="bar-axis">${[...ticks]
+    .sort((a, b) => a - b)
+    .map((t) => `<span style="left:${pct(t, viewStart, span)}%">${minutesToLabel(t)}</span>`)
+    .join("")}</div>`;
+}
+
+function roomButton(room, date) {
+  return `<button class="room-link" type="button" data-room-jump="${escapeHtml(room.id)}" data-room-date="${escapeHtml(date)}">${escapeHtml(room.name)}</button>`;
 }
 
 function renderSearchResult(result) {
@@ -192,23 +248,23 @@ function renderSearchResult(result) {
   if (total) {
     setStatus(
       status,
-      `<strong>${plural(total, "room")}</strong> with no scheduled class for ${escapeHtml(title)} (${requested}). ` +
-        `Showing best matches first.`
+      `<strong>${plural(total, "room")}</strong> with no scheduled class ${escapeHtml(title)} (${requested}). Sorted by cushion, then building.`
     );
   } else {
     setStatus(
       status,
-      `<strong>No single room</strong> covers the full window for ${escapeHtml(title)}.` +
-        (result.combos.length ? " These two-room options still work if you are willing to move." : "")
+      `<strong>No single room</strong> covers the full window ${escapeHtml(title)}.` +
+        (result.combos.length ? " These room-change options still cover it." : "")
     );
   }
 
+  const { viewStart, viewEnd } = viewWindow(result);
   const cards = [];
   result.exact.forEach((item, index) => {
-    cards.push(renderRoomCard(item, index === 0));
+    cards.push(renderRoomCard(item, index === 0, viewStart, viewEnd));
   });
   result.combos.forEach((combo, index) => {
-    cards.push(renderComboCard(combo, index));
+    cards.push(renderComboCard(combo, index, viewStart, viewEnd));
   });
 
   if (!cards.length) {
@@ -219,86 +275,66 @@ function renderSearchResult(result) {
   results.innerHTML = cards.join("");
 
   $$("[data-room-jump]", results).forEach((btn) => {
-    btn.addEventListener("click", () => {
-      $("#tt-date").value = result.date;
-      $("#tt-room").value = btn.dataset.roomJump;
-      $("#tt-results").dataset.rendered = "";
-      switchTab("timetable");
-    });
+    btn.addEventListener("click", () => jumpToRoom(btn.dataset.roomJump, btn.dataset.roomDate || result.date));
   });
 }
 
-function renderRoomCard(item, best) {
-  const { room, block, startMin, endMin, slackBefore, slackAfter, nextEvent, capacity } = item;
-  const tags = [];
-  if (best) tags.push(`<span class="tag">Best fit</span>`);
-  if (capacity.unknown) tags.push(`<span class="tag tag-warn">Capacity unknown</span>`);
-  if (item.sameBuilding) tags.push(`<span class="tag tag-neutral">Preferred building</span>`);
-
-  const notes = [
-    `Free ${minutesToLabel(block.start)}–${minutesToLabel(block.end)}`,
-    slackBefore >= 5 ? `${formatDuration(slackBefore)} free before` : "Starts right at this window",
-    nextEvent ? `Next class ${minutesToLabel(nextEvent.start)}` : "No later class listed today",
-  ];
-
+function renderRoomCard(item, best, viewStart, viewEnd) {
+  const { room, block, startMin, endMin, events } = item;
   return `
     <article class="result-card${best ? " best" : ""}">
-      <div>
-        <div class="result-top">
-          <span class="room-name">${escapeHtml(room.name)}</span>
-          ${tags.join("")}
-        </div>
-        <div class="result-meta">
-          ${escapeHtml(room.buildingName)}${room.capacity ? ` · ${room.capacity} seats` : ""}${room.layout ? ` · ${escapeHtml(room.layout)}` : ""}
-        </div>
-        <div class="result-window">Free for your ${formatDuration(endMin - startMin)} · ${minutesToLabel(startMin)}–${minutesToLabel(endMin)}</div>
+      <div class="room-cell">
+        ${roomButton(room, item.date)}
+        <span class="room-building">${escapeHtml(room.buildingName)}</span>
+        ${best ? '<span class="tag room-best">Best</span>' : ""}
       </div>
-      <div class="result-actions">
-        <button class="btn btn-ghost btn-small" type="button" data-room-jump="${escapeHtml(room.id)}">Day view</button>
-      </div>
-      <div class="result-notes">
-        ${notes.map((n) => `<span>${escapeHtml(n)}</span>`).join("")}
-        ${room.features?.length ? `<span>${room.features.slice(0, 3).map(escapeHtml).join(" · ")}</span>` : ""}
+      <div class="plot">
+        ${renderBar({ block, events, startMin, endMin, viewStart, viewEnd })}
+        ${renderAxis(viewStart, viewEnd)}
       </div>
     </article>`;
 }
 
-function renderComboCard(combo, index) {
-  const { first, second, transfer } = { ...combo, transfer: 10 };
+function renderComboCard(combo, index, viewStart, viewEnd) {
+  const firstView = roomDayView(state.dataset, combo.first.room.id, combo.date);
+  const secondView = roomDayView(state.dataset, combo.second.room.id, combo.date);
+  const row = (part, view, label) => `
+    <div class="combo-row">
+      <div class="room-cell">
+        ${roomButton(part.room, combo.date)}
+        <span class="room-building">${escapeHtml(part.room.buildingName)}</span>
+      </div>
+      <div class="plot">
+        <div class="plot-head"><span class="plot-free">${label} · ${minutesToLabel(part.start)}–${minutesToLabel(part.end)}</span></div>
+        ${renderBar({
+          block: part.block,
+          events: view?.events || [],
+          startMin: part.start,
+          endMin: part.end,
+          viewStart,
+          viewEnd,
+        })}
+        ${renderAxis(viewStart, viewEnd)}
+      </div>
+    </div>`;
+
   return `
     <article class="result-card combo">
-      <div>
-        <div class="result-top">
-          <span class="room-name">Two-room option</span>
-          <span class="tag tag-warn">${index === 0 ? "Best combination" : "Room change"}</span>
-        </div>
-        <div class="result-meta">
-          ${escapeHtml(first.room.buildingName)} → ${escapeHtml(second.room.buildingName)}${combo.sameBuilding ? " · same building" : ""}
-        </div>
-        <div class="result-window">Covers ${minutesToLabel(combo.startMin)}–${minutesToLabel(combo.endMin)} with one move</div>
+      <div class="combo-head">
+        <span class="combo-title">Room change${index === 0 ? " · best" : ""}</span>
+        <span class="plot-cushion cushion-ok">${combo.transfer || 15} min to move</span>
       </div>
-      <div class="result-actions"></div>
-      <div class="combo-steps">
-        <div class="combo-step">
-          <span class="n">1</span>
-          <div><div class="times">${minutesToLabel(first.start)}–${minutesToLabel(first.end)}</div>
-             <div class="where">${escapeHtml(first.room.name)} · ${escapeHtml(first.room.buildingName)}</div></div>
-          <span class="tag tag-neutral">${formatDuration(first.end - first.start)}</span>
-        </div>
-        <div class="combo-step">
-          <span class="n">→</span>
-          <div><div class="times">${minutesToLabel(first.end)}–${minutesToLabel(second.start)}</div>
-             <div class="where">Walk / reset · ${transfer} min allowed</div></div>
-          <span class="tag tag-warn">transfer</span>
-        </div>
-        <div class="combo-step">
-          <span class="n">2</span>
-          <div><div class="times">${minutesToLabel(second.start)}–${minutesToLabel(second.end)}</div>
-             <div class="where">${escapeHtml(second.room.name)} · ${escapeHtml(second.room.buildingName)}</div></div>
-          <span class="tag tag-neutral">${formatDuration(second.end - second.start)}</span>
-        </div>
-      </div>
+      ${row(combo.first, firstView, "Start here")}
+      <div class="combo-move">↓ ${combo.transfer || 15} min walk / reset</div>
+      ${row(combo.second, secondView, "Then move to")}
     </article>`;
+}
+
+function jumpToRoom(roomId, date) {
+  $("#tt-date").value = date;
+  $("#tt-room").value = roomId;
+  $("#tt-results").dataset.rendered = "";
+  switchTab("timetable");
 }
 
 function renderTimetable() {
@@ -391,7 +427,7 @@ function renderCourses() {
         <td>${escapeHtml(formatTerm(r.term, state.dataset.meta).replace("2026-27 ", ""))}</td>
         <td>${escapeHtml(r.dayText)}</td>
         <td>${escapeHtml(r.timeText)}</td>
-        <td class="room-cell${r.roomText === "Not listed" ? " muted-cell" : ""}">${escapeHtml(r.roomText)}</td>
+        <td class="room-cell">${renderCourseRooms(r)}</td>
       </tr>`
     )
     .join("");
@@ -403,6 +439,27 @@ function renderCourses() {
     rows.length === 0
       ? "No sections match those filters."
       : `Each row is one section. Multiple meeting patterns are joined with “·”. Capacity, instructors and enrolment are in the Excel workbook when collected.`;
+}
+
+function renderCourseRooms(row) {
+  if (!row.roomIds.length) {
+    return `<span class="muted-cell">${escapeHtml(row.roomText)}</span>`;
+  }
+  const seen = new Set();
+  const buttons = [];
+  for (const roomId of row.roomIds) {
+    if (seen.has(roomId)) continue;
+    seen.add(roomId);
+    const room = state.dataset.roomById.get(roomId);
+    if (!room) continue;
+    const meeting = row.meetings.find((m) => m.roomId === roomId);
+    const selectedDate = $("#date").value;
+    const inRange =
+      meeting?.startDate && meeting?.endDate && selectedDate >= meeting.startDate && selectedDate <= meeting.endDate;
+    const date = inRange ? selectedDate : meeting?.startDate || row.meetings[0]?.startDate || selectedDate;
+    buttons.push(`<button class="room-link" type="button" data-room-jump="${escapeHtml(room.id)}" data-room-date="${escapeHtml(date)}">${escapeHtml(room.name)}</button>`);
+  }
+  return buttons.join(" · ") || `<span class="muted-cell">${escapeHtml(row.roomText)}</span>`;
 }
 
 function renderDataPanel() {
@@ -472,16 +529,6 @@ function wireEvents() {
     searchFromForm();
   });
 
-  $$("[data-duration]").forEach((chip) => {
-    chip.addEventListener("click", () => {
-      const minutes = Number(chip.dataset.duration);
-      const start = $("#start").value || "13:00";
-      const [h, m] = start.split(":").map(Number);
-      const total = Math.min(h * 60 + m + minutes, 23 * 60 + 59);
-      $("#end").value = `${String(Math.floor(total / 60)).padStart(2, "0")}:${String(total % 60).padStart(2, "0")}`;
-    });
-  });
-
   $("#tt-go").addEventListener("click", () => {
     $("#tt-results").dataset.rendered = "";
     renderTimetable();
@@ -502,6 +549,11 @@ function wireEvents() {
   });
   $("#course-term").addEventListener("change", renderCourses);
   $("#course-level").addEventListener("change", renderCourses);
+  $("#course-table").addEventListener("click", (event) => {
+    const button = event.target.closest("[data-room-jump]");
+    if (!button) return;
+    jumpToRoom(button.dataset.roomJump, button.dataset.roomDate || $("#date").value);
+  });
 
   const drop = $("#drop-zone");
   const fileInput = $("#file-input");

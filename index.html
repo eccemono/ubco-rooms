@@ -47,49 +47,24 @@
     </div>
 
     <form id="search-form" class="search-card">
-      <div class="field-grid">
+      <div class="field-grid search-grid">
         <label class="field">
           <span>Date</span>
           <input type="date" id="date" name="date" required>
         </label>
         <label class="field">
           <span>Start</span>
-          <input type="time" id="start" name="start" step="300" value="13:00" required>
+          <input type="time" id="start" name="start" step="300" value="14:00" required>
         </label>
         <label class="field">
           <span>End</span>
-          <input type="time" id="end" name="end" step="300" value="15:00" required>
+          <input type="time" id="end" name="end" step="300" value="16:00" required>
         </label>
-        <label class="field">
-          <span>People</span>
-          <input type="number" id="people" name="people" min="1" max="500" value="2" inputmode="numeric">
-        </label>
-      </div>
-
-      <div class="quick-row" role="group" aria-label="Quick durations">
-        <span class="quick-label">Quick set</span>
-        <button type="button" class="chip" data-duration="60">1 hour</button>
-        <button type="button" class="chip" data-duration="90">90 min</button>
-        <button type="button" class="chip" data-duration="120">2 hours</button>
-        <button type="button" class="chip" data-duration="180">3 hours</button>
-      </div>
-
-      <div class="field-grid field-grid-3">
         <label class="field">
           <span>Building</span>
           <select id="building" name="building">
             <option value="">Any building</option>
           </select>
-        </label>
-        <label class="field">
-          <span>Term</span>
-          <select id="term" name="term">
-            <option value="">Auto from date</option>
-          </select>
-        </label>
-        <label class="field check-field">
-          <span>Options</span>
-          <span class="check-line"><input type="checkbox" id="allow-moves" checked> Allow one room change</span>
         </label>
       </div>
 
@@ -195,7 +170,8 @@
     <div class="card prose">
       <h2>How availability is calculated</h2>
       <p>Every meeting pattern from the course schedule becomes a dated event using its section’s start and end dates. A room is shown as free when the requested interval does not overlap any event in that room, and the room is inside its listed building hours.</p>
-      <p>Room changes are only suggested when a single room cannot cover the whole window. A transfer allowance is included between rooms; walking time is not counted as study time.</p>
+      <p>Results are ranked by the cushion of free time before and after your window, then by building preference (ASC, ART, EME, FIP, SCI, COM). The ranking reserves about 10 minutes of transition before the next class so you are not studying right up to the door.</p>
+      <p>Room changes are only suggested when a single room cannot cover the whole window. A 15-minute transfer is included between rooms; walking time is not counted as study time.</p>
       <h2>What this cannot know</h2>
       <ul>
         <li>Ad-hoc bookings, exams, events, maintenance closures and department-controlled spaces.</li>

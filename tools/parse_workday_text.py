@@ -153,6 +153,7 @@ def parse_body(text: str) -> tuple[list[dict], list[dict], list[dict], list[str]
     meetings: list[dict] = []
     rooms: dict[str, dict] = {}
     warnings: list[str] = []
+    seen_meetings: set[tuple] = set()
 
     i = 0
     current = None
@@ -266,6 +267,10 @@ def parse_body(text: str) -> tuple[list[dict], list[dict], list[dict], list[str]
                     }
                 start_date = mt["startDate"] or TERMS.get(current["term"], {}).get("start")
                 end_date = mt["endDate"] or TERMS.get(current["term"], {}).get("end")
+                dedupe_key = (section_id, tuple(mt["days"]), mt["start"], mt["end"], room_id, start_date, end_date)
+                if dedupe_key in seen_meetings:
+                    continue
+                seen_meetings.add(dedupe_key)
                 meetings.append({
                     "id": f"{section_id}-{mt['days'][0]}-{mt['start']}-{room_id or 'noroom'}-{start_date}-{idx}",
                     "sectionId": section_id,

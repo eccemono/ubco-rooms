@@ -12,57 +12,33 @@ import {
   weekdayName,
 } from "./data.js";
 
-const TRANSFER_MINUTES = 10;
+const BUILDING_PRIORITY = ["ASC", "ART", "EME", "FIP", "SCI", "COM"];
+const TRANSFER_MINUTES = 15;
+const TRANSITION_MINUTES = 10;
 const MAX_EXACT_RESULTS = 40;
 const MAX_COMBO_RESULTS = 5;
 
-function capacityInfo(room, people) {
-  if (room.capacity == null) return { ok: true, unknown: true, delta: 0 };
-  return { ok: room.capacity >= people, unknown: false, delta: room.capacity - people };
-}
-
-function roomSortKey(room, people, buildingFilter) {
-  const cap = capacityInfo(room, people);
-  return [
-    cap.ok ? 0 : 1,
-    cap.unknown ? 1 : 0,
-    room.buildingCode === buildingFilter ? 0 : 1,
-    Math.abs(cap.delta),
-    room.buildingCode,
-    room.number,
-  ];
-}
-
-function sortRooms(rooms, people, buildingFilter) {
-  return rooms.sort((a, b) => {
-    const ka = roomSortKey(a, people, buildingFilter);
-    const kb = roomSortKey(b, people, buildingFilter);
-    for (let i = 0; i < ka.length; i += 1) {
-      if (ka[i] < kb[i]) return -1;
-      if (ka[i] > kb[i]) return 1;
-    }
-    return 0;
-  });
+function buildingRank(code) {
+  const index = BUILDING_PRIORITY.indexOf(code);
+  return index === -1 ? BUILDING_PRIORITY.length : index;
 }
 
 function findContainingBlock(blocks, start, end) {
   return blocks.find((b) => b.start <= start && b.end >= end) || null;
 }
 
-function findBlockCovering(blocks, start, end) {
-  return blocks.find((b) => b.end > start && b.start < end) || null;
+function cushionScore(slackBefore, slackAfter) {
+  const usableAfter = slackAfter - TRANSITION_MINUTES;
+  const min = Math.min(slackBefore, usableAfter);
+  let tier = 3;
+  if (min >= 30) tier = 0;
+  else if (min >= 15) tier = 1;
+  else if (min >= 0) tier = 2;
+  return { tier, min, usableAfter };
 }
 
 export function searchAvailability(dataset, options) {
-  const {
-    date,
-    start,
-    end,
-    people = 1,
-    building = "",
-    termKey = "",
-    allowMoves = true,
-  } = options;
+  const { date, start, end, building = "" } = options;
 
   const startMin = hmToMinutes(start);
   const endMin = hmToMinutes(end);
@@ -71,23 +47,22 @@ export function searchAvailability(dataset, options) {
     return { issues, exact: [], combos: [], date, startMin, endMin, transfer: TRANSFER_MINUTES };
   }
 
-  const term = termKey
-    ? dataset.meta.terms?.find((t) => t.key === termKey)
-    : termForDate(dataset.meta, date);
-
+  const term = termForDate(dataset.meta, date);
   const rooms = dataset.rooms.filter((r) => !building || r.buildingCode === building);
   const candidates = [];
 
   for (const room of rooms) {
-    const cap = capacityInfo(room, people);
-    if (!cap.ok) continue;
     const { hours, events, blocks } = freeIntervalsForRoom(dataset, room, date);
     if (!hours) continue;
     const block = findContainingBlock(blocks, startMin, endMin);
     if (!block) continue;
 
+    const slackBefore = startMin - block.start;
+    const slackAfter = block.end - endMin;
+    const cushion = cushionScore(slackBefore, slackAfter);
     const nextEvent = events.find((ev) => ev.start >= endMin) || null;
     const prevEvent = [...events].reverse().find((ev) => ev.end <= startMin) || null;
+
     candidates.push({
       kind: "exact",
       room,
@@ -96,27 +71,21 @@ export function searchAvailability(dataset, options) {
       events,
       nextEvent,
       prevEvent,
-      slackBefore: startMin - block.start,
-      slackAfter: block.end - endMin,
+      slackBefore,
+      slackAfter,
+      usableAfter: Math.max(0, cushion.usableAfter),
+      cushion,
       freeDuration: block.end - block.start,
-      capacity: cap,
+      buildingRank: buildingRank(room.buildingCode),
       sameBuilding: Boolean(building && room.buildingCode === building),
     });
   }
 
-  // Prefer rooms that are not comically oversized, then rooms with useful free
-  // time around the requested window.
   candidates.sort((a, b) => {
-    if (a.capacity.unknown !== b.capacity.unknown) return a.capacity.unknown ? 1 : -1;
-    if (a.sameBuilding !== b.sameBuilding) return a.sameBuilding ? -1 : 1;
-    const aCap = a.room.capacity || 0;
-    const bCap = b.room.capacity || 0;
-    const aOver = aCap ? Math.max(0, aCap - people) : 0;
-    const bOver = bCap ? Math.max(0, bCap - people) : 0;
-    if (aOver !== bOver) return aOver - bOver;
-    const aSlack = Math.min(a.slackAfter, 180) + Math.min(a.slackBefore, 60) * 0.4;
-    const bSlack = Math.min(b.slackAfter, 180) + Math.min(b.slackBefore, 60) * 0.4;
-    if (aSlack !== bSlack) return bSlack - aSlack;
+    if (a.cushion.tier !== b.cushion.tier) return a.cushion.tier - b.cushion.tier;
+    if (a.buildingRank !== b.buildingRank) return a.buildingRank - b.buildingRank;
+    if (a.cushion.min !== b.cushion.min) return b.cushion.min - a.cushion.min;
+    if (a.freeDuration !== b.freeDuration) return b.freeDuration - a.freeDuration;
     return a.room.name.localeCompare(b.room.name);
   });
 
@@ -130,12 +99,11 @@ export function searchAvailability(dataset, options) {
   }));
 
   let combos = [];
-  if (allowMoves && exact.length === 0) {
+  if (exact.length === 0) {
     combos = findCombinations(dataset, {
       date,
       startMin,
       endMin,
-      people,
       building,
       rooms,
       term,
@@ -156,24 +124,21 @@ export function searchAvailability(dataset, options) {
   };
 }
 
-function findCombinations(dataset, { date, startMin, endMin, people, building, rooms, term }) {
+function findCombinations(dataset, { date, startMin, endMin, building, rooms, term }) {
   const pool = [];
   for (const room of rooms) {
-    const cap = capacityInfo(room, people);
-    if (!cap.ok) continue;
     const { hours, blocks } = freeIntervalsForRoom(dataset, room, date);
     if (!hours) continue;
     const relevant = blocks
       .map((b) => ({ start: Math.max(b.start, startMin), end: Math.min(b.end, endMin), raw: b }))
       .filter((b) => b.end - b.start >= 15);
     if (!relevant.length) continue;
-    pool.push({ room, cap, hours, blocks, relevant });
+    pool.push({ room, hours, blocks, relevant, buildingRank: buildingRank(room.buildingCode) });
   }
 
   if (pool.length < 2) return [];
 
   const minSegment = 20;
-  const splitStep = 5;
   const options = [];
 
   for (let i = 0; i < pool.length; i += 1) {
@@ -182,24 +147,26 @@ function findCombinations(dataset, { date, startMin, endMin, people, building, r
       const a = pool[i];
       const b = pool[j];
       const aBlocks = a.blocks.filter((bl) => bl.start <= startMin && bl.end > startMin + minSegment);
-      const bBlocks = b.blocks.filter((bl) => bl.end >= endMin && bl.start < endMin - minSegment);
+      const bBlocks = b.blocks.filter((bl) => bl.end >= endMin + 5 && bl.start < endMin - minSegment);
       if (!aBlocks.length || !bBlocks.length) continue;
 
       for (const aBlock of aBlocks) {
         for (const bBlock of bBlocks) {
           const earliest = Math.max(startMin + minSegment, aBlock.start + minSegment);
-          const latest = Math.min(endMin - minSegment - TRANSFER_MINUTES, bBlock.end - minSegment - TRANSFER_MINUTES);
+          const latest = Math.min(
+            endMin - minSegment - TRANSFER_MINUTES,
+            bBlock.end - minSegment - TRANSFER_MINUTES
+          );
           if (latest < earliest) continue;
 
-          // Try a few evenly spaced splits rather than every 5-minute slot. This
-          // keeps the search fast while still finding sensible hand-offs.
           const points = new Set();
           points.add(earliest);
           points.add(latest);
           points.add(Math.round((earliest + latest) / 2));
           for (let t = Math.ceil(earliest / 30) * 30; t <= latest; t += 30) points.add(t);
 
-          for (const split of points) {
+          for (const point of points) {
+            const split = Math.round(point / 15) * 15;
             if (split < aBlock.start || split > aBlock.end) continue;
             const secondStart = split + TRANSFER_MINUTES;
             if (secondStart < bBlock.start || secondStart > bBlock.end) continue;
@@ -209,13 +176,10 @@ function findCombinations(dataset, { date, startMin, endMin, people, building, r
             if (firstMinutes < minSegment || secondMinutes < minSegment) continue;
 
             const sameBuilding = a.room.buildingCode === b.room.buildingCode;
-            const overA = a.room.capacity ? Math.max(0, a.room.capacity - people) : 0;
-            const overB = b.room.capacity ? Math.max(0, b.room.capacity - people) : 0;
             const score =
-              (a.room.buildingCode === building ? 0 : 100) +
-              (b.room.buildingCode === building ? 0 : 100) +
-              (sameBuilding ? 0 : 50) +
-              overA + overB +
+              a.buildingRank * 12 +
+              b.buildingRank * 12 +
+              (sameBuilding ? 0 : 35) +
               Math.abs(firstMinutes - secondMinutes) * 0.1;
 
             options.push({
@@ -225,7 +189,6 @@ function findCombinations(dataset, { date, startMin, endMin, people, building, r
               split,
               secondStart,
               sameBuilding,
-              capacity: [a.cap, b.cap],
               score,
               term,
               date,
@@ -239,7 +202,6 @@ function findCombinations(dataset, { date, startMin, endMin, people, building, r
     }
   }
 
-  // Deduplicate by room pair + split, then keep the best few.
   const seen = new Set();
   return options
     .sort((x, y) => x.score - y.score)
@@ -266,16 +228,8 @@ export function roomDayView(dataset, roomId, date) {
   const events = eventsForRoomOnDate(dataset, room.id, date);
   const segments = [];
   let cursor = hours.open;
-  const merged = [];
-  for (const ev of events) {
-    const last = merged[merged.length - 1];
-    if (last && ev.start <= last.end) last.end = Math.max(last.end, ev.end);
-    else merged.push({ start: ev.start, end: ev.end });
-  }
   for (const ev of events) {
     if (ev.end <= hours.open || ev.start >= hours.close) continue;
-    // Clip to the opening hours and to the previous event so overlapping
-    // bookings cannot produce out-of-order timeline rows.
     const start = Math.max(ev.start, hours.open, cursor);
     const end = Math.min(ev.end, hours.close);
     if (end <= start) continue;
@@ -284,7 +238,7 @@ export function roomDayView(dataset, roomId, date) {
     cursor = end;
   }
   if (cursor < hours.close) segments.push({ type: "free", start: cursor, end: hours.close });
-  return { room, date, hours, events, segments, merged };
+  return { room, date, hours, events, segments };
 }
 
 export function buildCourseRows(dataset) {
@@ -348,4 +302,4 @@ export function datasetStats(dataset) {
   };
 }
 
-export { formatTerm, prettyDate, minutesToLabel, isDateInRange };
+export { formatTerm, prettyDate, minutesToLabel, isDateInRange, buildingRank };
