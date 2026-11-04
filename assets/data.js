@@ -121,7 +121,7 @@ export function normalizeDataset(raw) {
       ...r,
       id: r.id || `${r.buildingCode || "ROOM"}-${r.number || i}`,
       name: r.name || [r.buildingCode, r.number].filter(Boolean).join(" "),
-      capacity: Number.isFinite(Number(r.capacity)) ? Number(r.capacity) : null,
+      capacity: Number(r.capacity) > 0 ? Number(r.capacity) : null,
       hoursMap: parseHours(r.hours),
     }))
     .filter((r) => r.id);

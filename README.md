@@ -6,7 +6,7 @@ A static website and Excel workbook for answering one question:
 
 The project is built for UBC Okanagan’s 2026–27 Winter Terms 1 and 2. It is a personal student project, not an official UBC service.
 
-**The bundled dataset is a demo fixture** until you replace it with a real Workday collection. The site says so prominently.
+**The bundled dataset is a real Workday capture** from 4 November 2026: 3,054 sections, 8,828 meeting patterns, and 110 rooms across both 2026–27 winter terms. It was captured from the Find Course Sections report in five course-level slices (100–500). Sections with no dated meeting pattern — work terms, asynchronous online, arranged studies — are not in the room dataset, so the catalogue is not literally every row of the 3,844-result report.
 
 ---
 
@@ -18,15 +18,15 @@ The project is built for UBC Okanagan’s 2026–27 Winter Terms 1 and 2. It is 
   - Two-room combination finder when no single room covers the whole window.
   - Day timetable for any room.
   - Searchable course/section table.
-  - Local JSON import, so you can try a real dataset without redeploying.
-- **An Excel workbook** (`exports/ubco-2026-27.xlsx`) with Sections, Meetings, Rooms, and Data Quality sheets.
-- **A Workday capture helper** (`collector/`) that opens a local browser, lets you sign in, and saves the results of Find Course Sections. It never handles your password or MFA.
-- **A parser** (`tools/import_workday.py`) that converts a Workday Excel/CSV export into the website dataset.
+  - Local JSON import, so you can try a different dataset without redeploying.
+- **An Excel workbook** (`exports/ubco-2026-27.xlsx`) with Sections, Meetings, Rooms, Room grid, and Data Quality sheets.
+- **Workday capture helpers** (`collector/`) that open a local browser, sign in with your saved profile, and capture the Find Course Sections report.
+- **Parsers** (`tools/import_workday.py`, `tools/parse_workday_text.py`) for Excel exports and page-text captures.
 - **A workbook builder** (`tools/build_workbook.py`).
 
 ---
 
-## Quick start (see the demo)
+## Quick start (local preview)
 
 ```bash
 cd Projects/ubco-rooms
@@ -105,15 +105,27 @@ The parser:
 - Writes `data/schedule.json` and `data/import-report.json`.
 - Leaves uncertain fields blank and reports them; it does not invent rooms or times.
 
-If the Excel button is unavailable, the collector saves a page-text snapshot. Parse that fallback with:
+### Fallback: capture by course level
+
+Workday's report sometimes hides or disables the Excel export. The reliable fallback is to capture the report as text in five course-level slices:
 
 ```bash
-.venv/bin/python tools/parse_workday_text.py data/raw/2026W1-ug-page.json
+cd collector
+node capture_levels.mjs
 ```
 
-That fallback only sees the rows the page loaded, so treat it as a partial capture. The Excel export is the complete source.
+It signs in with the saved profile, selects both terms and both levels, then captures `100 Level` through `500 Level` into `data/raw/level-*.json`.
 
-If your export uses different columns, send one raw file (or the saved HTML) back for a parser adjustment.
+Then parse and merge:
+
+```bash
+cd ..
+./tools/import_levels.sh
+```
+
+This is the method used for the bundled dataset. It sees only sections that have a dated meeting pattern; work terms, asynchronous online sections and arranged studies are skipped.
+
+If your Excel export uses different columns, send one raw file (or the saved HTML) back for a parser adjustment.
 
 ### 3. Review before trusting it
 
@@ -265,12 +277,13 @@ ubco-rooms/
 
 ## Known limitations
 
-- The bundled data is fake. Replace it.
-- Workday exports are not a stable public API; the parser may need tuning for your tenant’s exact columns.
-- Room capacities and building hours need verification.
+- The capture is 3,054 room-scheduled sections from a 3,844-result report. Work terms, asynchronous online sections and arranged studies without a dated meeting were skipped.
+- Room capacities are mostly unknown; the site therefore does not filter by group size for those rooms.
+- Building hours are defaults from the public learning-spaces directory and need verification.
 - The combination finder supports one room change (two rooms), not arbitrary chains.
-- Full-year and alternating-week meetings depend on how the export represents their dates.
+- Alternating-week meetings are represented as multiple date-ranged meetings where Workday exposes them.
 - Exam-period availability is intentionally not estimated; dates outside teaching periods return a warning instead of “everything is free”.
+- The dataset is a snapshot. It does not know about ad-hoc bookings, exams, events or room closures.
 
 ## Regenerating the demo
 

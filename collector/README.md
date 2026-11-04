@@ -16,6 +16,18 @@ This folder contains a **local, user-driven** capture helper. It exists because 
 - It does not access any account other than the one you sign into.
 - It does not send data anywhere.
 
+## Reliable path: capture by course level
+
+Workday may hide or disable the Excel icon for large reports. This captures the report as text in five slices instead:
+
+```bash
+node capture_levels.mjs
+```
+
+It signs in with the saved profile (the owner approved this), selects both terms and both levels, then scrolls through `100 Level` to `500 Level` and writes `../data/raw/level-*.json`.
+
+Then run `../tools/import_levels.sh`.
+
 ## Fast path: both terms and both levels in one search
 
 ```bash

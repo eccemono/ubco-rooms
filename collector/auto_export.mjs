@@ -92,32 +92,41 @@ If the page is not ready, it keeps waiting (up to 10 minutes).
       if (Date.now() < graceUntil) continue;
 
       console.log("\nClicking Export to Excel...");
+      // Hovering the report header is what reveals Workday's icon toolbar.
+      await p.getByRole("heading", { name: "Find Course Sections" }).hover({ force: true }).catch(() => {});
+      await p.getByText(/\d+ Results/).first().hover({ force: true }).catch(() => {});
+      await sleep(500);
+
       const button = p.locator('[data-automation-id="excelIconButton"], [title="Export to Excel"]').first();
       await button.scrollIntoViewIfNeeded().catch(() => {});
-      await button.click({ force: true, timeout: 5000 }).catch(async () => {
-        await button.evaluate((el) => el.click()).catch(() => {});
-      });
-      await sleep(2000);
+      await button.click({ force: true, timeout: 5000 }).catch(() => {});
+      // Direct DOM click bypasses aria-hidden and any invisible overlay.
+      const clicked = await p.evaluate(() => {
+        const el = document.querySelector('[data-automation-id="excelIconButton"], [title="Export to Excel"]');
+        if (!el) return false;
+        el.click();
+        return true;
+      }).catch(() => false);
+      if (!clicked) console.log("  Excel button not found in DOM.");
 
-      // Workday may show a secondary "Download" button.
-      for (const loc of [
-        p.getByRole("dialog").getByRole("button", { name: /^download$/i }),
-        p.getByRole("button", { name: /^download$/i }),
-      ]) {
-        if (await loc.count().catch(() => 0) && await loc.first().isVisible().catch(() => false)) {
-          await loc.first().click().catch(() => {});
-          await sleep(2000);
-          break;
+      // Workday may open an export dialog with a second Download button.
+      const downloadDeadline = Date.now() + 25_000;
+      while (!saved && Date.now() < downloadDeadline) {
+        for (const loc of [
+          p.getByRole("dialog").getByRole("button", { name: /^download$/i }),
+          p.getByRole("button", { name: /^download$/i }),
+          p.getByRole("link", { name: /download/i }),
+        ]) {
+          if (await loc.count().catch(() => 0)) {
+            const first = loc.first();
+            if (await first.isVisible().catch(() => false)) {
+              await first.click().catch(() => {});
+            }
+          }
         }
+        await sleep(1000);
       }
-      if (!saved) {
-        console.log("No download yet; waiting and retrying once...");
-        await sleep(5000);
-        if (!saved) {
-          await button.click({ force: true }).catch(() => {});
-          await sleep(3000);
-        }
-      }
+      if (!saved) console.log("No download yet; will retry the click on the next loop.");
     }
     await sleep(1500);
   }

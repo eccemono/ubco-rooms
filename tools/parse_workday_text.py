@@ -334,7 +334,7 @@ def main() -> None:
         },
         "rooms": sorted(rooms, key=lambda r: (r["buildingCode"], r["number"])),
         "sections": sorted(sections, key=lambda s: (s["term"], s["subject"], s["courseNumber"], s["section"])),
-        "meetings": sorted(meetings, key=lambda m: (m["startDate"], m["start"], m["roomId"] or "")),
+        "meetings": sorted(meetings, key=lambda m: (m["startDate"] or "", m["start"], m["roomId"] or "")),
     }
 
     args.out.parent.mkdir(parents=True, exist_ok=True)
