@@ -333,6 +333,16 @@ def main() -> None:
         },
         "nonTeachingPeriods": [
             {
+                "start": "2026-09-30",
+                "end": "2026-09-30",
+                "reason": "National Day for Truth and Reconciliation (university closed)",
+            },
+            {
+                "start": "2026-10-12",
+                "end": "2026-10-12",
+                "reason": "Thanksgiving Day (university closed)",
+            },
+            {
                 "start": "2026-11-09",
                 "end": "2026-11-13",
                 "reason": "Winter Term 1 midterm break",

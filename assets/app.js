@@ -3,16 +3,19 @@ import {
   prettyDate,
   minutesToLabel,
   normalizeDataset,
+  nonTeachingForDate,
   termForDate,
+  weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261104";
+} from "./data.js?v=20261106";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
   datasetStats,
+  dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261104";
+} from "./engine.js?v=20261106";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -47,6 +50,82 @@ function defaultDate(meta) {
   if (inTerm) return today;
   const upcoming = (meta.terms || []).find((t) => t.start > today);
   return upcoming?.start || (meta.terms || [])[0]?.start || today;
+}
+
+function isTeachingDay(dateString) {
+  const day = weekdayForDate(dateString);
+  if (day == null || day === 0 || day === 6) return false;
+  if (!termForDate(state.dataset.meta, dateString)) return false;
+  if (nonTeachingForDate(state.dataset.meta, dateString)) return false;
+  return true;
+}
+
+function adjacentTeachingDay(dateString, direction) {
+  if (!dateString) return null;
+  const d = new Date(`${dateString}T12:00:00Z`);
+  if (Number.isNaN(d.getTime())) return null;
+  for (let i = 0; i < 400; i += 1) {
+    d.setUTCDate(d.getUTCDate() + direction);
+    const iso = d.toISOString().slice(0, 10);
+    if (isTeachingDay(iso)) return iso;
+  }
+  return null;
+}
+
+function slotTone(count) {
+  if (count >= 12) return "free-4";
+  if (count >= 6) return "free-3";
+  if (count >= 3) return "free-2";
+  if (count >= 1) return "free-1";
+  return "";
+}
+
+function renderDayGlance() {
+  const strip = $("#day-strip");
+  const axis = $("#day-axis");
+  const title = $("#day-title");
+  const note = $("#day-note");
+  const date = $("#date").value;
+  if (!strip || !date) return;
+
+  const result = dayAvailability(state.dataset, {
+    date,
+    buildings: selectedBuildings(),
+    allowLabs: $("#allow-labs")?.checked || false,
+  });
+
+  title.textContent = prettyDate(date, { withYear: false });
+  const prev = adjacentTeachingDay(date, -1);
+  const next = adjacentTeachingDay(date, 1);
+  $("#prev-day").disabled = !prev;
+  $("#next-day").disabled = !next;
+
+  if (result.issues?.length) {
+    note.textContent = result.issues[0];
+    strip.innerHTML = `<div class="day-empty">${escapeHtml(result.issues[0])}</div>`;
+    axis.innerHTML = "";
+    return;
+  }
+
+  const term = termForDate(state.dataset.meta, date);
+  note.textContent = `${term ? formatTerm(term.key, state.dataset.meta).replace("2026-27 ", "") + " · " : ""}Teaching day · ${plural(result.rooms, "standard room")} considered · green = a free 30-minute block`;
+  strip.innerHTML = result.slots
+    .map((slot) => {
+      const titleText =
+        slot.count > 0
+          ? `${slot.count} rooms free ${minutesToLabel(slot.start)}–${minutesToLabel(slot.end)}`
+          : `No standard room free ${minutesToLabel(slot.start)}–${minutesToLabel(slot.end)}`;
+      return `<span class="day-slot ${slotTone(slot.count)}" title="${escapeHtml(titleText)}"></span>`;
+    })
+    .join("");
+
+  const ticks = [420, 600, 780, 960, 1140, 1320];
+  axis.innerHTML = ticks
+    .map((t) => {
+      const left = ((t - 420) / (1320 - 420)) * 100;
+      return `<span style="left:${left}%">${minutesToLabel(t)}</span>`;
+    })
+    .join("");
 }
 
 function formatDuration(minutes) {
@@ -113,6 +192,25 @@ function fillSelect(select, items, { placeholder, valueKey = "value", labelKey =
   if ([...select.options].some((o) => o.value === current)) select.value = current;
 }
 
+function renderBuildingOptions() {
+  const codes = [...new Set(state.dataset.rooms.map((r) => r.buildingCode))]
+    .filter((code) => code && !NEVER_SHOW_BUILDINGS.has(code))
+    .sort();
+  const existing = new Set($$("#building-options input:checked").map((el) => el.value));
+  const initial = !$("#building-options").children.length;
+  $("#building-options").innerHTML = codes
+    .map((code) => {
+      const name = state.dataset.rooms.find((r) => r.buildingCode === code)?.buildingName || code;
+      const checked = initial || existing.has(code);
+      return `<label class="building-check" title="${escapeHtml(name)}"><input type="checkbox" value="${escapeHtml(code)}"${checked ? " checked" : ""}>${escapeHtml(code)}</label>`;
+    })
+    .join("");
+}
+
+function selectedBuildings() {
+  return $$("#building-options input:checked").map((el) => el.value);
+}
+
 function populateControls() {
   const { meta, rooms } = state.dataset;
   const termOptions = (meta.terms || []).map((t) => ({ value: t.key, label: t.label }));
@@ -124,7 +222,7 @@ function populateControls() {
       label: `${code} · ${rooms.find((r) => r.buildingCode === code)?.buildingName || code}`,
     }));
 
-  fillSelect($("#building"), buildings, { placeholder: "Any building" });
+  renderBuildingOptions();
   fillSelect($("#course-term"), termOptions, { placeholder: "All terms" });
 
   const date = defaultDate(meta);
@@ -160,20 +258,21 @@ function searchFromForm() {
   const date = $("#date").value;
   const start = $("#start").value;
   const end = $("#end").value;
-  const building = $("#building").value;
+  const buildings = selectedBuildings();
   const allowLabs = $("#allow-labs")?.checked || false;
 
   const result = searchAvailability(state.dataset, {
     date,
     start,
     end,
-    building,
+    buildings,
     allowLabs,
   });
   state.lastSearch = result;
   state.visibleExact = 8;
   state.showCombos = false;
   renderSearchResult(result);
+  renderDayGlance();
 }
 
 function viewWindow(result) {
@@ -261,7 +360,7 @@ function otherTimeOptions(result) {
       date: result.date,
       start,
       end,
-      building: $("#building").value,
+      buildings: selectedBuildings(),
       allowLabs: result.allowLabs,
       includeCombos: false,
     });
@@ -610,6 +709,32 @@ function wireEvents() {
 
   $("#search-form").addEventListener("submit", (event) => {
     event.preventDefault();
+    searchFromForm();
+  });
+
+  $("#buildings-all").addEventListener("click", () => {
+    $$("#building-options input").forEach((el) => { el.checked = true; });
+    searchFromForm();
+  });
+  $("#buildings-none").addEventListener("click", () => {
+    $$("#building-options input").forEach((el) => { el.checked = false; });
+    searchFromForm();
+  });
+  $("#building-options").addEventListener("change", () => searchFromForm());
+  $("#date").addEventListener("change", () => searchFromForm());
+
+  $("#prev-day").addEventListener("click", () => {
+    const next = adjacentTeachingDay($("#date").value, -1);
+    if (!next) return;
+    $("#date").value = next;
+    $("#tt-date").value = next;
+    searchFromForm();
+  });
+  $("#next-day").addEventListener("click", () => {
+    const next = adjacentTeachingDay($("#date").value, 1);
+    if (!next) return;
+    $("#date").value = next;
+    $("#tt-date").value = next;
     searchFromForm();
   });
 

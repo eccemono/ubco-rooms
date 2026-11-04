@@ -7,7 +7,7 @@ import { readFile } from "node:fs/promises";
 import path from "node:path";
 import { fileURLToPath } from "node:url";
 import { normalizeDataset, weekdayName } from "../assets/data.js";
-import { buildCourseRows, roomDayView, searchAvailability } from "../assets/engine.js";
+import { buildCourseRows, dayAvailability, roomDayView, searchAvailability } from "../assets/engine.js";
 
 const __dirname = path.dirname(fileURLToPath(import.meta.url));
 const raw = JSON.parse(await readFile(path.join(__dirname, "..", "data", "schedule.json"), "utf8"));
@@ -84,6 +84,11 @@ check(
 const labSearch = searchAvailability(dataset, { date, start: "14:00", end: "16:00", allowLabs: true });
 check("allow-labs search still hides restricted buildings", labSearch.exact.every((r) => !["ADM", "UCH"].includes(r.room.buildingCode)));
 check("allow-labs search still hides CCS studios", labSearch.exact.every((r) => !dataset.specializedRoomIds.has(r.room.id)));
+
+const overview = dayAvailability(dataset, { date, buildings: ["ASC", "ART", "EME", "FIP", "SCI", "COM"] });
+check("day overview has 30-minute slots", overview.slots.length === 30);
+check("day overview has some available slots", overview.slots.some((s) => s.count > 0));
+check("empty building selection is explicit", dayAvailability(dataset, { date, buildings: [] }).issues.length > 0);
 
 const roomId = dataset.rooms[0].id;
 const day = roomDayView(dataset, roomId, date);

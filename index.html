@@ -7,7 +7,7 @@
 <meta name="description" content="Find UBCO classrooms with no scheduled class at a given date and time.">
 <meta name="theme-color" content="#002145">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23002145'/%3E%3Cpath d='M18 18v18c0 8 6 12 14 12s14-4 14-12V18h-8v18c0 4-2 6-6 6s-6-2-6-6V18z' fill='%23fff'/%3E%3Crect x='14' y='50' width='36' height='5' rx='2.5' fill='%23f2a900'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/styles.css?v=20261104">
+<link rel="stylesheet" href="assets/styles.css?v=20261106">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -18,7 +18,7 @@
       <span class="brand-mark" aria-hidden="true">U</span>
       <span>
         <strong>UBCO Room Finder</strong>
-        <small>Study space, minus the guesswork</small>
+        <small>this is vibe coded ai slop, but hopefully functional enough</small>
       </span>
     </a>
     <div class="head-meta">
@@ -38,8 +38,7 @@
   <section id="panel-search" class="panel is-active" role="tabpanel" aria-labelledby="tab-search">
     <div class="hero">
       <p class="eyebrow">2026–27 Winter Session</p>
-      <h1 id="search-title">Find a room that’s actually free.</h1>
-      <p class="lede">Pick a date and a time window. We check every scheduled class in the dataset and show rooms with nothing booked. No account, no reservation.</p>
+      <h1 id="search-title">Why did my wife leave me?</h1>
     </div>
 
     <div id="demo-banner" class="notice notice-warn" hidden>
@@ -60,13 +59,18 @@
           <span>End</span>
           <input type="time" id="end" name="end" step="300" value="16:00" required>
         </label>
-        <label class="field">
-          <span>Building</span>
-          <select id="building" name="building">
-            <option value="">Any building</option>
-          </select>
-        </label>
       </div>
+
+      <fieldset class="building-field">
+        <div class="building-head">
+          <legend>Buildings</legend>
+          <div class="building-actions">
+            <button type="button" class="link-btn" id="buildings-all">All</button>
+            <button type="button" class="link-btn" id="buildings-none">None</button>
+          </div>
+        </div>
+        <div id="building-options" class="building-options"></div>
+      </fieldset>
 
       <div class="form-foot">
         <p class="fine-print">“No class listed” is not a guarantee. Events, exams and private bookings may be missing.</p>
@@ -81,6 +85,23 @@
         <span class="fine-print">ADM, UCH, and CCS studio rooms are always excluded.</span>
       </div>
     </div>
+
+    <section class="day-glance card" aria-labelledby="day-title">
+      <div class="day-head">
+        <div>
+          <p class="eyebrow">Day at a glance</p>
+          <h2 id="day-title">Loading…</h2>
+          <p id="day-note" class="muted day-note"></p>
+        </div>
+        <div class="day-nav">
+          <button type="button" class="day-arrow" id="prev-day" aria-label="Previous teaching day">‹</button>
+          <button type="button" class="day-arrow" id="next-day" aria-label="Next teaching day">›</button>
+        </div>
+      </div>
+      <div id="day-strip" class="day-strip" role="img" aria-label="Availability across the teaching day"></div>
+      <div id="day-axis" class="day-axis"></div>
+      <p class="fine-print">Green means at least one standard room is free for a 30-minute block, including a short transition before the next class.</p>
+    </section>
 
     <div id="search-status" class="status" role="status" aria-live="polite"></div>
     <div id="results" class="results"></div>
@@ -216,6 +237,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/app.js?v=20261104"></script>
+<script type="module" src="assets/app.js?v=20261106"></script>
 </body>
 </html>

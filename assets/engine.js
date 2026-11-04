@@ -10,7 +10,7 @@ import {
   prettyDate,
   termForDate,
   weekdayName,
-} from "./data.js?v=20261104";
+} from "./data.js?v=20261106";
 
 const BUILDING_PRIORITY = ["ASC", "ART", "EME", "FIP", "SCI", "COM"];
 const NEVER_SHOW_BUILDINGS = new Set(["ADM", "UCH"]);
@@ -22,6 +22,17 @@ const MAX_COMBO_RESULTS = 5;
 function buildingRank(code) {
   const index = BUILDING_PRIORITY.indexOf(code);
   return index === -1 ? BUILDING_PRIORITY.length : index;
+}
+
+function filterRooms(dataset, { buildings, building, allowLabs = false }) {
+  const selected = Array.isArray(buildings) ? new Set(buildings) : building ? new Set([building]) : null;
+  return dataset.rooms.filter((r) => {
+    if (NEVER_SHOW_BUILDINGS.has(r.buildingCode)) return false;
+    if (dataset.specializedRoomIds?.has(r.id)) return false;
+    if (selected && !selected.has(r.buildingCode)) return false;
+    if (!allowLabs && dataset.labRoomIds?.has(r.id)) return false;
+    return true;
+  });
 }
 
 function findContainingBlock(blocks, start, end) {
@@ -39,7 +50,7 @@ function cushionScore(slackBefore, slackAfter) {
 }
 
 export function searchAvailability(dataset, options) {
-  const { date, start, end, building = "", allowLabs = false } = options;
+  const { date, start, end, building = "", buildings, allowLabs = false } = options;
 
   const startMin = hmToMinutes(start);
   const endMin = hmToMinutes(end);
@@ -48,14 +59,20 @@ export function searchAvailability(dataset, options) {
     return { issues, exact: [], combos: [], date, startMin, endMin, transfer: TRANSFER_MINUTES };
   }
 
+  if (Array.isArray(buildings) && buildings.length === 0) {
+    return {
+      issues: ["Select at least one building."],
+      exact: [],
+      combos: [],
+      date,
+      startMin,
+      endMin,
+      transfer: TRANSFER_MINUTES,
+    };
+  }
+
   const term = termForDate(dataset.meta, date);
-  const rooms = dataset.rooms.filter((r) => {
-    if (NEVER_SHOW_BUILDINGS.has(r.buildingCode)) return false;
-    if (dataset.specializedRoomIds?.has(r.id)) return false;
-    if (building && r.buildingCode !== building) return false;
-    if (!allowLabs && dataset.labRoomIds?.has(r.id)) return false;
-    return true;
-  });
+  const rooms = filterRooms(dataset, { buildings, building, allowLabs });
   const candidates = [];
 
   for (const room of rooms) {
@@ -225,6 +242,45 @@ function findCombinations(dataset, { date, startMin, endMin, building, rooms, te
       first: { room: o.rooms[0], start: startMin, end: o.split, block: o.blocks[0] },
       second: { room: o.rooms[1], start: o.secondStart, end: endMin, block: o.blocks[1] },
     }));
+}
+
+export function dayAvailability(dataset, options) {
+  const { date, buildings, building = "", allowLabs = false } = options;
+  const issues = detectInputIssues(dataset.meta, date, 7 * 60, 22 * 60);
+  if (issues.length) {
+    return { date, issues, start: 7 * 60, end: 22 * 60, step: 30, slots: [] };
+  }
+  if (Array.isArray(buildings) && buildings.length === 0) {
+    return {
+      date,
+      issues: ["Select at least one building."],
+      start: 7 * 60,
+      end: 22 * 60,
+      step: 30,
+      slots: [],
+    };
+  }
+
+  const rooms = filterRooms(dataset, { buildings, building, allowLabs });
+  const roomBlocks = rooms
+    .map((room) => {
+      const { hours, blocks } = freeIntervalsForRoom(dataset, room, date);
+      return hours ? { room, blocks } : null;
+    })
+    .filter(Boolean);
+
+  const start = 7 * 60;
+  const end = 22 * 60;
+  const step = 30;
+  const slots = [];
+  for (let t = start; t + step <= end; t += step) {
+    let count = 0;
+    for (const { blocks } of roomBlocks) {
+      if (blocks.some((b) => b.start <= t && b.end >= t + step + TRANSITION_MINUTES)) count += 1;
+    }
+    slots.push({ start: t, end: t + step, count });
+  }
+  return { date, issues: [], start, end, step, slots, rooms: roomBlocks.length };
 }
 
 export function roomDayView(dataset, roomId, date) {

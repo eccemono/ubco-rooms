@@ -27,6 +27,8 @@ TERMS = {
 }
 
 NON_TEACHING = [
+    {"start": "2026-09-30", "end": "2026-09-30", "reason": "National Day for Truth and Reconciliation (university closed)"},
+    {"start": "2026-10-12", "end": "2026-10-12", "reason": "Thanksgiving Day (university closed)"},
     {"start": "2026-11-09", "end": "2026-11-13", "reason": "Winter Term 1 midterm break"},
     {"start": "2026-11-11", "end": "2026-11-11", "reason": "Remembrance Day (university closed)"},
     {"start": "2026-12-10", "end": "2027-01-04", "reason": "Winter break between terms"},
