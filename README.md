@@ -166,6 +166,8 @@ cd collector && npm run collect && cd ..
 
 # 3. validate it
 .venv/bin/python tools/validate_data.py
+.venv/bin/python tools/audit_rooms.py
+.venv/bin/python tools/check_coverage.py --reported 3844
 
 # 4. rebuild the Excel workbook
 .venv/bin/python tools/build_workbook.py
@@ -261,6 +263,7 @@ ubco-rooms/
     import_workday.py        export -> normalized dataset
     validate_data.py         structural checks before publishing
     audit_rooms.py           room-directory / reference audit
+    check_coverage.py        completeness report vs raw Workday captures
     build_workbook.py        dataset -> Excel
     make_demo.py             regenerate the demo fixture
     merge_rooms.py           optional room metadata merge
