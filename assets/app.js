@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261130";
+} from "./data.js?v=20261202";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -16,7 +16,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261130";
+} from "./engine.js?v=20261202";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -843,10 +843,25 @@ function renderRouteTimeline(route) {
 
 function renderRouteCard(title, route, subtitle) {
   if (!route) return "";
+  const rooms = [...new Map(route.segments.map((segment) => [segment.room.id, segment.room])).values()];
+  const roomButtons = rooms
+    .map((room) => `<button type="button" data-report-route-room="${escapeHtml(room.id)}">${escapeHtml(room.name)}</button>`)
+    .join("");
   return `
     <article class="route-card card">
-      <div class="best-route-kicker">${escapeHtml(title)}</div>
-      <div class="best-route-note">${escapeHtml(subtitle)}</div>
+      <div class="route-head">
+        <div>
+          <div class="best-route-kicker">${escapeHtml(title)}</div>
+          <div class="best-route-note">${escapeHtml(subtitle)}</div>
+        </div>
+        <div class="room-menu-wrap">
+          <button class="room-menu" type="button" aria-label="Route options" aria-expanded="false">⋮</button>
+          <div class="room-menu-popover route-report-popover" hidden>
+            <div class="route-report-label">Report unavailable</div>
+            ${roomButtons}
+          </div>
+        </div>
+      </div>
       ${renderRouteTimeline(route)}
     </article>`;
 }
@@ -1273,6 +1288,11 @@ function wireEvents() {
       $$(".room-menu-popover").forEach((el) => { el.hidden = true; });
       popover.hidden = !open;
       menu.setAttribute("aria-expanded", String(open));
+      return;
+    }
+    const routeRoom = event.target.closest("[data-report-route-room]");
+    if (routeRoom) {
+      reportUnavailable(routeRoom.dataset.reportRouteRoom);
       return;
     }
     const report = event.target.closest("[data-report-unavailable]");

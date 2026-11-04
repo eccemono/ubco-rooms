@@ -641,3 +641,18 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 .room-menu-popover button:hover { background: var(--red-soft); }
 
 .room-menu-note { color: var(--ink-faint); font-size: .64rem; padding: .25rem .5rem .15rem; }
+.route-head { display: flex; justify-content: space-between; align-items: flex-start; gap: .6rem; }
+.route-report-label {
+  color: var(--ink-faint); font-size: .64rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em; padding: .25rem .5rem .2rem;
+}
+.room-menu {
+  min-width: 28px; min-height: 28px; border-radius: 7px;
+  background: #eef1f4; color: var(--navy); font-size: 1.15rem;
+  display: inline-flex; align-items: center; justify-content: center;
+}
+.room-top { width: 100%; }
+@media (max-width: 700px) {
+  .room-cell { display: block; }
+  .room-menu { min-width: 34px; min-height: 34px; font-size: 1.3rem; }
+}
