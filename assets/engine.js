@@ -10,7 +10,7 @@ import {
   prettyDate,
   termForDate,
   weekdayName,
-} from "./data.js?v=20261126";
+} from "./data.js?v=20261128";
 
 const BUILDING_PRIORITY = ["ASC", "ART", "EME", "FIP", "SCI", "COM"];
 const NEVER_SHOW_BUILDINGS = new Set(["ADM", "UCH"]);

@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261126";
+} from "./data.js?v=20261128";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -16,7 +16,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261126";
+} from "./engine.js?v=20261128";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -410,11 +410,19 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
     freeWidth >= 14
       ? `<span class="bar-free-label" style="left:${freeLeft}%;width:${freeWidth}%">free</span>`
       : "";
+  const previousClass = events
+    .filter((ev) => ev.end <= block.start)
+    .sort((a, b) => b.end - a.end)[0];
+  const nextClass = events
+    .filter((ev) => ev.start >= block.end)
+    .sort((a, b) => a.start - b.start)[0];
+  const boundedBefore = previousClass && Math.abs(previousClass.end - block.start) <= 1;
+  const boundedAfter = nextClass && Math.abs(nextClass.start - block.end) <= 1;
   const cushionBefore = clip(Math.max(block.start, startMin - 60), startMin);
   const cushionAfter = clip(endMin, Math.min(block.end, endMin + 60));
   const cushionHtml = [
-    cushionBefore.end > cushionBefore.start ? { ...cushionBefore, label: "cushion" } : null,
-    cushionAfter.end > cushionAfter.start ? { ...cushionAfter, label: "cushion" } : null,
+    boundedBefore && cushionBefore.end > cushionBefore.start ? { ...cushionBefore, label: "cushion" } : null,
+    boundedAfter && cushionAfter.end > cushionAfter.start ? { ...cushionAfter, label: "cushion" } : null,
   ]
     .filter(Boolean)
     .map((c) => {
@@ -670,15 +678,19 @@ function aggressiveRoute(result) {
     study: candidate.end - candidate.start,
     count: 1,
     prev: -1,
+    start: candidate.start,
     index,
   }));
   for (let i = 0; i < candidates.length; i += 1) {
     for (let j = 0; j < i; j += 1) {
-      if (candidates[j].end + 5 > candidates[i].start) continue;
-      const study = dp[j].study + (candidates[i].end - candidates[i].start);
+      // The next block may start after a 5-minute transfer, trimming its
+      // beginning if the two free blocks touch exactly.
+      const startI = Math.max(candidates[i].start, candidates[j].end + 5);
+      if (startI >= candidates[i].end) continue;
+      const study = dp[j].study + (candidates[i].end - startI);
       const count = dp[j].count + 1;
       if (study > dp[i].study || (study === dp[i].study && count < dp[i].count)) {
-        dp[i] = { study, count, prev: j, index: i };
+        dp[i] = { study, count, prev: j, start: startI, index: i };
       }
     }
   }
@@ -692,18 +704,18 @@ function aggressiveRoute(result) {
   const chosen = [];
   let cursor = best;
   while (cursor) {
-    chosen.push(candidates[cursor.index]);
+    chosen.push({ candidate: candidates[cursor.index], start: cursor.start });
     cursor = cursor.prev >= 0 ? dp[cursor.prev] : null;
   }
   chosen.reverse();
   return {
     kind: "aggressive",
     segments: chosen.map((item) => ({
-      room: item.room,
+      room: item.candidate.room,
       start: item.start,
-      end: item.end,
-      block: item.block,
-      events: item.events,
+      end: item.candidate.end,
+      block: item.candidate.block,
+      events: item.candidate.events,
     })),
     requestedStart: result.startMin,
     requestedEnd: result.endMin,

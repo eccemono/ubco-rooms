@@ -23,10 +23,11 @@ The report showed **3,844 results**; the raw text contains **3,775 unique sectio
   - Day-at-a-glance strip from 7am to 10pm in 15-minute blocks, solid green where a standard room is free. Click one block, or drag across blocks for a longer window; mobile uses one continuous spectrum.
   - Clicking an occupied block shows the class above the bar instead of relying on a hover tooltip.
   - Room-change options can include a flagged gap when no continuous hand-off is possible; the walk allowance is 5 minutes.
+  - Most Study Time can chain multiple rooms with no switch cap.
   - Occupied blocks show the course code under “Occupied”.
   - Partial room blocks are shown when no room covers the full window.
   - Results are led by **Best Route · Most Comfortable**, **Best Alternative Time**, and **Most Study Time**, each with a room timeline.
-  - Cushion time is a small blue underline with a “cushion” label.
+  - Cushion time is a small blue underline with a “cushion” label; it appears only when bounded by a class and is capped at 1 hour each side.
   - Breaks are yellow timeline blocks between study segments.
   - A **By room** list below the routes shows each available room's bar.
   - A “Best route” summary appears above the results, including gap-aware room changes.
