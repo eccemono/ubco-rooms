@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261110";
+} from "./data.js?v=20261112";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -15,7 +15,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261110";
+} from "./engine.js?v=20261112";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -27,6 +27,7 @@ const state = {
   lastSearch: null,
   visibleExact: 8,
   showCombos: false,
+  otherTimes: [],
 };
 
 function escapeHtml(value) {
@@ -123,7 +124,15 @@ function renderDayGlance() {
       const selected = slot.start < selEnd && slot.end > selStart;
       return `<button type="button" class="day-slot ${slotTone(slot.count)}${selected ? " selected" : ""}" data-index="${index}" title="${escapeHtml(titleText)}" aria-label="${escapeHtml(titleText)}"></button>`;
     })
-    .join("");
+    .join("") + '<div class="day-range" hidden><span class="day-cap start"></span><span class="day-cap end"></span></div>';
+
+  const rangeEl = strip.querySelector(".day-range");
+  const positionRange = (lo, hi) => {
+    if (!rangeEl) return;
+    rangeEl.hidden = false;
+    rangeEl.style.left = `${(lo / slots.length) * 100}%`;
+    rangeEl.style.width = `${((hi - lo + 1) / slots.length) * 100}%`;
+  };
 
   const setPreview = (a, b) => {
     const lo = Math.min(a, b);
@@ -131,6 +140,7 @@ function renderDayGlance() {
     strip.querySelectorAll(".day-slot").forEach((button, index) => {
       button.classList.toggle("selected", index >= lo && index <= hi);
     });
+    positionRange(lo, hi);
     selectionLabel.textContent = `${minutesToLabel(slots[lo].start)}–${minutesToLabel(slots[hi].end)} selected`;
   };
 
@@ -144,7 +154,7 @@ function renderDayGlance() {
   let anchor = 0;
   let current = 0;
 
-  strip.addEventListener("pointerdown", (event) => {
+  strip.onpointerdown = (event) => {
     const button = event.target.closest(".day-slot");
     if (!button) return;
     event.preventDefault();
@@ -153,13 +163,13 @@ function renderDayGlance() {
     current = anchor;
     strip.setPointerCapture?.(event.pointerId);
     setPreview(anchor, current);
-  });
+  };
 
-  strip.addEventListener("pointermove", (event) => {
+  strip.onpointermove = (event) => {
     if (!dragging) return;
     current = indexAt(event.clientX);
     setPreview(anchor, current);
-  });
+  };
 
   const finishDrag = (event) => {
     if (!dragging) return;
@@ -172,8 +182,8 @@ function renderDayGlance() {
     $("#end").value = `${String(Math.floor(slots[hi].end / 60)).padStart(2, "0")}:${String(slots[hi].end % 60).padStart(2, "0")}`;
     searchFromForm();
   };
-  strip.addEventListener("pointerup", finishDrag);
-  strip.addEventListener("pointercancel", () => { dragging = false; });
+  strip.onpointerup = finishDrag;
+  strip.onpointercancel = () => { dragging = false; };
 
   strip.querySelectorAll(".day-slot").forEach((button) => {
     button.addEventListener("keydown", (event) => {
@@ -190,8 +200,12 @@ function renderDayGlance() {
   if (selectionLabel) {
     const lo = slots.findIndex((slot) => slot.start <= selStart && slot.end > selStart);
     const hi = slots.findIndex((slot) => slot.start < selEnd && slot.end >= selEnd);
-    selectionLabel.textContent =
-      lo >= 0 && hi >= 0 ? `${minutesToLabel(slots[lo].start)}–${minutesToLabel(slots[hi].end)} selected` : "";
+    if (lo >= 0 && hi >= 0) {
+      positionRange(lo, hi);
+      selectionLabel.textContent = `${minutesToLabel(slots[lo].start)}–${minutesToLabel(slots[hi].end)} selected`;
+    } else {
+      selectionLabel.textContent = "";
+    }
   }
 
   const ticks = [420, 600, 780, 960, 1140, 1320];
@@ -346,6 +360,7 @@ function searchFromForm() {
   state.lastSearch = result;
   state.visibleExact = 8;
   state.showCombos = false;
+  state.otherTimes = otherTimeOptions(result);
   renderSearchResult(result);
   renderDayGlance();
 }
@@ -389,7 +404,7 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
           : width >= 4.5
             ? `<span class="bar-busy-label">Occ</span>`
             : "";
-      return `<span class="bar-busy" style="left:${left}%;width:${width}%" title="${escapeHtml(tooltip)}">${label}</span>`;
+      return `<button type="button" class="bar-busy" style="left:${left}%;width:${width}%" data-info="${escapeHtml(tooltip)}" aria-label="${escapeHtml(tooltip)}">${label}</button>`;
     })
     .join("");
 
@@ -498,7 +513,7 @@ function renderSearchResult(result) {
   if (result.combos.length && !showCombos) {
     foot.push(`<button class="btn btn-ghost" type="button" id="show-room-changes">Show room changes</button>`);
   }
-  const alternatives = otherTimeOptions(result);
+  const alternatives = state.otherTimes;
   if (alternatives.length) {
     foot.push(`<div class="other-times"><span class="other-times-label">Other times</span>${alternatives
       .map((alt) => `<button type="button" class="chip" data-other-start="${alt.start}" data-other-end="${alt.end}">${minutesToLabel(alt.startMin)}–${minutesToLabel(alt.endMin)} · ${plural(alt.count, "room")}</button>`)
@@ -512,6 +527,15 @@ function renderSearchResult(result) {
 
   $$("[data-room-jump]", results).forEach((btn) => {
     btn.addEventListener("click", () => jumpToRoom(btn.dataset.roomJump, btn.dataset.roomDate || result.date));
+  });
+  $$(".bar-busy", results).forEach((btn) => {
+    btn.addEventListener("click", (event) => {
+      event.stopPropagation();
+      const info = btn.closest(".plot")?.querySelector(".occupied-info");
+      if (!info) return;
+      info.textContent = btn.dataset.info || "";
+      info.hidden = false;
+    });
   });
   $("#show-more-rooms")?.addEventListener("click", () => {
     state.visibleExact += 8;
@@ -541,6 +565,7 @@ function renderRoomCard(item, best, viewStart, viewEnd) {
         ${state.dataset.labRoomIds.has(room.id) ? '<span class="tag tag-warn room-best">Lab room</span>' : ""}
       </div>
       <div class="plot">
+        <div class="occupied-info" hidden></div>
         ${renderBar({ block, events, startMin, endMin, viewStart, viewEnd })}
         ${renderAxis(viewStart, viewEnd)}
       </div>
@@ -550,6 +575,9 @@ function renderRoomCard(item, best, viewStart, viewEnd) {
 function renderComboCard(combo, index, viewStart, viewEnd) {
   const firstView = roomDayView(state.dataset, combo.first.room.id, combo.date);
   const secondView = roomDayView(state.dataset, combo.second.room.id, combo.date);
+  const transfer = combo.transfer || 15;
+  const gap = combo.gap || transfer;
+  const hasGap = gap > transfer;
   const row = (part, view, label) => `
     <div class="combo-row">
       <div class="room-cell">
@@ -558,6 +586,7 @@ function renderComboCard(combo, index, viewStart, viewEnd) {
       </div>
       <div class="plot">
         <div class="plot-head"><span class="plot-free">${label} · ${minutesToLabel(part.start)}–${minutesToLabel(part.end)}</span></div>
+        <div class="occupied-info" hidden></div>
         ${renderBar({
           block: part.block,
           events: view?.events || [],
@@ -574,10 +603,10 @@ function renderComboCard(combo, index, viewStart, viewEnd) {
     <article class="result-card combo">
       <div class="combo-head">
         <span class="combo-title">Room change${index === 0 ? " · best" : ""}</span>
-        <span class="plot-cushion cushion-ok">${combo.transfer || 15} min to move</span>
+        <span class="plot-cushion ${hasGap ? "cushion-tight" : "cushion-ok"}">${hasGap ? `⚠ ${formatDuration(gap)} gap` : `${transfer} min to move`}</span>
       </div>
       ${row(combo.first, firstView, "Start here")}
-      <div class="combo-move">↓ ${combo.transfer || 15} min walk / reset</div>
+      <div class="combo-move">${hasGap ? `⚠ ${formatDuration(gap)} without a room · includes ${transfer} min walk` : `↓ ${transfer} min walk / reset`}</div>
       ${row(combo.second, secondView, "Then move to")}
     </article>`;
 }

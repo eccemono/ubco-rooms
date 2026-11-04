@@ -405,7 +405,7 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 }
 .advanced-panel .check-line { min-height: 0; font-size: .84rem; }
 .advanced-panel .fine-print { display: block; margin-top: .35rem; }
-.bar-busy { display: flex; align-items: center; justify-content: center; cursor: help; }
+.bar-busy { display: flex; align-items: center; justify-content: center; cursor: pointer; }
 .bar-busy-label {
   color: #566474; font-size: .6rem; font-weight: 800;
   letter-spacing: .06em; text-transform: uppercase;
@@ -479,3 +479,37 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 .day-axis span:first-child { transform: none; }
 .day-axis span:last-child { transform: translateX(-100%); }
 .day-empty { padding: 1rem; text-align: center; color: var(--ink-soft); font-size: .86rem; }
+
+.day-strip { position: relative; }
+.day-range {
+  position: absolute; top: 0; bottom: 0; pointer-events: none;
+  border-top: 2px solid var(--gold); border-bottom: 2px solid var(--gold);
+  background: rgba(242, 169, 0, .1);
+}
+.day-cap { position: absolute; top: -3px; bottom: -3px; width: 3px; background: var(--gold); }
+.day-cap.start { left: 0; }
+.day-cap.end { right: 0; }
+.day-slot.selected { box-shadow: none; }
+
+@media (max-width: 700px) {
+  .day-strip { gap: 0; height: 46px; border-radius: 7px; }
+  .day-slot { border-right: 1px solid rgba(255, 255, 255, .18); }
+  .day-slot:last-of-type { border-right: 0; }
+  .day-range { border-top-width: 3px; border-bottom-width: 3px; }
+}
+
+.bar-busy { border: 0; padding: 0; font: inherit; }
+.occupied-info {
+  margin: .1rem 0 .35rem; padding: .28rem .5rem;
+  border-radius: 6px; background: #eef1f4; color: var(--ink-soft);
+  font-size: .72rem; line-height: 1.35;
+}
+
+@media (max-width: 700px) {
+  .search-grid { grid-template-columns: 1fr 1fr; }
+  .search-grid .field:first-child { grid-column: 1 / -1; }
+}
+@media (max-width: 420px) {
+  .search-grid { grid-template-columns: 1fr; }
+  .search-grid .field:first-child { grid-column: auto; }
+}

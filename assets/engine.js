@@ -10,11 +10,12 @@ import {
   prettyDate,
   termForDate,
   weekdayName,
-} from "./data.js?v=20261110";
+} from "./data.js?v=20261112";
 
 const BUILDING_PRIORITY = ["ASC", "ART", "EME", "FIP", "SCI", "COM"];
 const NEVER_SHOW_BUILDINGS = new Set(["ADM", "UCH"]);
 const TRANSFER_MINUTES = 15;
+const MAX_GAP_MINUTES = 120;
 const TRANSITION_MINUTES = 10;
 const MAX_EXACT_RESULTS = 40;
 const MAX_COMBO_RESULTS = 5;
@@ -177,51 +178,41 @@ function findCombinations(dataset, { date, startMin, endMin, building, rooms, te
 
       for (const aBlock of aBlocks) {
         for (const bBlock of bBlocks) {
-          const earliest = Math.max(startMin + minSegment, aBlock.start + minSegment);
-          const latest = Math.min(
-            endMin - minSegment - TRANSFER_MINUTES,
-            bBlock.end - minSegment - TRANSFER_MINUTES
-          );
-          if (latest < earliest) continue;
+          const split = Math.min(aBlock.end, endMin - minSegment);
+          const secondStart = Math.max(bBlock.start, startMin + minSegment);
+          if (split < startMin + minSegment || secondStart > endMin - minSegment) continue;
 
-          const points = new Set();
-          points.add(earliest);
-          points.add(latest);
-          points.add(Math.round((earliest + latest) / 2));
-          for (let t = Math.ceil(earliest / 30) * 30; t <= latest; t += 30) points.add(t);
+          const gap = secondStart - split;
+          if (gap < TRANSFER_MINUTES || gap > MAX_GAP_MINUTES) continue;
 
-          for (const point of points) {
-            const split = Math.round(point / 15) * 15;
-            if (split < aBlock.start || split > aBlock.end) continue;
-            const secondStart = split + TRANSFER_MINUTES;
-            if (secondStart < bBlock.start || secondStart > bBlock.end) continue;
+          const firstMinutes = split - startMin;
+          const secondMinutes = endMin - secondStart;
+          if (firstMinutes < minSegment || secondMinutes < minSegment) continue;
 
-            const firstMinutes = split - startMin;
-            const secondMinutes = endMin - secondStart;
-            if (firstMinutes < minSegment || secondMinutes < minSegment) continue;
+          const sameBuilding = a.room.buildingCode === b.room.buildingCode;
+          const score =
+            gap * 8 +
+            a.buildingRank * 12 +
+            b.buildingRank * 12 +
+            (sameBuilding ? 0 : 35) +
+            Math.abs(firstMinutes - secondMinutes) * 0.1;
 
-            const sameBuilding = a.room.buildingCode === b.room.buildingCode;
-            const score =
-              a.buildingRank * 12 +
-              b.buildingRank * 12 +
-              (sameBuilding ? 0 : 35) +
-              Math.abs(firstMinutes - secondMinutes) * 0.1;
-
-            options.push({
-              kind: "combo",
-              rooms: [a.room, b.room],
-              blocks: [aBlock, bBlock],
-              split,
-              secondStart,
-              sameBuilding,
-              score,
-              term,
-              date,
-              startMin,
-              endMin,
-              requestedMinutes: endMin - startMin,
-            });
-          }
+          options.push({
+            kind: "combo",
+            rooms: [a.room, b.room],
+            blocks: [aBlock, bBlock],
+            split,
+            secondStart,
+            gap,
+            transfer: TRANSFER_MINUTES,
+            sameBuilding,
+            score,
+            term,
+            date,
+            startMin,
+            endMin,
+            requestedMinutes: endMin - startMin,
+          });
         }
       }
     }
@@ -231,7 +222,7 @@ function findCombinations(dataset, { date, startMin, endMin, building, rooms, te
   return options
     .sort((x, y) => x.score - y.score)
     .filter((o) => {
-      const key = `${o.rooms[0].id}|${o.rooms[1].id}|${o.split}`;
+      const key = `${o.rooms[0].id}|${o.rooms[1].id}|${o.split}|${o.secondStart}`;
       if (seen.has(key)) return false;
       seen.add(key);
       return true;
