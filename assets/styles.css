@@ -608,3 +608,15 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 .room-list-title { font-size: 1rem; margin: 1.2rem 0 .6rem; letter-spacing: -.01em; }
 .room-list-cards { display: grid; gap: .7rem; }
 .status-warning { color: #a83232; font-weight: 700; }
+.map-legend {
+  display: flex; gap: .8rem; flex-wrap: wrap;
+  margin-top: .45rem; color: var(--ink-faint); font-size: .7rem;
+}
+.map-legend span { display: inline-flex; align-items: center; gap: .35rem; }
+.map-legend i { display: inline-block; width: 22px; height: 11px; border-radius: 3px; }
+.legend-occupied {
+  background: repeating-linear-gradient(135deg, #d9dfe6 0 4px, #e8edf2 4px 8px);
+  border: 1px solid #c4ccd5;
+}
+.legend-selected { border: 2px dashed var(--navy-2); background: rgba(11, 58, 102, .05); }
+.legend-cushion { height: 4px; background: #2563eb; border-radius: 2px; }

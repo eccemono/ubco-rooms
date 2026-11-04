@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261125";
+} from "./data.js?v=20261126";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -16,7 +16,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261125";
+} from "./engine.js?v=20261126";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -410,8 +410,8 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
     freeWidth >= 14
       ? `<span class="bar-free-label" style="left:${freeLeft}%;width:${freeWidth}%">free</span>`
       : "";
-  const cushionBefore = clip(block.start, startMin);
-  const cushionAfter = clip(endMin, block.end);
+  const cushionBefore = clip(Math.max(block.start, startMin - 60), startMin);
+  const cushionAfter = clip(endMin, Math.min(block.end, endMin + 60));
   const cushionHtml = [
     cushionBefore.end > cushionBefore.start ? { ...cushionBefore, label: "cushion" } : null,
     cushionAfter.end > cushionAfter.start ? { ...cushionAfter, label: "cushion" } : null,
@@ -873,7 +873,11 @@ function renderSearchResult(result) {
   setStatus(
     status,
     `${warning}Best options for ${escapeHtml(title)}.
-     <div class="cushion-legend"><span class="cushion-swatch"></span> Blue underline = cushion period</div>`
+     <div class="map-legend">
+       <span><i class="legend-occupied"></i> Occupied — class</span>
+       <span><i class="legend-selected"></i> Dotted — your selection</span>
+       <span><i class="legend-cushion"></i> Blue underline — cushion (up to 1h)</span>
+     </div>`
   );
   results.innerHTML = cards.join("");
   $$("[data-room-jump]", results).forEach((btn) => {
