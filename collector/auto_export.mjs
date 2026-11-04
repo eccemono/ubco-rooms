@@ -76,8 +76,17 @@ If the page is not ready, it keeps waiting (up to 10 minutes).
     for (const p of pages) {
       const count = await p.locator('[data-automation-id="excelIconButton"], [title="Export to Excel"]').count().catch(() => 0);
       if (!count) continue;
+
+      // Do not export the empty/default view: require a non-zero result count.
+      const body = await p.locator("body").innerText().catch(() => "");
+      const resultMatch = body.match(/([\d,]+)\s+Results/i);
+      const resultCount = resultMatch ? Number(resultMatch[1].replaceAll(",", "")) : 0;
+      if (!resultCount) continue;
+
       if (!announced) {
-        console.log(`\nFound the report's Excel button. Waiting ${Math.ceil((graceUntil - Date.now()) / 1000)}s for filters/results...`);
+        // Give a little time after results appear for any final filter clicks.
+        graceUntil = Math.max(graceUntil, Date.now() + 25_000);
+        console.log(`\nFound ${resultCount.toLocaleString()} results and the Excel button. Waiting ${Math.ceil((graceUntil - Date.now()) / 1000)}s before export...`);
         announced = true;
       }
       if (Date.now() < graceUntil) continue;
