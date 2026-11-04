@@ -14,7 +14,7 @@ The project is built for UBC Okanagan’s 2026–27 Winter Terms 1 and 2. It is 
 
 - **A static website** (`index.html`, `assets/`) that runs entirely in the browser.
   - Date + time room search.
-  - “No class listed” results ranked by room size and surrounding free time.
+  - Horizontal availability bars for each room, ranked by cushion before/after and building preference.
   - Two-room combination finder when no single room covers the whole window.
   - Day timetable for any room.
   - Searchable course/section table.
@@ -258,6 +258,7 @@ ubco-rooms/
   tools/
     import_workday.py        export -> normalized dataset
     validate_data.py         structural checks before publishing
+    audit_rooms.py           room-directory / reference audit
     build_workbook.py        dataset -> Excel
     make_demo.py             regenerate the demo fixture
     merge_rooms.py           optional room metadata merge

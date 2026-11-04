@@ -140,14 +140,6 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 .check-line { display: flex; align-items: center; gap: .45rem; min-height: 44px; font-size: .88rem; color: var(--ink-soft); }
 .check-line input { width: 18px; height: 18px; min-height: 0; accent-color: var(--teal); }
 
-.quick-row { display: flex; align-items: center; gap: .45rem; flex-wrap: wrap; margin: .85rem 0 .1rem; }
-.quick-label { font-size: .74rem; font-weight: 700; color: var(--ink-faint); text-transform: uppercase; letter-spacing: .08em; margin-right: .2rem; }
-.chip {
-  border: 1px solid var(--line-strong); background: #fff; color: var(--ink-soft);
-  border-radius: 999px; padding: .32rem .7rem; font: inherit; font-size: .8rem; font-weight: 600; cursor: pointer;
-}
-.chip:hover { border-color: var(--teal); color: var(--teal-dark); background: var(--teal-soft); }
-
 .form-foot { display: flex; justify-content: space-between; align-items: center; gap: 1rem; margin-top: 1rem; padding-top: .9rem; border-top: 1px solid var(--line); }
 .fine-print { margin: 0; color: var(--ink-faint); font-size: .78rem; line-height: 1.45; }
 
