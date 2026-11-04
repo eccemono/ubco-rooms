@@ -39,7 +39,12 @@ const COMBOS = [
 const rl = createInterface({ input, output });
 
 async function pause(message) {
-  await rl.question(`\n${message}\n> `);
+  try {
+    return await rl.question(`\n${message}\n> `);
+  } catch {
+    // stdin closed (for example when piped); treat it as a skip.
+    return "s";
+  }
 }
 
 function logStep(message) {
@@ -57,20 +62,6 @@ async function chooseCombo() {
     return [combo];
   }
   return COMBOS;
-}
-
-async function installDownloadCapture(context, combo) {
-  const downloads = [];
-  context.on("page", (page) => {
-    page.on("download", async (download) => {
-      const suggested = download.suggestedFilename() || `${combo.key}.xlsx`;
-      const target = path.join(RAW_DIR, `${combo.key}-${suggested}`);
-      await download.saveAs(target);
-      downloads.push(target);
-      console.log(`  saved download: ${path.relative(ROOT, target)}`);
-    });
-  });
-  return downloads;
 }
 
 async function clickFirstVisible(page, locators, { timeout = 2500 } = {}) {
@@ -97,7 +88,6 @@ async function tryExport(page, combo) {
     page.locator('button:has-text("Export")').filter({ visible: true }),
   ];
 
-  const existingDownloads = new Set();
   const downloadPromise = page
     .waitForEvent("download", { timeout: 12000 })
     .catch(() => null);
@@ -240,7 +230,7 @@ async function main() {
 
   logStep("Starting a local Chromium window. Sign in yourself; this script never sees your password.");
   const context = await chromium.launchPersistentContext(PROFILE_DIR, {
-    headless: false,
+    headless: process.env.HEADLESS === "1",
     acceptDownloads: true,
     viewport: { width: 1440, height: 960 },
     downloadsPath: RAW_DIR,
@@ -277,7 +267,11 @@ async function main() {
     console.log(`  Set "Start Date within" to: ${combo.term}`);
     console.log(`  Set "Academic Level" to: ${combo.level}`);
     console.log(`  Do NOT choose "Academic Level Not Applicable".`);
-    await pause("Press Enter when the results table is visible (or type s + Enter to skip).");
+    const answer = await pause("Press Enter when the results table is visible (or type s + Enter to skip).");
+    if (/^s/i.test(answer.trim())) {
+      console.log("  skipped.");
+      continue;
+    }
     await page.bringToFront().catch(() => {});
 
     const exported = await tryExport(page, combo);
@@ -298,6 +292,6 @@ async function main() {
 
 main().catch(async (error) => {
   console.error("\nCapture failed:", error);
-  await rl.close().catch(() => {});
+  rl.close();
   process.exit(1);
 });

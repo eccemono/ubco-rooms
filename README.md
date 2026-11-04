@@ -155,6 +155,12 @@ If your custom domain is attached to a user/organization site, project repositor
 https://<your-domain>/<repo>/
 ```
 
+This repo includes `.github/workflows/pages.yml`, which publishes the root folder with GitHub Actions. To use it:
+
+1. Push the repo to GitHub.
+2. Go to **Settings → Pages** and set **Source** to **GitHub Actions**.
+3. Push to `main`.
+
 Recommended settings:
 - Publish from the branch/folder that contains `index.html`.
 - Keep `.nojekyll` at the publish root.
