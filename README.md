@@ -26,6 +26,8 @@ The report showed **3,844 results**; the raw text contains **3,775 unique sectio
   - Occupied blocks show the course code under “Occupied”.
   - Partial room blocks are shown when no room covers the full window.
   - Results are led by **Best Route · Most Comfortable**, **Best Alternative Time**, and **Most Study Time**, each with a room timeline.
+  - Cushion time is a small blue underline with a “cushion” label.
+  - Breaks are yellow timeline blocks between study segments.
   - A **By room** list below the routes shows each available room's bar.
   - A “Best route” summary appears above the results, including gap-aware room changes.
   - Room-bar time labels are built from real transition points (selected edges, free edges, class start/end) instead of fixed 30-minute ticks.

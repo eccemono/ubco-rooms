@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261123";
+} from "./data.js?v=20261125";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -16,7 +16,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261123";
+} from "./engine.js?v=20261125";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -484,7 +484,7 @@ function roomButton(room, date) {
 
 function otherTimeOptions(result) {
   const options = [];
-  const deltas = [-30, 30, -60, 60, -90, 90];
+  const deltas = [-30, 30, -60, 60, -90, 90, -120, 120];
   for (const delta of deltas) {
     const startMin = result.startMin + delta;
     const endMin = result.endMin + delta;
@@ -503,14 +503,31 @@ function otherTimeOptions(result) {
       const route = bestComfortableRoute(probe);
       if (route) {
         route.date = result.date;
-        options.push({ start, end, startMin, endMin, route, count: probe.exact.length });
+        const full = route.studyMinutes >= result.requestedMinutes - 1;
+        options.push({
+          start,
+          end,
+          startMin,
+          endMin,
+          route,
+          count: probe.exact.length,
+          full,
+          cushion: route.cushion || 0,
+          distance: Math.abs(startMin - result.startMin),
+        });
       }
     }
-    if (options.length >= 4) break;
   }
-  return options
-    .sort((a, b) => b.route.studyMinutes - a.route.studyMinutes || Math.abs(a.startMin - result.startMin) - Math.abs(b.startMin - result.startMin))
-    .slice(0, 4);
+  return options.sort((a, b) => {
+    if (a.full !== b.full) return a.full ? -1 : 1;
+    if (a.full) {
+      if (a.cushion !== b.cushion) return b.cushion - a.cushion;
+      return a.distance - b.distance;
+    }
+    if (a.route.studyMinutes !== b.route.studyMinutes) return b.route.studyMinutes - a.route.studyMinutes;
+    if (a.cushion !== b.cushion) return b.cushion - a.cushion;
+    return a.distance - b.distance;
+  });
 }
 
 function routeFromExact(item) {
@@ -520,6 +537,7 @@ function routeFromExact(item) {
     requestedStart: item.startMin,
     requestedEnd: item.endMin,
     studyMinutes: item.endMin - item.startMin,
+    cushion: item.cushion?.min || 0,
     switches: 0,
   };
 }
@@ -531,6 +549,7 @@ function routeFromPartial(item, result) {
     requestedStart: result.startMin,
     requestedEnd: result.endMin,
     studyMinutes: item.usableMinutes,
+    cushion: item.cushion?.min || 0,
     switches: 0,
   };
 }
@@ -548,6 +567,7 @@ function routeFromCombo(combo) {
     requestedEnd: combo.endMin,
     studyMinutes: (combo.first.end - combo.first.start) + (combo.second.end - combo.second.start),
     gap: combo.gap || combo.transfer || 5,
+    cushion: 0,
     switches: 1,
   };
 }
@@ -700,10 +720,9 @@ function renderRouteTimeline(route) {
   });
   const rows = [];
   let cursor = route.requestedStart;
-  for (const segment of route.segments) {
-    if (segment.start > cursor + 5) {
-      const label = cursor === route.requestedStart ? "Not available" : "Break";
-      rows.push(renderBreakRow(cursor, segment.start, label, viewStart, viewEnd));
+  route.segments.forEach((segment, index) => {
+    if (index > 0 && segment.start > cursor + 5) {
+      rows.push(renderBreakRow(cursor, segment.start, "Break", viewStart, viewEnd));
     }
     rows.push(`
       <div class="route-segment">
@@ -717,10 +736,7 @@ function renderRouteTimeline(route) {
         </div>
       </div>`);
     cursor = segment.end;
-  }
-  if (cursor < route.requestedEnd - 5) {
-    rows.push(renderBreakRow(cursor, route.requestedEnd, "Not available", viewStart, viewEnd));
-  }
+  });
   return rows.join("");
 }
 
@@ -848,12 +864,17 @@ function renderSearchResult(result) {
   cards.push(renderRoomList(result));
 
   if (!comfort && !study && !other?.route) {
-    setStatus(status, `No usable room block found for ${escapeHtml(title)}.`);
+    setStatus(status, `<span class="status-warning">Unable to fully accommodate timings.</span> No usable room block found for ${escapeHtml(title)}.`);
     results.innerHTML = `<div class="empty"><strong>Nothing in the captured data.</strong>Try a different date or building selection.</div>`;
     return;
   }
 
-  setStatus(status, `Best options for ${escapeHtml(title)}.`);
+  const warning = result.exact.length === 0 ? '<span class="status-warning">Unable to fully accommodate timings.</span> ' : "";
+  setStatus(
+    status,
+    `${warning}Best options for ${escapeHtml(title)}.
+     <div class="cushion-legend"><span class="cushion-swatch"></span> Blue underline = cushion period</div>`
+  );
   results.innerHTML = cards.join("");
   $$("[data-room-jump]", results).forEach((btn) => {
     btn.addEventListener("click", () => jumpToRoom(btn.dataset.roomJump, btn.dataset.roomDate || result.date));

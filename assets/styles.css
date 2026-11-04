@@ -581,15 +581,20 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
   .route-gap { margin-left: 0; }
 }
 .bar-cushion {
-  position: absolute; top: 7px; bottom: 7px;
-  background: #dbeafe; border: 1px solid #93c5fd; border-radius: 8px;
-  overflow: hidden;
+  position: absolute; bottom: 2px; height: 5px;
+  background: #2563eb; border-radius: 3px; opacity: .9;
 }
 .bar-cushion-label {
-  display: block; text-align: center; line-height: 28px;
-  color: #1e5f9e; font-size: .58rem; font-weight: 700;
-  white-space: nowrap; overflow: hidden; text-overflow: ellipsis;
+  position: absolute; bottom: 5px; left: 50%; transform: translateX(-50%);
+  color: #1e5f9e; font-size: .52rem; font-weight: 700;
+  white-space: nowrap; background: rgba(255, 255, 255, .8);
+  padding: 0 2px; border-radius: 2px;
 }
+.cushion-legend {
+  display: inline-flex; align-items: center; gap: .35rem;
+  margin-top: .35rem; color: var(--ink-faint); font-size: .72rem;
+}
+.cushion-swatch { display: inline-block; width: 22px; height: 4px; background: #2563eb; border-radius: 2px; }
 .break-label { color: var(--ink-soft); font-size: .78rem; font-weight: 700; }
 .break-bar { position: relative; background: #f7f4e9; border-style: dashed; }
 .break-block {
@@ -602,3 +607,4 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 .room-list { margin-top: .4rem; }
 .room-list-title { font-size: 1rem; margin: 1.2rem 0 .6rem; letter-spacing: -.01em; }
 .room-list-cards { display: grid; gap: .7rem; }
+.status-warning { color: #a83232; font-weight: 700; }
