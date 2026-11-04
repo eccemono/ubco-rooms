@@ -546,3 +546,37 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 .axis-tick { position: absolute; bottom: 0; width: 1px; height: 4px; background: #c3cbd3; }
 .bar-busy + .bar-busy { border-left: 1px solid rgba(16, 36, 61, .35); }
 .bar-busy-code { font-size: .46rem; }
+.bar-arrow-wrap { position: relative; height: 22px; margin-top: .15rem; }
+.bar-arrow {
+  position: absolute; top: 10px; height: 2px; background: var(--navy);
+  border-radius: 2px;
+}
+.bar-arrow-head {
+  position: absolute; top: -4px; width: 8px; height: 8px;
+  border-top: 2px solid var(--navy); border-right: 2px solid var(--navy);
+}
+.bar-arrow-head.left { left: -1px; transform: rotate(-135deg); }
+.bar-arrow-head.right { right: -1px; transform: rotate(45deg); }
+.bar-arrow-label {
+  position: absolute; left: 50%; top: -13px; transform: translateX(-50%);
+  background: var(--card); padding: 0 .3rem; white-space: nowrap;
+  color: var(--navy); font-size: .64rem; font-weight: 700;
+}
+
+.route-card { padding: 1rem 1.1rem; }
+.route-card:first-child { border-color: #9bd3c6; background: linear-gradient(180deg, #f4fbf8, #fff); }
+.route-segment {
+  display: grid; grid-template-columns: 170px minmax(0, 1fr);
+  gap: 1rem; align-items: center; padding: .35rem 0;
+}
+.route-gap {
+  margin: .3rem 0 .3rem 170px; padding: .25rem .55rem;
+  border-left: 3px solid var(--gold); background: var(--amber-soft);
+  color: #6b4b08; border-radius: 0 6px 6px 0; font-size: .78rem; font-weight: 700;
+}
+.room-picker { padding: 1rem 1.1rem; margin-top: .2rem; }
+.room-picker .field { max-width: 460px; margin-bottom: .8rem; }
+@media (max-width: 700px) {
+  .route-segment { grid-template-columns: 1fr; gap: .4rem; }
+  .route-gap { margin-left: 0; }
+}

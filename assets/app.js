@@ -7,15 +7,16 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261117";
+} from "./data.js?v=20261120";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
+  buildingRank,
   datasetStats,
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261117";
+} from "./engine.js?v=20261120";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -416,8 +417,22 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
       <span class="bar-grid" style="background-size:${100 / gridCount}% 100%"></span>
       <span class="bar-free" style="left:${freeLeft}%;width:${freeWidth}%"></span>
       ${eventHtml}
-      <span class="bar-selected" style="left:${selLeft}%;width:${selWidth}%"></span>
       ${freeLabel}
+    </div>`;
+}
+
+function renderArrow(startMin, endMin, viewStart, viewEnd) {
+  const span = viewEnd - viewStart;
+  const left = pct(startMin, viewStart, span);
+  const width = Math.max(0, pct(endMin, viewStart, span) - left);
+  const label = `${minutesToLabel(startMin)}–${minutesToLabel(endMin)} · ${formatDuration(endMin - startMin)}`;
+  return `
+    <div class="bar-arrow-wrap">
+      <div class="bar-arrow" style="left:${left}%;width:${width}%">
+        <span class="bar-arrow-head left"></span>
+        <span class="bar-arrow-label">${escapeHtml(label)}</span>
+        <span class="bar-arrow-head right"></span>
+      </div>
     </div>`;
 }
 
@@ -484,63 +499,223 @@ function otherTimeOptions(result) {
       allowLabs: result.allowLabs,
       includeCombos: false,
     });
-    if (!probe.issues.length && probe.exact.length > 0) {
-      options.push({ start, end, startMin, endMin, count: probe.exact.length });
+    if (!probe.issues.length) {
+      const route = bestComfortableRoute(probe);
+      if (route) {
+        route.date = result.date;
+        options.push({ start, end, startMin, endMin, route, count: probe.exact.length });
+      }
     }
     if (options.length >= 4) break;
   }
-  return options;
+  return options
+    .sort((a, b) => b.route.studyMinutes - a.route.studyMinutes || Math.abs(a.startMin - result.startMin) - Math.abs(b.startMin - result.startMin))
+    .slice(0, 4);
 }
 
-function renderBestRoute(result) {
-  const exact = result.exact[0];
-  const partial = result.partial?.[0];
-  const combo = result.combos?.[0];
-  if (!exact && !partial && !combo) return "";
+function routeFromExact(item) {
+  return {
+    kind: "full",
+    segments: [{ room: item.room, start: item.startMin, end: item.endMin, block: item.block, events: item.events }],
+    requestedStart: item.startMin,
+    requestedEnd: item.endMin,
+    studyMinutes: item.endMin - item.startMin,
+    switches: 0,
+  };
+}
 
-  let type = "room";
-  let best = exact;
-  if (!best) {
-    const partialScore = partial ? partial.usableMinutes : -1;
-    const comboStudy = combo
-      ? combo.first.end - combo.first.start + (combo.second.end - combo.second.start) - combo.gap * 0.5
-      : -1;
-    if (partial && partialScore >= comboStudy) {
-      type = "partial";
-      best = partial;
-    } else {
-      type = "combo";
-      best = combo;
+function routeFromPartial(item, result) {
+  return {
+    kind: "partial",
+    segments: [{ room: item.room, start: item.usableStart, end: item.usableEnd, block: item.block, events: item.events }],
+    requestedStart: result.startMin,
+    requestedEnd: result.endMin,
+    studyMinutes: item.usableMinutes,
+    switches: 0,
+  };
+}
+
+function routeFromCombo(combo) {
+  const firstView = roomDayView(state.dataset, combo.first.room.id, combo.date);
+  const secondView = roomDayView(state.dataset, combo.second.room.id, combo.date);
+  return {
+    kind: "combo",
+    segments: [
+      { room: combo.first.room, start: combo.first.start, end: combo.first.end, block: combo.first.block, events: firstView?.events || [] },
+      { room: combo.second.room, start: combo.second.start, end: combo.second.end, block: combo.second.block, events: secondView?.events || [] },
+    ],
+    requestedStart: combo.startMin,
+    requestedEnd: combo.endMin,
+    studyMinutes: (combo.first.end - combo.first.start) + (combo.second.end - combo.second.start),
+    gap: combo.gap || combo.transfer || 5,
+    switches: 1,
+  };
+}
+
+function compareComfort(a, b) {
+  if (a.cushion.tier !== b.cushion.tier) return a.cushion.tier - b.cushion.tier;
+  if (a.cushion.min !== b.cushion.min) return b.cushion.min - a.cushion.min;
+  if (a.buildingRank !== b.buildingRank) return a.buildingRank - b.buildingRank;
+  if (a.freeDuration !== b.freeDuration) return b.freeDuration - a.freeDuration;
+  return a.room.name.localeCompare(b.room.name);
+}
+
+function bestComfortableRoute(result) {
+  if (result.exact.length) {
+    const exact = [...result.exact].sort(
+      (a, b) => b.freeDuration - a.freeDuration || compareComfort(a, b)
+    )[0];
+    return routeFromExact(exact);
+  }
+  const combo = [...result.combos].sort((a, b) => {
+    const studyA = a.first.end - a.first.start + (a.second.end - a.second.start);
+    const studyB = b.first.end - b.first.start + (b.second.end - b.second.start);
+    return studyB - studyA || a.gap - b.gap;
+  })[0];
+  const partial = [...result.partial].sort(
+    (a, b) => b.usableMinutes - a.usableMinutes || compareComfort(a, b)
+  )[0];
+  if (combo && (!partial || combo.first.end - combo.first.start + (combo.second.end - combo.second.start) >= partial.usableMinutes)) {
+    return routeFromCombo(combo);
+  }
+  if (partial) return routeFromPartial(partial, result);
+  return null;
+}
+
+function bestStudyRoute(result) {
+  if (result.exact.length) {
+    const exact = [...result.exact].sort((a, b) => b.freeDuration - a.freeDuration || compareComfort(a, b))[0];
+    return routeFromExact(exact);
+  }
+  const combo = [...result.combos].sort((a, b) => {
+    const studyA = a.first.end - a.first.start + (a.second.end - a.second.start);
+    const studyB = b.first.end - b.first.start + (b.second.end - b.second.start);
+    return studyB - studyA || a.gap - b.gap;
+  })[0];
+  const partial = [...result.partial].sort((a, b) => b.usableMinutes - a.usableMinutes)[0];
+  if (combo && (!partial || combo.studyMinutes > partial.usableMinutes)) return routeFromCombo(combo);
+  if (partial) return routeFromPartial(partial, result);
+  return null;
+}
+
+function renderRouteTimeline(route) {
+  const { viewStart, viewEnd } = viewWindow({
+    startMin: route.requestedStart,
+    endMin: route.requestedEnd,
+  });
+  const rows = [];
+  let cursor = route.requestedStart;
+  for (const segment of route.segments) {
+    if (segment.start > cursor + 5) {
+      const label = cursor === route.requestedStart ? "Not available" : "Break";
+      rows.push(`<div class="route-gap">${label} · ${formatDuration(segment.start - cursor)}</div>`);
     }
-  }
-
-  if (type === "combo") {
-    const gap = best.gap || best.transfer || 5;
-    const hasGap = gap > (best.transfer || 5);
-    return `
-      <section class="best-route card">
-        <div class="best-route-kicker">Best route${hasGap ? " · gap" : " · one move"}</div>
-        <div class="best-route-main">
-          ${roomButton(best.first.room, best.date)}
-          <span class="best-route-time">${minutesToLabel(best.first.start)}–${minutesToLabel(best.first.end)}</span>
-          <span class="best-route-arrow">→</span>
-          ${roomButton(best.second.room, best.date)}
-          <span class="best-route-time">${minutesToLabel(best.second.start)}–${minutesToLabel(best.second.end)}</span>
+    rows.push(`
+      <div class="route-segment">
+        <div class="room-cell">
+          ${roomButton(segment.room, route.date || state.lastSearch?.date)}
+          <span class="room-building">${escapeHtml(segment.room.buildingName)}</span>
         </div>
-        <div class="best-route-note">${hasGap ? `⚠ ${formatDuration(gap)} gap · ${best.transfer || 5} min walk included` : `${best.transfer || 5} min walk`}</div>
-      </section>`;
+        <div class="plot">
+          ${renderBar({ block: segment.block, events: segment.events, startMin: segment.start, endMin: segment.end, viewStart, viewEnd })}
+          ${renderArrow(segment.start, segment.end, viewStart, viewEnd)}
+          ${renderAxis(viewStart, viewEnd, segment.block, segment.events, segment.start, segment.end)}
+        </div>
+      </div>`);
+    cursor = segment.end;
   }
+  if (cursor < route.requestedEnd - 5) {
+    rows.push(`<div class="route-gap">Not available · ${formatDuration(route.requestedEnd - cursor)}</div>`);
+  }
+  return rows.join("");
+}
 
-  const isPartial = type === "partial";
+function renderRouteCard(title, route, subtitle) {
+  if (!route) return "";
   return `
-    <section class="best-route card">
-      <div class="best-route-kicker">Best route${isPartial ? " · partial window" : ""}</div>
-      <div class="best-route-main">
-        ${roomButton(best.room, best.date)}
-        <span class="best-route-time">${minutesToLabel(best.startMin)}–${minutesToLabel(best.endMin)}</span>
-      </div>
-      <div class="best-route-note">${isPartial ? `${formatDuration(best.usableMinutes)} usable of ${formatDuration(best.requestedMinutes)}` : "Covers the full requested window"}</div>
+    <article class="route-card card">
+      <div class="best-route-kicker">${escapeHtml(title)}</div>
+      <div class="best-route-note">${escapeHtml(subtitle)}</div>
+      ${renderRouteTimeline(route)}
+    </article>`;
+}
+
+function routeSubtitle(route) {
+  if (route.kind === "partial") return "Best available block";
+  if (route.kind === "combo") {
+    return route.gap > 5 ? `1 room change · ${formatDuration(route.gap)} break` : "1 room change · 5 min walk";
+  }
+  return "Covers the full requested window";
+}
+
+function roomChoicesFor(result) {
+  const choices = new Map();
+  const add = (item, partial = false) => {
+    if (!choices.has(item.room.id)) {
+      choices.set(item.room.id, {
+        room: item.room,
+        date: result.date,
+        startMin: partial ? item.usableStart : item.startMin,
+        endMin: partial ? item.usableEnd : item.endMin,
+        block: item.block,
+        events: item.events,
+        partial,
+      });
+    }
+  };
+  result.exact.forEach((item) => add(item));
+  result.partial.forEach((item) => add(item, true));
+  result.combos.forEach((combo) => {
+    for (const segment of [combo.first, combo.second]) {
+      if (choices.has(segment.room.id)) continue;
+      const view = roomDayView(state.dataset, segment.room.id, result.date);
+      choices.set(segment.room.id, {
+        room: segment.room,
+        date: result.date,
+        startMin: segment.start,
+        endMin: segment.end,
+        block: segment.block,
+        events: view?.events || [],
+        partial: false,
+      });
+    }
+  });
+  return [...choices.values()].sort(
+    (a, b) => buildingRank(a.room.buildingCode) - buildingRank(b.room.buildingCode) || a.room.name.localeCompare(b.room.name)
+  );
+}
+
+function renderRoomPicker(result) {
+  const choices = roomChoicesFor(result);
+  if (!choices.length) return "";
+  state.roomChoices = choices;
+  const { viewStart, viewEnd } = viewWindow(result);
+  const options = choices
+    .map((choice, index) => `<option value="${index}">${escapeHtml(choice.room.name)} — ${escapeHtml(choice.room.buildingName)}</option>`)
+    .join("");
+  return `
+    <section class="room-picker card">
+      <label class="field">
+        <span>By room</span>
+        <select id="room-picker">${options}</select>
+      </label>
+      <div id="room-picker-view">${renderRoomCard(choices[0], false, viewStart, viewEnd)}</div>
     </section>`;
+}
+
+function attachRoomPicker(result) {
+  const picker = $("#room-picker");
+  if (!picker) return;
+  const { viewStart, viewEnd } = viewWindow(result);
+  const renderChoice = () => {
+    const choice = state.roomChoices[Number(picker.value)];
+    if (!choice) return;
+    $("#room-picker-view").innerHTML = renderRoomCard(choice, false, viewStart, viewEnd);
+    $$("[data-room-jump]", $("#room-picker-view")).forEach((btn) => {
+      btn.addEventListener("click", () => jumpToRoom(btn.dataset.roomJump, btn.dataset.roomDate || result.date));
+    });
+  };
+  picker.addEventListener("change", renderChoice);
 }
 
 function renderSearchResult(result) {
@@ -553,89 +728,41 @@ function renderSearchResult(result) {
     return;
   }
 
-  const requested = formatDuration(result.requestedMinutes);
   const title = `${prettyDate(result.date)} from ${minutesToLabel(result.startMin)}–${minutesToLabel(result.endMin)}`;
-  const total = result.exact.length;
-  const partial = result.partial || [];
-  const visible = Math.min(state.visibleExact, total);
-  const showPartial = state.showPartial || (total === 0 && partial.length > 0);
-  const showCombos = state.showCombos || (total === 0 && partial.length === 0);
-
-  let statusBits;
-  if (total) {
-    statusBits = [
-      `<strong>${plural(total, "room")}</strong> with no scheduled class ${escapeHtml(title)} (${requested}).`,
-    ];
-    if (visible < total) statusBits.push(`Showing ${visible} of ${total}; more are below.`);
-  } else {
-    statusBits = [`<strong>No single room</strong> covers the full window ${escapeHtml(title)}.`];
-    if (partial.length) statusBits.push("The best partial blocks are below.");
-    else if (result.combos.length) statusBits.push("Room-change options are below.");
-    else statusBits.push("Try one of the other times below or the Advanced option.");
-  }
-  setStatus(status, statusBits.join(" "));
-
-  const { viewStart, viewEnd } = viewWindow(result);
+  const comfort = bestComfortableRoute(result);
+  const study = bestStudyRoute(result);
+  const other = state.otherTimes?.[0];
   const cards = [];
-  result.exact.slice(0, state.visibleExact).forEach((item, index) => {
-    cards.push(renderRoomCard(item, index === 0, viewStart, viewEnd));
-  });
-  if (showPartial) {
-    partial.slice(0, 6).forEach((item) => {
-      cards.push(renderRoomCard(item, false, viewStart, viewEnd));
-    });
+
+  if (comfort) {
+    cards.push(renderRouteCard("Best Route · Most Comfortable", comfort, routeSubtitle(comfort)));
   }
-  if (showCombos) {
-    result.combos.forEach((combo, index) => {
-      cards.push(renderComboCard(combo, index, viewStart, viewEnd));
-    });
+  if (other?.route) {
+    cards.push(
+      renderRouteCard(
+        "Best Other Time",
+        other.route,
+        `${prettyDate(result.date, { withYear: false })} · ${minutesToLabel(other.startMin)}–${minutesToLabel(other.endMin)} · ${routeSubtitle(other.route)}`
+      )
+    );
+  }
+  if (study) {
+    cards.push(renderRouteCard("Most Study Time", study, routeSubtitle(study)));
+  }
+  cards.push(renderRoomPicker(result));
+
+  if (!comfort && !study && !other?.route) {
+    setStatus(status, `No usable room block found for ${escapeHtml(title)}.`);
+    results.innerHTML = `<div class="empty"><strong>Nothing in the captured data.</strong>Try a different date or building selection.</div>`;
+    return;
   }
 
-  const foot = [];
-  if (visible < total) {
-    foot.push(`<button class="btn btn-ghost" type="button" id="show-more-rooms">Show ${Math.min(8, total - visible)} more rooms</button>`);
-  }
-  if (partial.length && !showPartial) {
-    foot.push(`<button class="btn btn-ghost" type="button" id="show-partial-rooms">Show ${Math.min(6, partial.length)} partial rooms</button>`);
-  }
-  if (result.combos.length && !showCombos) {
-    foot.push(`<button class="btn btn-ghost" type="button" id="show-room-changes">Show room changes</button>`);
-  }
-  const alternatives = state.otherTimes;
-  if (alternatives.length) {
-    foot.push(`<div class="other-times"><span class="other-times-label">Other times</span>${alternatives
-      .map((alt) => `<button type="button" class="chip" data-other-start="${alt.start}" data-other-end="${alt.end}">${minutesToLabel(alt.startMin)}–${minutesToLabel(alt.endMin)} · ${plural(alt.count, "room")}</button>`)
-      .join("")}</div>`);
-  }
-
-  const main = cards.length
-    ? cards.join("")
-    : `<div class="empty"><strong>Nothing in the captured data.</strong>Try a different building, a shorter window, or one of the times below.</div>`;
-  const bestRoute = renderBestRoute(result);
-  results.innerHTML = (bestRoute ? `<div class="best-route-wrap">${bestRoute}</div>` : "") + main + (foot.length ? `<div class="results-foot">${foot.join("")}</div>` : "");
-
+  setStatus(status, `Best options for ${escapeHtml(title)}.`);
+  results.innerHTML = cards.join("");
   $$("[data-room-jump]", results).forEach((btn) => {
     btn.addEventListener("click", () => jumpToRoom(btn.dataset.roomJump, btn.dataset.roomDate || result.date));
   });
-  $("#show-more-rooms")?.addEventListener("click", () => {
-    state.visibleExact += 8;
-    renderSearchResult(result);
-  });
-  $("#show-partial-rooms")?.addEventListener("click", () => {
-    state.showPartial = true;
-    renderSearchResult(result);
-  });
-  $("#show-room-changes")?.addEventListener("click", () => {
-    state.showCombos = true;
-    renderSearchResult(result);
-  });
-  $$("[data-other-start]", results).forEach((btn) => {
-    btn.addEventListener("click", () => {
-      $("#start").value = btn.dataset.otherStart;
-      $("#end").value = btn.dataset.otherEnd;
-      searchFromForm();
-    });
-  });
+  attachRoomPicker(result);
 }
 
 function renderRoomCard(item, best, viewStart, viewEnd) {
@@ -645,11 +772,12 @@ function renderRoomCard(item, best, viewStart, viewEnd) {
       <div class="room-cell">
         ${roomButton(room, item.date)}
         <span class="room-building">${escapeHtml(room.buildingName)}</span>
-        ${item.partial ? `<span class="tag tag-warn room-best">Partial · ${formatDuration(item.usableMinutes)}</span>` : best ? '<span class="tag room-best">Best</span>' : ""}
+        ${best ? '<span class="tag room-best">Best</span>' : ""}
         ${state.dataset.labRoomIds.has(room.id) ? '<span class="tag tag-warn room-best">Lab room</span>' : ""}
       </div>
       <div class="plot">
         ${renderBar({ block, events, startMin, endMin, viewStart, viewEnd })}
+        ${renderArrow(startMin, endMin, viewStart, viewEnd)}
         ${renderAxis(viewStart, viewEnd, block, events, startMin, endMin)}
       </div>
     </article>`;
@@ -677,6 +805,7 @@ function renderComboCard(combo, index, viewStart, viewEnd) {
           viewStart,
           viewEnd,
         })}
+        ${renderArrow(part.start, part.end, viewStart, viewEnd)}
         ${renderAxis(viewStart, viewEnd, part.block, view?.events || [], part.start, part.end)}
       </div>
     </div>`;
