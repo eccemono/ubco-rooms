@@ -172,9 +172,14 @@ https://<your-domain>/<repo>/
 
 This repo includes `.github/workflows/pages.yml`, which publishes the root folder with GitHub Actions. To use it:
 
-1. Push the repo to GitHub.
-2. Go to **Settings → Pages** and set **Source** to **GitHub Actions**.
-3. Push to `main`.
+1. Create an **empty** repository named `ubco-rooms` on GitHub (no README, no license).
+2. Push this folder:
+   ```bash
+   ./tools/publish.sh git@github.com:<you>/ubco-rooms.git
+   ```
+3. Go to **Settings → Pages** and set **Source** to **GitHub Actions**.
+4. The workflow publishes on every push to `main`, normally at:
+   `https://<you>.github.io/ubco-rooms/` or `https://eccemono.com/ubco-rooms/` when the custom domain is inherited.
 
 Recommended settings:
 - Publish from the branch/folder that contains `index.html`.
