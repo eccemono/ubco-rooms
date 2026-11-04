@@ -79,3 +79,14 @@ data/raw/
 ## Privacy
 
 Use your own account and follow UBC’s computing policies. Only collect what you need for the room finder: course section identifiers, meeting times, rooms, and dates. Do not collect enrolment, grades, student names, or instructor personal information.
+
+
+## SWS room timetable session
+
+`collect_sws.mjs` opens a local headed Chromium window at the UBC SWS room timetable and keeps the authenticated profile outside the repository.
+
+```bash
+node collect_sws.mjs
+```
+
+You sign in yourself with CWL and complete Duo. The profile is stored at `~/.ubco-sws-profile`; it contains session cookies, so treat it as sensitive and delete it to sign out. Session duration is controlled by UBC SSO/BIG-IP and may require re-login after hours or days.
