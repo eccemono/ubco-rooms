@@ -10,7 +10,7 @@ import {
   prettyDate,
   termForDate,
   weekdayName,
-} from "./data.js?v=20261128";
+} from "./data.js?v=20261130";
 
 const BUILDING_PRIORITY = ["ASC", "ART", "EME", "FIP", "SCI", "COM"];
 const NEVER_SHOW_BUILDINGS = new Set(["ADM", "UCH"]);
@@ -25,11 +25,13 @@ function buildingRank(code) {
   return index === -1 ? BUILDING_PRIORITY.length : index;
 }
 
-function filterRooms(dataset, { buildings, building, allowLabs = false }) {
+function filterRooms(dataset, { buildings, building, allowLabs = false, excludedRoomIds = [] }) {
   const selected = Array.isArray(buildings) ? new Set(buildings) : building ? new Set([building]) : null;
+  const excluded = new Set(excludedRoomIds);
   return dataset.rooms.filter((r) => {
     if (NEVER_SHOW_BUILDINGS.has(r.buildingCode)) return false;
     if (dataset.specializedRoomIds?.has(r.id)) return false;
+    if (excluded.has(r.id)) return false;
     if (selected && !selected.has(r.buildingCode)) return false;
     if (!allowLabs && dataset.labRoomIds?.has(r.id)) return false;
     return true;
@@ -51,7 +53,16 @@ function cushionScore(slackBefore, slackAfter) {
 }
 
 export function searchAvailability(dataset, options) {
-  const { date, start, end, building = "", buildings, allowLabs = false } = options;
+  const {
+    date,
+    start,
+    end,
+    building = "",
+    buildings,
+    allowLabs = false,
+    excludedRoomIds = [],
+    penalizedRoomIds = [],
+  } = options;
 
   const startMin = hmToMinutes(start);
   const endMin = hmToMinutes(end);
@@ -74,7 +85,8 @@ export function searchAvailability(dataset, options) {
   }
 
   const term = termForDate(dataset.meta, date);
-  const rooms = filterRooms(dataset, { buildings, building, allowLabs });
+  const rooms = filterRooms(dataset, { buildings, building, allowLabs, excludedRoomIds });
+  const penalized = new Set(penalizedRoomIds);
   const candidates = [];
   const partialCandidates = [];
 
@@ -140,6 +152,7 @@ export function searchAvailability(dataset, options) {
       cushion,
       freeDuration: best.block.end - best.block.start,
       buildingRank: buildingRank(room.buildingCode),
+      reported: penalized.has(room.id),
       sameBuilding: Boolean(building && room.buildingCode === building),
       partial: true,
     });
@@ -147,6 +160,7 @@ export function searchAvailability(dataset, options) {
 
   // Primary: maximize usable study time. Cushion is a secondary preference.
   candidates.sort((a, b) => {
+    if (a.reported !== b.reported) return a.reported ? 1 : -1;
     if (a.freeDuration !== b.freeDuration) return b.freeDuration - a.freeDuration;
     if (a.cushion.tier !== b.cushion.tier) return a.cushion.tier - b.cushion.tier;
     if (a.cushion.min !== b.cushion.min) return b.cushion.min - a.cushion.min;
@@ -154,6 +168,7 @@ export function searchAvailability(dataset, options) {
     return a.room.name.localeCompare(b.room.name);
   });
   partialCandidates.sort((a, b) => {
+    if (a.reported !== b.reported) return a.reported ? 1 : -1;
     if (a.usableMinutes !== b.usableMinutes) return b.usableMinutes - a.usableMinutes;
     if (a.cushion.tier !== b.cushion.tier) return a.cushion.tier - b.cushion.tier;
     if (a.buildingRank !== b.buildingRank) return a.buildingRank - b.buildingRank;

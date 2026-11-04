@@ -620,3 +620,24 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 }
 .legend-selected { border: 2px dashed var(--navy-2); background: rgba(11, 58, 102, .05); }
 .legend-cushion { height: 4px; background: #2563eb; border-radius: 2px; }
+.room-top { display: flex; align-items: flex-start; justify-content: space-between; gap: .35rem; }
+.room-menu-wrap { position: relative; flex: 0 0 auto; }
+.room-menu {
+  border: 0; background: transparent; color: var(--ink-faint);
+  font-size: 1.1rem; line-height: 1; cursor: pointer; padding: 0 .15rem;
+}
+.room-menu:hover { color: var(--navy); }
+.room-menu-popover {
+  position: absolute; right: 0; top: 1.4rem; z-index: 30;
+  min-width: 170px; padding: .3rem; background: #fff;
+  border: 1px solid var(--line-strong); border-radius: 8px;
+  box-shadow: var(--shadow);
+}
+.room-menu-popover button {
+  display: block; width: 100%; text-align: left; border: 0;
+  background: transparent; padding: .45rem .5rem; border-radius: 6px;
+  font: inherit; font-size: .78rem; color: var(--red); cursor: pointer;
+}
+.room-menu-popover button:hover { background: var(--red-soft); }
+
+.room-menu-note { color: var(--ink-faint); font-size: .64rem; padding: .25rem .5rem .15rem; }

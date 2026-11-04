@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261128";
+} from "./data.js?v=20261130";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -16,7 +16,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261128";
+} from "./engine.js?v=20261130";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -30,7 +30,29 @@ const state = {
   showCombos: false,
   showPartial: false,
   otherTimes: [],
+  reports: [],
 };
+
+const REPORT_KEY = "ubco-room-reports-v1";
+
+function loadReports() {
+  try {
+    const parsed = JSON.parse(localStorage.getItem(REPORT_KEY) || "[]");
+    return Array.isArray(parsed) ? parsed : [];
+  } catch {
+    return [];
+  }
+}
+
+function saveReports() {
+  try {
+    localStorage.setItem(REPORT_KEY, JSON.stringify(state.reports));
+  } catch {
+    // Storage may be unavailable in private mode; keep the in-memory report.
+  }
+}
+
+state.reports = loadReports();
 
 function escapeHtml(value) {
   return String(value ?? "")
@@ -219,6 +241,43 @@ function renderDayGlance() {
     .join("");
 }
 
+function timeToMinutes(value) {
+  const [h, m] = (value || "0:0").split(":").map(Number);
+  return h * 60 + (m || 0);
+}
+
+function reportSets(date, startMin, endMin) {
+  const excluded = new Set();
+  const penalized = new Set();
+  for (const report of state.reports) {
+    if (report.date !== date) continue;
+    penalized.add(report.roomId);
+    const reportStart = timeToMinutes(report.start);
+    const reportEnd = timeToMinutes(report.end);
+    if (reportStart < endMin && reportEnd > startMin) excluded.add(report.roomId);
+  }
+  return { excluded: [...excluded], penalized: [...penalized] };
+}
+
+function reportUnavailable(roomId) {
+  const date = $("#date").value;
+  const start = $("#start").value;
+  const end = $("#end").value;
+  const exists = state.reports.some(
+    (r) => r.roomId === roomId && r.date === date && r.start === start && r.end === end
+  );
+  if (!exists) {
+    state.reports.push({ roomId, date, start, end, createdAt: new Date().toISOString() });
+    saveReports();
+  }
+  searchFromForm();
+  const room = state.dataset.roomById.get(roomId);
+  $("#search-status").insertAdjacentHTML(
+    "beforeend",
+    `<div class="notice notice-info">Marked <strong>${escapeHtml(room?.name || roomId)}</strong> unavailable for this window; showing the next option.</div>`
+  );
+}
+
 function formatDuration(minutes) {
   if (minutes == null) return "—";
   const h = Math.floor(minutes / 60);
@@ -351,6 +410,7 @@ function searchFromForm() {
   const end = $("#end").value;
   const buildings = selectedBuildings();
   const allowLabs = $("#allow-labs")?.checked || false;
+  const { excluded, penalized } = reportSets(date, timeToMinutes(start), timeToMinutes(end));
 
   const result = searchAvailability(state.dataset, {
     date,
@@ -358,6 +418,8 @@ function searchFromForm() {
     end,
     buildings,
     allowLabs,
+    excludedRoomIds: excluded,
+    penalizedRoomIds: penalized,
   });
   state.lastSearch = result;
   state.visibleExact = 8;
@@ -490,6 +552,24 @@ function roomButton(room, date) {
   return `<button class="room-link" type="button" data-room-jump="${escapeHtml(room.id)}" data-room-date="${escapeHtml(date)}">${escapeHtml(room.name)}</button>`;
 }
 
+function roomCell(room, date, extra = "") {
+  return `
+    <div class="room-cell" data-room-cell="${escapeHtml(room.id)}">
+      <div class="room-top">
+        ${roomButton(room, date)}
+        <div class="room-menu-wrap">
+          <button class="room-menu" type="button" aria-label="Room options" aria-expanded="false">⋮</button>
+          <div class="room-menu-popover" hidden>
+            <button type="button" data-report-unavailable>Report unavailable</button>
+            <div class="room-menu-note">Saved on this device</div>
+          </div>
+        </div>
+      </div>
+      <span class="room-building">${escapeHtml(room.buildingName)}</span>
+      ${extra}
+    </div>`;
+}
+
 function otherTimeOptions(result) {
   const options = [];
   const deltas = [-30, 30, -60, 60, -90, 90, -120, 120];
@@ -499,12 +579,15 @@ function otherTimeOptions(result) {
     if (startMin < 6 * 60 || endMin > 23 * 60 || endMin <= startMin) continue;
     const start = `${String(Math.floor(startMin / 60)).padStart(2, "0")}:${String(startMin % 60).padStart(2, "0")}`;
     const end = `${String(Math.floor(endMin / 60)).padStart(2, "0")}:${String(endMin % 60).padStart(2, "0")}`;
+    const probeSets = reportSets(result.date, startMin, endMin);
     const probe = searchAvailability(state.dataset, {
       date: result.date,
       start,
       end,
       buildings: selectedBuildings(),
       allowLabs: result.allowLabs,
+      excludedRoomIds: probeSets.excluded,
+      penalizedRoomIds: probeSets.penalized,
       includeCombos: false,
     });
     if (!probe.issues.length) {
@@ -581,6 +664,7 @@ function routeFromCombo(combo) {
 }
 
 function compareComfort(a, b) {
+  if (a.reported !== b.reported) return a.reported ? 1 : -1;
   if (a.cushion.tier !== b.cushion.tier) return a.cushion.tier - b.cushion.tier;
   if (a.cushion.min !== b.cushion.min) return b.cushion.min - a.cushion.min;
   if (a.buildingRank !== b.buildingRank) return a.buildingRank - b.buildingRank;
@@ -591,7 +675,8 @@ function compareComfort(a, b) {
 function bestComfortableRoute(result) {
   if (result.exact.length) {
     const exact = [...result.exact].sort(
-      (a, b) => b.freeDuration - a.freeDuration || compareComfort(a, b)
+      (a, b) => (a.reported === b.reported ? 0 : a.reported ? 1 : -1) ||
+        b.freeDuration - a.freeDuration || compareComfort(a, b)
     )[0];
     return routeFromExact(exact);
   }
@@ -601,7 +686,8 @@ function bestComfortableRoute(result) {
     return studyB - studyA || a.gap - b.gap;
   })[0];
   const partial = [...result.partial].sort(
-    (a, b) => b.usableMinutes - a.usableMinutes || compareComfort(a, b)
+    (a, b) => (a.reported === b.reported ? 0 : a.reported ? 1 : -1) ||
+      b.usableMinutes - a.usableMinutes || compareComfort(a, b)
   )[0];
   const comboStudy = combo ? combo.first.end - combo.first.start + (combo.second.end - combo.second.start) : -1;
   if (combo && (!partial || comboStudy >= partial.usableMinutes + 15)) {
@@ -614,7 +700,10 @@ function bestComfortableRoute(result) {
 
 function bestStudyRoute(result) {
   if (result.exact.length) {
-    const exact = [...result.exact].sort((a, b) => b.freeDuration - a.freeDuration || compareComfort(a, b))[0];
+    const exact = [...result.exact].sort((a, b) =>
+      (a.reported === b.reported ? 0 : a.reported ? 1 : -1) ||
+      b.freeDuration - a.freeDuration || compareComfort(a, b)
+    )[0];
     return routeFromExact(exact);
   }
   const combo = [...result.combos].sort((a, b) => {
@@ -646,9 +735,12 @@ function renderBreakRow(start, end, label, viewStart, viewEnd) {
 function aggressiveRoute(result) {
   const selected = new Set(selectedBuildings());
   const allowLabs = $("#allow-labs")?.checked || false;
+  const { excluded } = reportSets(result.date, result.startMin, result.endMin);
+  const excludedSet = new Set(excluded);
   const rooms = state.dataset.rooms.filter((room) => {
     if (NEVER_SHOW_BUILDINGS.has(room.buildingCode)) return false;
     if (state.dataset.specializedRoomIds.has(room.id)) return false;
+    if (excludedSet.has(room.id)) return false;
     if (!selected.has(room.buildingCode)) return false;
     if (!allowLabs && state.dataset.labRoomIds.has(room.id)) return false;
     return true;
@@ -738,10 +830,7 @@ function renderRouteTimeline(route) {
     }
     rows.push(`
       <div class="route-segment">
-        <div class="room-cell">
-          ${roomButton(segment.room, route.date || state.lastSearch?.date)}
-          <span class="room-building">${escapeHtml(segment.room.buildingName)}</span>
-        </div>
+        ${roomCell(segment.room, route.date || state.lastSearch?.date)}
         <div class="plot">
           ${renderBar({ block: segment.block, events: segment.events, startMin: segment.start, endMin: segment.end, viewStart, viewEnd })}
           ${renderAxis(viewStart, viewEnd, segment.block, segment.events, segment.start, segment.end)}
@@ -822,9 +911,7 @@ function roomChoicesFor(result) {
       partial: false,
     });
   }
-  return [...choices.values()].sort(
-    (a, b) => buildingRank(a.room.buildingCode) - buildingRank(b.room.buildingCode) || a.room.name.localeCompare(b.room.name)
-  );
+  return [...choices.values()];
 }
 
 function renderRoomList(result) {
@@ -901,12 +988,7 @@ function renderRoomCard(item, best, viewStart, viewEnd) {
   const { room, block, startMin, endMin, events } = item;
   return `
     <article class="result-card${best ? " best" : ""}">
-      <div class="room-cell">
-        ${roomButton(room, item.date)}
-        <span class="room-building">${escapeHtml(room.buildingName)}</span>
-        ${best ? '<span class="tag room-best">Best</span>' : ""}
-        ${state.dataset.labRoomIds.has(room.id) ? '<span class="tag tag-warn room-best">Lab room</span>' : ""}
-      </div>
+      ${roomCell(room, item.date, `${best ? '<span class="tag room-best">Best</span>' : ""}${state.dataset.labRoomIds.has(room.id) ? '<span class="tag tag-warn room-best">Lab room</span>' : ""}`)}
       <div class="plot">
         ${renderBar({ block, events, startMin, endMin, viewStart, viewEnd })}
         ${renderAxis(viewStart, viewEnd, block, events, startMin, endMin)}
@@ -922,10 +1004,7 @@ function renderComboCard(combo, index, viewStart, viewEnd) {
   const hasGap = gap > transfer;
   const row = (part, view, label) => `
     <div class="combo-row">
-      <div class="room-cell">
-        ${roomButton(part.room, combo.date)}
-        <span class="room-building">${escapeHtml(part.room.buildingName)}</span>
-      </div>
+      ${roomCell(part.room, combo.date)}
       <div class="plot">
         <div class="plot-head"><span class="plot-free">${label} · ${minutesToLabel(part.start)}–${minutesToLabel(part.end)}</span></div>
         ${renderBar({
@@ -1183,6 +1262,24 @@ function wireEvents() {
     $("#date").value = next;
     $("#tt-date").value = next;
     searchFromForm();
+  });
+
+  $("#results").addEventListener("click", (event) => {
+    const menu = event.target.closest(".room-menu");
+    if (menu) {
+      event.stopPropagation();
+      const popover = menu.parentElement.querySelector(".room-menu-popover");
+      const open = popover.hidden;
+      $$(".room-menu-popover").forEach((el) => { el.hidden = true; });
+      popover.hidden = !open;
+      menu.setAttribute("aria-expanded", String(open));
+      return;
+    }
+    const report = event.target.closest("[data-report-unavailable]");
+    if (report) {
+      const cell = report.closest("[data-room-cell]");
+      if (cell?.dataset.roomCell) reportUnavailable(cell.dataset.roomCell);
+    }
   });
 
   $("#advanced-toggle").addEventListener("click", () => {
