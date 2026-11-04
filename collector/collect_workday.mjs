@@ -40,6 +40,7 @@ const rl = createInterface({ input, output });
 
 async function pause(message) {
   try {
+    process.stdout.write("\x07");
     return await rl.question(`\n${message}\n> `);
   } catch {
     // stdin closed (for example when piped); treat it as a skip.
@@ -258,8 +259,14 @@ async function main() {
   2. Open Academics → Registration & Courses → Find Course Sections.
   3. Choose the term and academic level listed below.
   4. Run the search and wait until the full results table is visible.
-  5. Come back to this terminal and press Enter. The script will try the
-     built-in Excel export first, then fall back to saving the page DOM.
+  5. Come back to THIS terminal and press Enter.
+
+If the Workday home page spins forever, ignore it and use the left sidebar:
+  Student -> Academics -> Registration & Courses -> Find Course Sections
+The home page spinner does not block the rest of the app.
+
+When you press Enter, the script will try Workday's built-in Excel export first,
+then fall back to saving the page DOM.
 `);
 
   for (const combo of combos) {
@@ -269,7 +276,9 @@ async function main() {
     console.log(`  Set "Start Date within" to: ${combo.term}`);
     console.log(`  Set "Academic Level" to: ${combo.level}`);
     console.log(`  Do NOT choose "Academic Level Not Applicable".`);
-    const answer = await pause("Press Enter when the results table is visible (or type s + Enter to skip).");
+    const answer = await pause(
+      "Switch back to THIS terminal, then press Enter when the results table is visible (or type s + Enter to skip)."
+    );
     if (/^s/i.test(answer.trim())) {
       console.log("  skipped.");
       continue;
