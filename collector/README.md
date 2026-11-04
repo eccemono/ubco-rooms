@@ -16,6 +16,15 @@ This folder contains a **local, user-driven** capture helper. It exists because 
 - It does not access any account other than the one you sign into.
 - It does not send data anywhere.
 
+## Fast path: both terms and both levels in one search
+
+```bash
+cd collector
+node auto_export.mjs
+```
+
+Sign in, open **Find Course Sections**, select both terms and both academic levels, click OK, then leave it alone. The helper waits 60 seconds and clicks the report's Excel button automatically.
+
 ## Run it
 
 ```bash

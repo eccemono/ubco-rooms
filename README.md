@@ -78,6 +78,15 @@ Do **not** choose “Academic Level Not Applicable” — UBCO’s own instructi
 
 The script tries Workday’s **Export to Excel** button first. If it cannot find one, it saves the visible page’s HTML and table text to `data/raw/` so the parser can be tuned against the real layout.
 
+If you searched both terms and both levels in one report (the fastest option), use the auto-export helper instead of the four-prompt loop:
+
+```bash
+cd collector
+node auto_export.mjs
+```
+
+It gives you 60 seconds to sign in and run the combined search, then clicks Workday’s Excel button automatically. If Workday’s home page keeps spinning, use **Student → Academics → Registration & Courses → Find Course Sections**; the home page spinner does not block the report.
+
 Workday occasionally changes its DOM. If the DOM fallback produces an empty table, export the report manually with the Excel icon and put the file in `data/raw/`.
 
 ### 2. Parse the export
@@ -95,6 +104,14 @@ The parser:
 - Infers the term and level from the export or filename (`2026W1-ug.xlsx`).
 - Writes `data/schedule.json` and `data/import-report.json`.
 - Leaves uncertain fields blank and reports them; it does not invent rooms or times.
+
+If the Excel button is unavailable, the collector saves a page-text snapshot. Parse that fallback with:
+
+```bash
+.venv/bin/python tools/parse_workday_text.py data/raw/2026W1-ug-page.json
+```
+
+That fallback only sees the rows the page loaded, so treat it as a partial capture. The Excel export is the complete source.
 
 If your export uses different columns, send one raw file (or the saved HTML) back for a parser adjustment.
 

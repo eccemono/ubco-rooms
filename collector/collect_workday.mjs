@@ -82,7 +82,38 @@ async function clickFirstVisible(page, locators, { timeout = 2500 } = {}) {
   return false;
 }
 
+async function clickWorkdayExcel(page) {
+  const excel = page.locator('[data-automation-id="excelIconButton"], [title="Export to Excel"], [aria-label="Export to Excel"]').first();
+  if (!(await excel.count().catch(() => 0))) return false;
+  await excel.scrollIntoViewIfNeeded().catch(() => {});
+  // Workday keeps this button aria-hidden until the report header is hovered.
+  // force + DOM click covers both the hidden and visible cases.
+  await excel.click({ force: true, timeout: 3000 }).catch(async () => {
+    await excel.evaluate((el) => el.click()).catch(() => {});
+  });
+  return true;
+}
+
 async function tryExport(page, combo) {
+  const downloadPromise = page.waitForEvent("download", { timeout: 15000 }).catch(() => null);
+  const clickedExcel = await clickWorkdayExcel(page);
+  if (clickedExcel) {
+    await page.waitForTimeout(1200);
+    await clickFirstVisible(page, [
+      page.getByRole("dialog").getByRole("button", { name: /^download$/i }),
+      page.getByRole("button", { name: /^download$/i }),
+    ], { timeout: 2000 });
+    const download = await downloadPromise;
+    if (download) {
+      const suggested = download.suggestedFilename() || `${combo.key}.xlsx`;
+      const target = path.join(RAW_DIR, `${combo.key}-${suggested}`);
+      await download.saveAs(target);
+      console.log(`  saved export: ${path.relative(ROOT, target)}`);
+      return true;
+    }
+    console.log("  clicked Workday's Excel button, but no download arrived yet.");
+  }
+
   // Workday often hides "Export to Excel" behind the report's ... menu.
   const menuCandidates = [
     page.getByRole('button', { name: /more|actions|options|related/i }),
@@ -105,7 +136,7 @@ async function tryExport(page, combo) {
     page.locator('button:has-text("Export")').filter({ visible: true }),
   ];
 
-  const downloadPromise = page
+  const fallbackDownload = page
     .waitForEvent("download", { timeout: 12000 })
     .catch(() => null);
 
@@ -121,7 +152,7 @@ async function tryExport(page, combo) {
   ];
   await clickFirstVisible(page, dialogCandidates, { timeout: 2000 });
 
-  const download = await downloadPromise;
+  const download = await fallbackDownload;
   if (download) {
     const suggested = download.suggestedFilename() || `${combo.key}.xlsx`;
     const target = path.join(RAW_DIR, `${combo.key}-${suggested}`);
