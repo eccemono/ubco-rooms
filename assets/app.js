@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261108";
+} from "./data.js?v=20261110";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -15,7 +15,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261108";
+} from "./engine.js?v=20261110";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -104,32 +104,95 @@ function renderDayGlance() {
   }
 
   const term = termForDate(state.dataset.meta, date);
-  note.textContent = `${term ? formatTerm(term.key, state.dataset.meta).replace("2026-27 ", "") + " · " : ""}Teaching day · ${plural(result.rooms, "standard room")} considered · solid green = a free 30-minute block`;
+  note.textContent = `${term ? formatTerm(term.key, state.dataset.meta).replace("2026-27 ", "") + " · " : ""}Teaching day · ${plural(result.rooms, "standard room")} considered · solid green = a free 15-minute block`;
   const parseInput = (value) => {
     const [h, m] = (value || "0:0").split(":").map(Number);
     return h * 60 + (m || 0);
   };
   const selStart = parseInput($("#start").value);
   const selEnd = parseInput($("#end").value);
-  strip.innerHTML = result.slots
-    .map((slot) => {
+  const slots = result.slots;
+  const selectionLabel = $("#day-selection");
+
+  strip.innerHTML = slots
+    .map((slot, index) => {
       const titleText =
         slot.count > 0
           ? `${slot.count} rooms free ${minutesToLabel(slot.start)}–${minutesToLabel(slot.end)}`
           : `No standard room free ${minutesToLabel(slot.start)}–${minutesToLabel(slot.end)}`;
       const selected = slot.start < selEnd && slot.end > selStart;
-      return `<button type="button" class="day-slot ${slotTone(slot.count)}${selected ? " selected" : ""}" data-slot-start="${String(Math.floor(slot.start / 60)).padStart(2, "0")}:${String(slot.start % 60).padStart(2, "0")}" data-slot-end="${String(Math.floor(slot.end / 60)).padStart(2, "0")}:${String(slot.end % 60).padStart(2, "0")}" title="${escapeHtml(titleText)}" aria-label="${escapeHtml(titleText)}"></button>`;
+      return `<button type="button" class="day-slot ${slotTone(slot.count)}${selected ? " selected" : ""}" data-index="${index}" title="${escapeHtml(titleText)}" aria-label="${escapeHtml(titleText)}"></button>`;
     })
     .join("");
 
-  strip.querySelectorAll("[data-slot-start]").forEach((button) => {
-    button.addEventListener("click", () => {
-      $("#start").value = button.dataset.slotStart;
-      $("#end").value = button.dataset.slotEnd;
+  const setPreview = (a, b) => {
+    const lo = Math.min(a, b);
+    const hi = Math.max(a, b);
+    strip.querySelectorAll(".day-slot").forEach((button, index) => {
+      button.classList.toggle("selected", index >= lo && index <= hi);
+    });
+    selectionLabel.textContent = `${minutesToLabel(slots[lo].start)}–${minutesToLabel(slots[hi].end)} selected`;
+  };
+
+  const indexAt = (clientX) => {
+    const rect = strip.getBoundingClientRect();
+    const ratio = Math.max(0, Math.min(0.9999, (clientX - rect.left) / rect.width));
+    return Math.floor(ratio * slots.length);
+  };
+
+  let dragging = false;
+  let anchor = 0;
+  let current = 0;
+
+  strip.addEventListener("pointerdown", (event) => {
+    const button = event.target.closest(".day-slot");
+    if (!button) return;
+    event.preventDefault();
+    dragging = true;
+    anchor = Number(button.dataset.index);
+    current = anchor;
+    strip.setPointerCapture?.(event.pointerId);
+    setPreview(anchor, current);
+  });
+
+  strip.addEventListener("pointermove", (event) => {
+    if (!dragging) return;
+    current = indexAt(event.clientX);
+    setPreview(anchor, current);
+  });
+
+  const finishDrag = (event) => {
+    if (!dragging) return;
+    dragging = false;
+    current = indexAt(event.clientX);
+    const lo = Math.min(anchor, current);
+    const hi = Math.max(anchor, current);
+    setPreview(lo, hi);
+    $("#start").value = `${String(Math.floor(slots[lo].start / 60)).padStart(2, "0")}:${String(slots[lo].start % 60).padStart(2, "0")}`;
+    $("#end").value = `${String(Math.floor(slots[hi].end / 60)).padStart(2, "0")}:${String(slots[hi].end % 60).padStart(2, "0")}`;
+    searchFromForm();
+  };
+  strip.addEventListener("pointerup", finishDrag);
+  strip.addEventListener("pointercancel", () => { dragging = false; });
+
+  strip.querySelectorAll(".day-slot").forEach((button) => {
+    button.addEventListener("keydown", (event) => {
+      if (event.key !== "Enter" && event.key !== " ") return;
+      event.preventDefault();
+      const index = Number(button.dataset.index);
+      setPreview(index, index);
+      $("#start").value = `${String(Math.floor(slots[index].start / 60)).padStart(2, "0")}:${String(slots[index].start % 60).padStart(2, "0")}`;
+      $("#end").value = `${String(Math.floor(slots[index].end / 60)).padStart(2, "0")}:${String(slots[index].end % 60).padStart(2, "0")}`;
       searchFromForm();
-      $("#search-status").scrollIntoView({ behavior: "smooth", block: "start" });
     });
   });
+
+  if (selectionLabel) {
+    const lo = slots.findIndex((slot) => slot.start <= selStart && slot.end > selStart);
+    const hi = slots.findIndex((slot) => slot.start < selEnd && slot.end >= selEnd);
+    selectionLabel.textContent =
+      lo >= 0 && hi >= 0 ? `${minutesToLabel(slots[lo].start)}–${minutesToLabel(slots[hi].end)} selected` : "";
+  }
 
   const ticks = [420, 600, 780, 960, 1140, 1320];
   axis.innerHTML = ticks
@@ -335,8 +398,10 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
       ? `<span class="bar-free-label" style="left:${freeLeft}%;width:${freeWidth}%">free</span>`
       : "";
 
+  const gridCount = Math.max(1, Math.round((viewEnd - viewStart) / 15));
   return `
     <div class="availability-bar">
+      <span class="bar-grid" style="background-size:${100 / gridCount}% 100%"></span>
       <span class="bar-free" style="left:${freeLeft}%;width:${freeWidth}%"></span>
       ${eventHtml}
       <span class="bar-selected" style="left:${selLeft}%;width:${selWidth}%"></span>

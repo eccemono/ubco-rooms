@@ -20,7 +20,7 @@ The report showed **3,844 results**; the raw text contains **3,775 unique sectio
   - Lab-used rooms hidden by default; ADM, UCH, and CCS studio rooms never shown.
   - “Show more” reveals additional rooms, room-change options, and nearby time windows.
   - Building checkboxes are all on by default; UCH, ADM and CCS studio rooms are hidden.
-  - Day-at-a-glance strip from 7am to 10pm, green where a standard room is free.
+  - Day-at-a-glance strip from 7am to 10pm in 15-minute blocks, solid green where a standard room is free. Click one block, or drag across blocks for a longer window.
   - Previous/next day arrows skip weekends, midterm breaks and university holidays.
   - Two-room combination finder when no single room covers the whole window.
   - Day timetable for any room.

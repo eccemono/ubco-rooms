@@ -10,7 +10,7 @@ import {
   prettyDate,
   termForDate,
   weekdayName,
-} from "./data.js?v=20261108";
+} from "./data.js?v=20261110";
 
 const BUILDING_PRIORITY = ["ASC", "ART", "EME", "FIP", "SCI", "COM"];
 const NEVER_SHOW_BUILDINGS = new Set(["ADM", "UCH"]);
@@ -248,7 +248,7 @@ export function dayAvailability(dataset, options) {
   const { date, buildings, building = "", allowLabs = false } = options;
   const issues = detectInputIssues(dataset.meta, date, 7 * 60, 22 * 60);
   if (issues.length) {
-    return { date, issues, start: 7 * 60, end: 22 * 60, step: 30, slots: [] };
+    return { date, issues, start: 7 * 60, end: 22 * 60, step: 15, slots: [] };
   }
   if (Array.isArray(buildings) && buildings.length === 0) {
     return {
@@ -256,7 +256,7 @@ export function dayAvailability(dataset, options) {
       issues: ["Select at least one building."],
       start: 7 * 60,
       end: 22 * 60,
-      step: 30,
+      step: 15,
       slots: [],
     };
   }
@@ -271,7 +271,7 @@ export function dayAvailability(dataset, options) {
 
   const start = 7 * 60;
   const end = 22 * 60;
-  const step = 30;
+  const step = 15;
   const slots = [];
   for (let t = start; t + step <= end; t += step) {
     let count = 0;

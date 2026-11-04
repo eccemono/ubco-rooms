@@ -347,6 +347,10 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
   position: relative; height: 44px; border-radius: 10px;
   background: #eef1f4; border: 1px solid var(--line); overflow: hidden;
 }
+.bar-grid {
+  position: absolute; inset: 0; pointer-events: none;
+  background-image: repeating-linear-gradient(to right, rgba(16, 36, 61, .09) 0 1px, transparent 1px 100%);
+}
 .bar-free {
   position: absolute; top: 7px; bottom: 7px;
   background: #cfeee7; border: 1px solid #8fd0c2; border-radius: 8px;
@@ -459,7 +463,7 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 }
 .day-arrow:hover { border-color: var(--teal); color: var(--teal-dark); }
 .day-arrow:disabled { opacity: .35; cursor: default; }
-.day-strip { display: flex; gap: 2px; height: 38px; border-radius: 9px; overflow: hidden; background: #eef1f4; }
+.day-strip { display: flex; gap: 1px; height: 38px; border-radius: 9px; overflow: hidden; background: #eef1f4; touch-action: pan-y; }
 .day-slot {
   flex: 1 1 0; min-width: 0; background: #e8edf2; position: relative;
   border: 0; padding: 0; cursor: pointer;
@@ -469,6 +473,7 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
 .day-slot:hover { outline: 2px solid var(--navy); outline-offset: -2px; }
 .day-slot.selected { box-shadow: inset 0 0 0 2px #f2a900; }
 .day-slot:focus-visible { outline: 2px solid var(--navy); outline-offset: -2px; }
+.day-selection { min-height: 1.1rem; margin-top: .35rem; color: var(--teal-dark); font-size: .75rem; font-weight: 700; }
 .day-axis { position: relative; height: 16px; margin-top: .35rem; color: var(--ink-faint); font-size: .68rem; }
 .day-axis span { position: absolute; transform: translateX(-50%); white-space: nowrap; }
 .day-axis span:first-child { transform: none; }
