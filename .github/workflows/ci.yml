@@ -1,0 +1,22 @@
+name: Check data and app
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  check:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install Python deps
+        run: pip install openpyxl
+      - name: Validate dataset
+        run: python tools/validate_data.py
+      - name: Engine checks
+        run: node tools/test_engine.mjs
+      - name: Build workbook
+        run: python tools/build_workbook.py --out /tmp/ubco-2026-27.xlsx

@@ -40,6 +40,18 @@ You can also serve it with any static host. All URLs are relative, so it works u
 
 ---
 
+## Python setup
+
+The Excel and import tools need `openpyxl`. On this machine `uv` is available:
+
+```bash
+cd Projects/ubco-rooms
+uv venv .venv
+uv pip install --python .venv/bin/python openpyxl
+```
+
+Then use `.venv/bin/python` for the commands below.
+
 ## Getting the real data
 
 ### 1. Capture from Workday
@@ -128,10 +140,13 @@ cd collector && npm run collect && cd ..
 # 2. rebuild the dataset
 .venv/bin/python tools/import_workday.py data/raw/*.xlsx
 
-# 3. rebuild the Excel workbook
+# 3. validate it
+.venv/bin/python tools/validate_data.py
+
+# 4. rebuild the Excel workbook
 .venv/bin/python tools/build_workbook.py
 
-# 4. check the site locally
+# 5. check the site locally
 python3 -m http.server 8087
 ```
 
@@ -215,9 +230,11 @@ ubco-rooms/
     collect_workday.mjs      local, user-driven Workday capture
   tools/
     import_workday.py        export -> normalized dataset
+    validate_data.py         structural checks before publishing
     build_workbook.py        dataset -> Excel
     make_demo.py             regenerate the demo fixture
     merge_rooms.py           optional room metadata merge
+    test_engine.mjs          availability/combination regression checks
   samples/
     sample-workday.xlsx      parser fixture
 ```

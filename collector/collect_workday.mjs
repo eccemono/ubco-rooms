@@ -263,6 +263,8 @@ async function main() {
 `);
 
   for (const combo of combos) {
+    // Workday may open the report in a new tab; always act on the newest tab.
+    const activePage = context.pages().filter((p) => !p.isClosed()).at(-1) || page;
     logStep(`Next: ${combo.term} · ${combo.level}`);
     console.log(`  Set "Start Date within" to: ${combo.term}`);
     console.log(`  Set "Academic Level" to: ${combo.level}`);
@@ -272,13 +274,13 @@ async function main() {
       console.log("  skipped.");
       continue;
     }
-    await page.bringToFront().catch(() => {});
+    await activePage.bringToFront().catch(() => {});
 
-    const exported = await tryExport(page, combo);
+    const exported = await tryExport(activePage, combo);
     if (!exported) {
       console.log("  No Excel export found; capturing the visible page instead.");
       console.log("  If this is a Workday table, you can also use the toolbar's Excel icon manually.");
-      await scrapeDom(page, combo);
+      await scrapeDom(activePage, combo);
     }
   }
 

@@ -87,7 +87,7 @@ HEADER_ALIASES = {
     "section": ["section", "section number", "section code", "section id"],
     "title": ["course title", "title", "section title", "class title"],
     "activity": ["instructional format", "activity", "instructional format description", "component"],
-    "meeting": ["meeting patterns", "meeting pattern", "meeting time", "meeting times", "meeting"],
+    "meeting": ["meeting patterns", "meeting pattern", "meeting time", "meeting times", "meeting", "time", "schedule"],
     "days": ["scheduled days", "days", "day", "meeting days"],
     "start": ["start time", "start"],
     "end": ["end time", "end"],
@@ -149,11 +149,19 @@ def header_score(row: list) -> tuple[int, dict[int, str]]:
 def read_rows(path: Path) -> list[list]:
     if path.suffix.lower() in {".xlsx", ".xlsm"}:
         wb = load_workbook(path, data_only=True, read_only=True)
-        rows = []
+        sheets = []
         for ws in wb.worksheets:
-            for row in ws.iter_rows(values_only=True):
-                rows.append(list(row))
-        return rows
+            rows = [list(row) for row in ws.iter_rows(values_only=True)]
+            if any(any(str(v or "").strip() for v in row) for row in rows):
+                sheets.append((ws.title, rows))
+        if not sheets:
+            return []
+        # Pick the worksheet that looks most like the report, not a cover sheet.
+        def sheet_score(entry):
+            _title, rows = entry
+            return max((header_score(row)[0] for row in rows[:80]), default=0)
+
+        return max(sheets, key=sheet_score)[1]
     if path.suffix.lower() in {".csv", ".tsv"}:
         with path.open(newline="", encoding="utf-8-sig") as fh:
             sample = fh.read(4096)
@@ -346,6 +354,7 @@ def parse_date_text(text: str) -> tuple[str | None, str | None]:
     source = (text or "").strip()
     if not source:
         return None, None
+    # ISO / slash dates first.
     dates = re.findall(r"\b(\d{4}-\d{2}-\d{2}|\d{1,2}/\d{1,2}/\d{2,4})\b", source)
     parsed = []
     for value in dates[:2]:
@@ -356,6 +365,23 @@ def parse_date_text(text: str) -> tuple[str | None, str | None]:
             if len(y) == 2:
                 y = f"20{y}"
             parsed.append(f"{y}-{int(m):02d}-{int(d):02d}")
+
+    # "Sep 8, 2026" / "September 8, 2026" / "8 Sep 2026".
+    if len(parsed) < 2:
+        month_names = re.findall(
+            r"\b(?:Jan(?:uary)?|Feb(?:ruary)?|Mar(?:ch)?|Apr(?:il)?|May|Jun(?:e)?|"
+            r"Jul(?:y)?|Aug(?:ust)?|Sep(?:tember)?|Oct(?:ober)?|Nov(?:ember)?|Dec(?:ember)?)"
+            r"\s+\d{1,2},?\s+\d{4}",
+            source,
+            re.I,
+        )
+        for value in month_names[: 2 - len(parsed)]:
+            for fmt in ("%b %d, %Y", "%B %d, %Y", "%b %d %Y", "%B %d %Y"):
+                try:
+                    parsed.append(datetime.strptime(value.replace(",", ""), fmt.replace(",", "")).date().isoformat())
+                    break
+                except ValueError:
+                    continue
     if len(parsed) == 2:
         return parsed[0], parsed[1]
     if len(parsed) == 1:
@@ -502,6 +528,12 @@ def main() -> None:
             meeting_text = values.get("meeting", "")
             if meeting_text:
                 patterns = parse_meeting_text(meeting_text)
+            if not patterns and meeting_text and day_text:
+                days = parse_days(day_text)
+                for start, end in parse_times(meeting_text):
+                    patterns.append(
+                        {"days": days, "start": minutes_to_hm(start), "end": minutes_to_hm(end), "text": meeting_text}
+                    )
             if not patterns and (day_text or start_text or end_text):
                 days = parse_days(day_text)
                 times = parse_times(f"{start_text} - {end_text}")
@@ -547,7 +579,10 @@ def main() -> None:
                             "sourceUrl": "https://learningspaces.ok.ubc.ca/",
                         }
 
-                meeting_key = f"{section_id}-{pattern['days'][0]}-{pattern['start']}-{room_id or 'noroom'}"
+                meeting_key = (
+                    f"{section_id}-{pattern['days'][0]}-{pattern['start']}-"
+                    f"{room_id or 'noroom'}-{start_date}"
+                )
                 if meeting_key in all_meetings:
                     continue
                 all_meetings[meeting_key] = {
