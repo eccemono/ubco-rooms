@@ -453,9 +453,9 @@ function renderDataPanel() {
     .join("");
   $("#coverage-card").hidden = byTermLevel.size === 0;
 
-  const warnings = [...(meta.warnings || [])];
+  const warnings = (meta.warnings || []).filter((w) => !/demo/i.test(w));
   if (meta.demo) {
-    warnings.unshift("This build uses a generated demo fixture, not a real Workday collection.");
+    warnings.unshift("This build uses a generated demo fixture, not a real Workday collection. Replace data/schedule.json before trusting results.");
   }
   $("#data-warnings").innerHTML = warnings
     .map((w) => `<div class="notice notice-warn">${escapeHtml(w)}</div>`)
