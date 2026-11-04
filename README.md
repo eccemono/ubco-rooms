@@ -17,7 +17,8 @@ The report showed **3,844 results**; the raw text contains **3,775 unique sectio
 - **A static website** (`index.html`, `assets/`) that runs entirely in the browser.
   - Date + time room search.
   - Horizontal availability bars for each room, ranked by cushion before/after and building preference.
-  - Lab-used rooms hidden by default; ADM and UCH never shown.
+  - Lab-used rooms hidden by default; ADM, UCH, and CCS studio rooms never shown.
+  - “Show more” reveals additional rooms, room-change options, and nearby time windows.
   - Two-room combination finder when no single room covers the whole window.
   - Day timetable for any room.
   - Searchable course/section table.

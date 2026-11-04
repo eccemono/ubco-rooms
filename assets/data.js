@@ -150,10 +150,13 @@ export function normalizeDataset(raw) {
   const roomById = new Map(rooms.map((r) => [r.id, r]));
   const sectionById = new Map(sections.map((s) => [s.id, s]));
   const labRoomIds = new Set();
+  const specializedRoomIds = new Set();
   for (const m of meetings) {
     if (!m.roomId) continue;
     const activity = `${m.kind || ""} ${sectionById.get(m.sectionId)?.activity || ""}`.toLowerCase();
     if (activity.includes("lab")) labRoomIds.add(m.roomId);
+    const building = roomById.get(m.roomId)?.buildingCode;
+    if (building === "CCS" && activity.includes("studio")) specializedRoomIds.add(m.roomId);
   }
   const meetingsByRoom = new Map();
   for (const m of meetings) {
@@ -170,6 +173,7 @@ export function normalizeDataset(raw) {
     roomById,
     sectionById,
     labRoomIds,
+    specializedRoomIds,
     meetingsByRoom,
     importedAt: new Date().toISOString(),
   };

@@ -407,3 +407,26 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
   letter-spacing: .06em; text-transform: uppercase;
   overflow: hidden; white-space: nowrap;
 }
+
+.results-foot {
+  display: flex; gap: .6rem; align-items: center; flex-wrap: wrap;
+  padding: .9rem .2rem .2rem;
+}
+.other-times {
+  display: flex; gap: .4rem; align-items: center; flex-wrap: wrap;
+  margin-left: auto;
+}
+.other-times-label {
+  color: var(--ink-faint); font-size: .72rem; font-weight: 700;
+  text-transform: uppercase; letter-spacing: .07em;
+}
+.chip {
+  border: 1px solid var(--line-strong); background: #fff; color: var(--ink-soft);
+  border-radius: 999px; padding: .32rem .65rem; font: inherit; font-size: .78rem;
+  font-weight: 600; cursor: pointer; white-space: nowrap;
+}
+.chip:hover { border-color: var(--teal); color: var(--teal-dark); background: var(--teal-soft); }
+@media (max-width: 700px) {
+  .results-foot { align-items: stretch; }
+  .other-times { margin-left: 0; }
+}

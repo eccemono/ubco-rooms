@@ -51,6 +51,7 @@ export function searchAvailability(dataset, options) {
   const term = termForDate(dataset.meta, date);
   const rooms = dataset.rooms.filter((r) => {
     if (NEVER_SHOW_BUILDINGS.has(r.buildingCode)) return false;
+    if (dataset.specializedRoomIds?.has(r.id)) return false;
     if (building && r.buildingCode !== building) return false;
     if (!allowLabs && dataset.labRoomIds?.has(r.id)) return false;
     return true;
@@ -105,7 +106,7 @@ export function searchAvailability(dataset, options) {
   }));
 
   let combos = [];
-  if (exact.length === 0) {
+  if (options.includeCombos !== false && exact.length < 10) {
     combos = findCombinations(dataset, {
       date,
       startMin,

@@ -22,6 +22,8 @@ const state = {
   courseRows: [],
   tab: "search",
   lastSearch: null,
+  visibleExact: 8,
+  showCombos: false,
 };
 
 function escapeHtml(value) {
@@ -130,7 +132,7 @@ function populateControls() {
   if (!$("#tt-date").value || !termForDate(meta, $("#tt-date").value)) $("#tt-date").value = date;
 
   const roomOptions = [...rooms]
-    .filter((r) => !NEVER_SHOW_BUILDINGS.has(r.buildingCode))
+    .filter((r) => !NEVER_SHOW_BUILDINGS.has(r.buildingCode) && !state.dataset.specializedRoomIds.has(r.id))
     .sort((a, b) => a.buildingCode.localeCompare(b.buildingCode) || a.number.localeCompare(b.number, undefined, { numeric: true }))
     .map((r) => ({ value: r.id, label: `${r.name} — ${r.buildingName}` }));
   fillSelect($("#tt-room"), roomOptions);
@@ -169,6 +171,8 @@ function searchFromForm() {
     allowLabs,
   });
   state.lastSearch = result;
+  state.visibleExact = 8;
+  state.showCombos = false;
   renderSearchResult(result);
 }
 
@@ -244,6 +248,31 @@ function roomButton(room, date) {
   return `<button class="room-link" type="button" data-room-jump="${escapeHtml(room.id)}" data-room-date="${escapeHtml(date)}">${escapeHtml(room.name)}</button>`;
 }
 
+function otherTimeOptions(result) {
+  const options = [];
+  const deltas = [-30, 30, -60, 60, -90, 90];
+  for (const delta of deltas) {
+    const startMin = result.startMin + delta;
+    const endMin = result.endMin + delta;
+    if (startMin < 6 * 60 || endMin > 23 * 60 || endMin <= startMin) continue;
+    const start = `${String(Math.floor(startMin / 60)).padStart(2, "0")}:${String(startMin % 60).padStart(2, "0")}`;
+    const end = `${String(Math.floor(endMin / 60)).padStart(2, "0")}:${String(endMin % 60).padStart(2, "0")}`;
+    const probe = searchAvailability(state.dataset, {
+      date: result.date,
+      start,
+      end,
+      building: $("#building").value,
+      allowLabs: result.allowLabs,
+      includeCombos: false,
+    });
+    if (!probe.issues.length && probe.exact.length > 0) {
+      options.push({ start, end, startMin, endMin, count: probe.exact.length });
+    }
+    if (options.length >= 4) break;
+  }
+  return options;
+}
+
 function renderSearchResult(result) {
   const status = $("#search-status");
   const results = $("#results");
@@ -257,40 +286,71 @@ function renderSearchResult(result) {
   const requested = formatDuration(result.requestedMinutes);
   const title = `${prettyDate(result.date)} · ${minutesToLabel(result.startMin)}–${minutesToLabel(result.endMin)}`;
   const total = result.exact.length;
+  const visible = Math.min(state.visibleExact, total);
+  const showCombos = state.showCombos || total === 0;
 
+  let statusBits;
   if (total) {
-    setStatus(
-      status,
-      `<strong>${plural(total, "room")}</strong> with no scheduled class ${escapeHtml(title)} (${requested}). Sorted by cushion, then building.` +
-        (result.allowLabs ? "" : " Lab rooms are hidden.")
-    );
+    statusBits = [
+      `<strong>${plural(total, "room")}</strong> with no scheduled class ${escapeHtml(title)} (${requested}).`,
+      `Sorted by cushion, then building.`,
+    ];
+    if (visible < total) statusBits.push(`Showing ${visible} of ${total}; more are below.`);
   } else {
-    setStatus(
-      status,
-      `<strong>No single room</strong> covers the full window ${escapeHtml(title)}.` +
-        (result.combos.length ? " These room-change options still cover it." : "") +
-        (result.allowLabs ? "" : " Lab rooms are hidden.")
-    );
+    statusBits = [`<strong>No single room</strong> covers the full window ${escapeHtml(title)}.`];
+    if (result.combos.length) statusBits.push("Room-change options are below.");
+    else statusBits.push("Try one of the other times below or the Advanced option.");
   }
+  if (!result.allowLabs) statusBits.push("Lab rooms are hidden.");
+  setStatus(status, statusBits.join(" "));
 
   const { viewStart, viewEnd } = viewWindow(result);
   const cards = [];
-  result.exact.forEach((item, index) => {
+  result.exact.slice(0, state.visibleExact).forEach((item, index) => {
     cards.push(renderRoomCard(item, index === 0, viewStart, viewEnd));
   });
-  result.combos.forEach((combo, index) => {
-    cards.push(renderComboCard(combo, index, viewStart, viewEnd));
-  });
-
-  if (!cards.length) {
-    results.innerHTML = `<div class="empty"><strong>Nothing in the captured data.</strong>Try a shorter window, a different building, or check whether this dataset covers the date.</div>`;
-    return;
+  if (showCombos) {
+    result.combos.forEach((combo, index) => {
+      cards.push(renderComboCard(combo, index, viewStart, viewEnd));
+    });
   }
 
-  results.innerHTML = cards.join("");
+  const foot = [];
+  if (visible < total) {
+    foot.push(`<button class="btn btn-ghost" type="button" id="show-more-rooms">Show ${Math.min(8, total - visible)} more rooms</button>`);
+  }
+  if (result.combos.length && !showCombos) {
+    foot.push(`<button class="btn btn-ghost" type="button" id="show-room-changes">Show room changes</button>`);
+  }
+  const alternatives = otherTimeOptions(result);
+  if (alternatives.length) {
+    foot.push(`<div class="other-times"><span class="other-times-label">Other times</span>${alternatives
+      .map((alt) => `<button type="button" class="chip" data-other-start="${alt.start}" data-other-end="${alt.end}">${minutesToLabel(alt.startMin)}–${minutesToLabel(alt.endMin)} · ${plural(alt.count, "room")}</button>`)
+      .join("")}</div>`);
+  }
+
+  const main = cards.length
+    ? cards.join("")
+    : `<div class="empty"><strong>Nothing in the captured data.</strong>Try a different building, a shorter window, or one of the times below.</div>`;
+  results.innerHTML = main + (foot.length ? `<div class="results-foot">${foot.join("")}</div>` : "");
 
   $$("[data-room-jump]", results).forEach((btn) => {
     btn.addEventListener("click", () => jumpToRoom(btn.dataset.roomJump, btn.dataset.roomDate || result.date));
+  });
+  $("#show-more-rooms")?.addEventListener("click", () => {
+    state.visibleExact += 8;
+    renderSearchResult(result);
+  });
+  $("#show-room-changes")?.addEventListener("click", () => {
+    state.showCombos = true;
+    renderSearchResult(result);
+  });
+  $$("[data-other-start]", results).forEach((btn) => {
+    btn.addEventListener("click", () => {
+      $("#start").value = btn.dataset.otherStart;
+      $("#end").value = btn.dataset.otherEnd;
+      searchFromForm();
+    });
   });
 }
 
@@ -470,6 +530,10 @@ function renderCourseRooms(row) {
     if (!room) continue;
     if (NEVER_SHOW_BUILDINGS.has(room.buildingCode)) {
       buttons.push(`<span class="muted-cell">Not student-accessible</span>`);
+      continue;
+    }
+    if (state.dataset.specializedRoomIds.has(room.id)) {
+      buttons.push(`<span class="muted-cell">Specialized room</span>`);
       continue;
     }
     const meeting = row.meetings.find((m) => m.roomId === roomId);

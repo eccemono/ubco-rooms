@@ -77,6 +77,13 @@ check(
   "default search hides ADM and UCH",
   defaultSearch.exact.every((r) => !["ADM", "UCH"].includes(r.room.buildingCode))
 );
+check(
+  "default search hides CCS studio rooms",
+  defaultSearch.exact.every((r) => !dataset.specializedRoomIds.has(r.room.id))
+);
+const labSearch = searchAvailability(dataset, { date, start: "14:00", end: "16:00", allowLabs: true });
+check("allow-labs search still hides restricted buildings", labSearch.exact.every((r) => !["ADM", "UCH"].includes(r.room.buildingCode)));
+check("allow-labs search still hides CCS studios", labSearch.exact.every((r) => !dataset.specializedRoomIds.has(r.room.id)));
 
 const roomId = dataset.rooms[0].id;
 const day = roomDayView(dataset, roomId, date);
