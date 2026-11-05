@@ -1,0 +1,14 @@
+[Unit]
+Description=Refresh UBCO SWS room data
+Documentation=file:///home/eccemono/Projects/ubco-rooms/README.md
+After=network-online.target
+Wants=network-online.target
+
+[Service]
+Type=oneshot
+WorkingDirectory=/home/eccemono/Projects/ubco-rooms
+Environment=HOME=/home/eccemono
+Environment=PATH=/usr/local/bin:/usr/bin:/bin
+ExecStart=/usr/bin/flock -n /tmp/ubco-rooms-sws.lock /home/eccemono/Projects/ubco-rooms/collector/refresh_sws.sh
+Nice=10
+TimeoutStartSec=15min

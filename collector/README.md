@@ -81,7 +81,7 @@ data/raw/
 Use your own account and follow UBC’s computing policies. Only collect what you need for the room finder: course section identifiers, meeting times, rooms, and dates. Do not collect enrolment, grades, student names, or instructor personal information.
 
 
-## SWS room timetable session
+## SWS room timetable overlay
 
 `collect_sws.mjs` opens a local headed Chromium window at the UBC SWS room timetable and keeps the authenticated profile outside the repository.
 
@@ -90,3 +90,32 @@ node collect_sws.mjs
 ```
 
 You sign in yourself with CWL and complete Duo. The profile is stored at `~/.ubco-sws-profile`; it contains session cookies, so treat it as sensitive and delete it to sign out. Session duration is controlled by UBC SSO/BIG-IP and may require re-login after hours or days.
+
+Once the SWS home page is visible, `collect_sws.mjs` writes an authenticated cookie snapshot to `.sws-storage-state.json` (mode 0600, git-ignored). It also updates it every 30 seconds while the window is open.
+
+### Capture and parse
+
+```bash
+# full year, all rooms: about 2 minutes and 12 MB raw
+node capture_sws.mjs --scope=all
+
+# current week only: about 6 seconds
+node capture_sws.mjs --scope=current --output=../data/raw/sws-current.txt
+
+# normalize into ../data/sws-2026-27.json
+python3 ../tools/parse_sws.py
+```
+
+The `List Timetable` export is the useful format. It contains course meetings, room-booking events, DRC exams and `University Closed` rows. The parser deduplicates repeated closure rows, maps SWS room codes to the app’s room IDs, converts week numbers to date ranges, and drops `WRB-CANCELLED` records.
+
+### Daily timer
+
+The units in `systemd/` run `refresh_sws.sh` daily. They are installed as user units on this machine:
+
+```bash
+systemctl --user list-timers ubco-rooms-sws.timer
+systemctl --user start ubco-rooms-sws.service
+journalctl --user -u ubco-rooms-sws.service -n 50
+```
+
+The timer uses the cookie snapshot, so it does **not** prompt for CWL/Duo. If the SWS session has expired, the service exits with code 2 and keeps the previous `data/sws-2026-27.json`. Re-run the interactive login to refresh the snapshot. `refresh_sws.sh` writes status to `../data/raw/sws-refresh-status.json`.

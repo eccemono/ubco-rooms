@@ -6,3 +6,4 @@ data/raw/*
 __pycache__/
 *.pyc
 .DS_Store
+collector/.sws-storage-state.json

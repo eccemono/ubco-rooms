@@ -134,8 +134,25 @@ export function normalizeDataset(raw) {
   });
 
   const sectionIds = new Set(sections.map((s) => s.id));
-  const meetings = raw.meetings
-    .filter((m) => m && m.sectionId && sectionIds.has(m.sectionId))
+  const bookingMeetings = (raw.bookings || [])
+    .filter((b) => b && b.roomId && ["event", "exam"].includes(b.category))
+    .flatMap((b) =>
+      (b.periods || []).map((period, i) => ({
+        id: `${b.id || "sws-booking"}-${period.startWeek}-${i}`,
+        sectionId: null,
+        roomId: b.roomId,
+        days: b.days || [],
+        start: b.start,
+        end: b.end,
+        startDate: period.startDate,
+        endDate: period.endDate,
+        kind: b.category === "exam" ? "Exam" : "Event",
+        title: b.title || b.name || "",
+        source: "sws",
+      }))
+    );
+  const meetings = [...(raw.meetings || []), ...bookingMeetings]
+    .filter((m) => m && (m.sectionId ? sectionIds.has(m.sectionId) : Boolean(m.roomId)))
     .map((m, i) => ({
       ...m,
       id: m.id || `meeting-${i}`,
@@ -191,6 +208,8 @@ export function eventsForRoomOnDate(dataset, roomId, dateString) {
         start: m.startMin,
         end: m.endMin,
         kind: m.kind || section?.activity || "Class",
+        title: m.title || section?.title || "",
+        source: m.source || "workday",
         section,
         roomId,
       };

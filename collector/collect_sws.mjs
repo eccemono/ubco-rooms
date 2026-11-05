@@ -15,6 +15,7 @@
  */
 
 import { chromium } from "playwright";
+import fs from "node:fs";
 import path from "node:path";
 import os from "node:os";
 
@@ -22,6 +23,7 @@ const portArg = process.argv.find((arg) => arg.startsWith("--port="));
 const port = portArg ? Number(portArg.split("=")[1]) : 9222;
 const profile = path.join(os.homedir(), ".ubco-sws-profile");
 const startUrl = "https://sws-oka.as.it.ubc.ca/sws_2026/";
+const statePath = path.join(import.meta.dirname, ".sws-storage-state.json");
 
 console.log(`
 UBC SWS session
@@ -57,6 +59,21 @@ await page.goto(startUrl, { waitUntil: "domcontentloaded" }).catch((error) => {
 });
 
 console.log("Waiting for manual sign-in. Press Ctrl+C here to close the browser.");
+
+// Keep a cookie snapshot for the unattended daily timer. Only save after the
+// SWS home page is visible, so opening the login page cannot erase a valid snapshot.
+async function exportState() {
+  const url = page.url();
+  if (/my\.policy|vdesk\/hangup|chrome:\/\//.test(url)) return;
+  const body = await page.locator("body").innerText().catch(() => "");
+  if (!/Online Timetable|View room timetables/i.test(body)) return;
+  const state = await context.storageState();
+  fs.writeFileSync(statePath, JSON.stringify(state));
+  fs.chmodSync(statePath, 0o600);
+  console.log(`Saved SWS session snapshot (${state.cookies.length} cookies)`);
+}
+setInterval(() => exportState().catch(() => {}), 30000);
+exportState().catch(() => {});
 
 const shutdown = async () => {
   await context.close().catch(() => {});

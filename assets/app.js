@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261202";
+} from "./data.js?v=20261104b";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -16,7 +16,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261202";
+} from "./engine.js?v=20261104b";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -297,8 +297,9 @@ function setStatus(el, html) {
 
 function dataBadge(meta) {
   if (meta.demo) return { text: "Demo data", cls: "badge-demo" };
-  if (!meta.generatedAt) return { text: "Dataset loaded", cls: "badge-muted" };
-  const date = new Date(meta.generatedAt);
+  const sourceDate = meta.sws?.capturedAt || meta.generatedAt;
+  if (!sourceDate) return { text: "Dataset loaded", cls: "badge-muted" };
+  const date = new Date(sourceDate);
   if (Number.isNaN(date.getTime())) return { text: "Dataset loaded", cls: "badge-muted" };
   return {
     text: `Updated ${date.toLocaleDateString("en-CA", { month: "short", day: "numeric" })}`,
@@ -315,13 +316,15 @@ function renderHeader() {
 
   $("#demo-banner").hidden = !meta.demo;
 
-  const generated = meta.generatedAt
-    ? new Date(meta.generatedAt).toLocaleString("en-CA", {
+  const sourceDate = meta.sws?.capturedAt || meta.generatedAt;
+  const generated = sourceDate
+    ? new Date(sourceDate).toLocaleString("en-CA", {
         dateStyle: "medium",
         timeStyle: "short",
       })
     : "unknown";
-  $("#footer-meta").textContent = `${meta.source || "Unknown source"} · generated ${generated} · ${meta.campus || "UBC Okanagan"}`;
+  const sources = [meta.source || "Unknown source", meta.sws ? "UBC SWS room timetable" : ""].filter(Boolean).join(" + ");
+  $("#footer-meta").textContent = `${sources} · refreshed ${generated} · ${meta.campus || "UBC Okanagan"}`;
 }
 
 function fillSelect(select, items, { placeholder, valueKey = "value", labelKey = "label" } = {}) {
@@ -459,7 +462,13 @@ function renderBar({ block, events = [], startMin, endMin, viewStart, viewEnd })
     .map((ev) => {
       const left = pct(ev.start, viewStart, span);
       const width = pct(ev.end, viewStart, span) - left;
-      const code = ev.section ? `${ev.section.subject}${ev.section.courseNumber}` : "Class";
+      const code = ev.section
+        ? `${ev.section.subject}${ev.section.courseNumber}`
+        : ev.kind === "Exam"
+          ? "Exam"
+          : ev.kind === "Event"
+            ? "Event"
+            : "Booked";
       const label =
         width >= 4.5
           ? `<span class="bar-busy-label">${width >= 10 ? "Occupied" : "Occ"}<span class="bar-busy-code">(${escapeHtml(code)})</span></span>`
@@ -1095,9 +1104,9 @@ function renderTimetable() {
     }
     const ev = seg.event;
     const section = ev.section;
-    const code = section ? `${section.subject} ${section.courseNumber}` : "Class";
-    const title = section?.title || "";
-    const activity = section?.activity || ev.kind || "Class";
+    const code = section ? `${section.subject} ${section.courseNumber}` : ev.kind || "Booking";
+    const title = section?.title || ev.title || "";
+    const activity = section?.activity || ev.kind || "Booking";
     const cls = /lab/i.test(activity) ? "lab" : /seminar|tutorial/i.test(activity) ? "other" : "";
     return `
       <div class="tl-row">
@@ -1115,7 +1124,7 @@ function renderTimetable() {
     <div class="timeline">
       ${rows.join("") || `<div class="empty">No scheduled activity and no listed opening hours for this day.</div>`}
     </div>
-    <p class="fine-print table-note">“Free” means no class appears in this dataset. Events, exams and private bookings are not included.</p>`;
+    <p class="fine-print table-note">“Free” means no class or SWS room booking appears in this dataset. Private bookings may still be missing.</p>`;
 }
 
 function renderCourses() {
@@ -1189,6 +1198,7 @@ function renderCourseRooms(row) {
 function renderDataPanel() {
   const { meta } = state.dataset;
   const stats = datasetStats(state.dataset);
+  const swsCounts = meta.sws?.counts;
   $("#data-stats").innerHTML = [
     ["Sections", stats.sections],
     ["Meeting patterns", stats.meetings],
@@ -1196,6 +1206,7 @@ function renderDataPanel() {
     ["Rooms used", stats.roomsUsed],
     ["Sections without room", stats.sectionsWithoutRoom],
     ["Terms", stats.terms],
+    ...(swsCounts ? [["SWS events/exams", (swsCounts.events || 0) + (swsCounts.exams || 0)]] : []),
   ]
     .map(
       ([label, value]) => `
@@ -1384,9 +1395,21 @@ async function importFile(file) {
 
 async function boot() {
   try {
-    const response = await fetch("data/schedule.json", { cache: "no-store" });
+    const [response, swsResponse] = await Promise.all([
+      fetch("data/schedule.json", { cache: "no-store" }),
+      fetch("data/sws-2026-27.json", { cache: "no-store" }).catch(() => null),
+    ]);
     if (!response.ok) throw new Error(`HTTP ${response.status}`);
     const raw = await response.json();
+    if (swsResponse?.ok) {
+      try {
+        const sws = await swsResponse.json();
+        raw.bookings = sws.bookings || [];
+        raw.meta = { ...raw.meta, sws: sws.meta };
+      } catch (error) {
+        console.warn("Could not read SWS overlay:", error);
+      }
+    }
     state.dataset = normalizeDataset(raw);
     state.courseRows = buildCourseRows(state.dataset);
     populateControls();

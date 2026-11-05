@@ -7,7 +7,7 @@
 <meta name="description" content="Find UBCO classrooms with no scheduled class at a given date and time.">
 <meta name="theme-color" content="#002145">
 <link rel="icon" href="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 64 64'%3E%3Crect width='64' height='64' rx='16' fill='%23002145'/%3E%3Cpath d='M18 18v18c0 8 6 12 14 12s14-4 14-12V18h-8v18c0 4-2 6-6 6s-6-2-6-6V18z' fill='%23fff'/%3E%3Crect x='14' y='50' width='36' height='5' rx='2.5' fill='%23f2a900'/%3E%3C/svg%3E">
-<link rel="stylesheet" href="assets/styles.css?v=20261202">
+<link rel="stylesheet" href="assets/styles.css?v=20261104b">
 </head>
 <body>
 <a class="skip-link" href="#main">Skip to content</a>
@@ -208,7 +208,7 @@
         <li>Whether a door is physically unlocked or a room is restricted to a program.</li>
         <li>Last-minute timetable changes made after the dataset was collected.</li>
       </ul>
-      <p>Treat a result as <em>“no scheduled class found in this dataset”</em>, not as a reservation or a guarantee.</p>
+      <p>Treat a result as <em>“no scheduled class or SWS room booking found in this dataset”</em>, not as a reservation or a guarantee.</p>
     </div>
 
     <div class="card">
@@ -224,7 +224,7 @@
 
     <div class="card prose">
       <h2>Refresh</h2>
-      <p>See <code>README.md</code> in the project for the collection and build commands. The dataset is intentionally a static snapshot; this site has no server and no live Workday connection.</p>
+      <p>See <code>README.md</code> in the project for the collection and build commands. The dataset is intentionally a static snapshot; this site has no server and no live Workday or SWS connection. The SWS overlay is refreshed locally by a scheduled capture.</p>
     </div>
   </section>
 
@@ -237,6 +237,6 @@
   </div>
 </footer>
 
-<script type="module" src="assets/app.js?v=20261202"></script>
+<script type="module" src="assets/app.js?v=20261104b"></script>
 </body>
 </html>

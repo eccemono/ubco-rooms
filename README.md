@@ -8,6 +8,8 @@ The project is built for UBC Okanagan’s 2026–27 Winter Terms 1 and 2. It is 
 
 **The bundled dataset is a real Workday capture** from 4 November 2026: 3,179 sections, 6,044 meeting patterns, and 110 rooms across both 2026–27 winter terms. It was captured from the Find Course Sections report in five course-level slices (100–500).
 
+A separate **UBC SWS room-timetable overlay** adds live room bookings, exams and closures from the Okanagan SWS server. The overlay covers 102 bookable rooms and all 53 weeks of the 2026–27 SWS year.
+
 The report showed **3,844 results**; the raw text contains **3,775 unique section headers**. Of those, **2,836 sections have a scheduled room and every one of them is present in the dataset**. Another 343 captured sections have a dated meeting but no room (online/arranged), and 596 sections have no dated room meeting at all (co-op, thesis, asynchronous online, arranged study). Those are not room-availability candidates.
 
 ---
@@ -15,7 +17,7 @@ The report showed **3,844 results**; the raw text contains **3,775 unique sectio
 ## What is in the box
 
 - **A static website** (`index.html`, `assets/`) that runs entirely in the browser.
-  - Date + time room search.
+  - Date + time room search, with SWS room bookings and exams overlaid on Workday course meetings.
   - Horizontal availability bars for each room, ranked by usable free time, then cushion and building preference.
   - Lab-used rooms hidden by default; ADM, UCH, and CCS studio rooms never shown.
   - “Show more” reveals additional rooms, room-change options, and nearby time windows.
@@ -40,6 +42,7 @@ The report showed **3,844 results**; the raw text contains **3,775 unique sectio
 - **An Excel workbook** (`exports/ubco-2026-27.xlsx`) with Sections, Meetings, Rooms, Room grid, and Data Quality sheets.
 - **Workday capture helpers** (`collector/`) that open a local browser, sign in with your saved profile, and capture the Find Course Sections report.
 - **Parsers** (`tools/import_workday.py`, `tools/parse_workday_text.py`) for Excel exports and page-text captures.
+- **SWS overlay capture** (`collector/capture_sws.mjs`, `tools/parse_sws.py`) for live room bookings, exams and closures.
 - **A workbook builder** (`tools/build_workbook.py`).
 
 ---
@@ -171,6 +174,58 @@ Capacity is a convenience, not a source of truth. Verify against the room before
 
 ---
 
+
+## SWS room-timetable overlay
+
+SWS is the fresher source for **occupancy**. It includes course meetings plus room bookings, DRC exams and `University Closed` periods that Workday does not expose.
+
+The app loads:
+
+```text
+data/sws-2026-27.json
+```
+
+and overlays its `event` and `exam` bookings on the Workday course data. The two sources are deliberately kept separate: Workday remains the course/section catalogue, while SWS is the room-occupancy source.
+
+### First login
+
+```bash
+node collector/collect_sws.mjs
+```
+
+Sign in with CWL and complete Duo yourself. The browser profile is local at `~/.ubco-sws-profile`. Once the SWS home page loads, the script writes an authenticated cookie snapshot to `collector/.sws-storage-state.json` (mode 0600, git-ignored). Refresh that snapshot whenever the session expires.
+
+### Manual full capture
+
+```bash
+node collector/capture_sws.mjs --scope=all
+python3 tools/parse_sws.py
+```
+
+The full capture takes about two minutes and writes the raw tab-separated page plus `data/sws-2026-27.json`. A quick current-week capture is:
+
+```bash
+node collector/capture_sws.mjs --scope=current --output=data/raw/sws-current.txt
+```
+
+### Daily refresh timer
+
+The repository includes sample systemd units in `collector/systemd/`. On this machine they are installed as user units:
+
+```bash
+systemctl --user list-timers ubco-rooms-sws.timer
+systemctl --user start ubco-rooms-sws.service   # manual test
+```
+
+The timer runs daily at 05:30 with a randomised delay and invokes:
+
+```text
+collector/refresh_sws.sh
+```
+
+It uses `flock`, keeps the previous data if capture or parsing fails, and writes status to `data/raw/sws-refresh-status.json`. **The timer cannot solve MFA:** when the saved session expires, the service exits with code 2 and the previous data stays in place. Re-run `collector/collect_sws.mjs`, sign in again, and the cookie snapshot updates for the next timer run.
+
+---
 ## Refresh workflow
 
 ```bash
@@ -192,7 +247,7 @@ cd collector && npm run collect && cd ..
 python3 -m http.server 8087
 ```
 
-The site is a snapshot. It has no server, no live Workday connection, and no background refresh. A failed import should not be deployed; keep the previous `schedule.json` until the new one passes review.
+The deployed site is a static snapshot. Workday has no live connection here; the SWS overlay can be refreshed on this machine by the daily timer, but the published files only change when the refreshed JSON is committed and deployed. A failed import should not be deployed; keep the previous `schedule.json` until the new one passes review.
 
 ---
 
@@ -236,23 +291,25 @@ Check whether your Workday export or derived dataset may be redistributed before
 ## How availability is calculated
 
 1. Each section has one or more meeting patterns: days, start/end time, room, and date range.
-2. For a chosen date, the site keeps meetings whose weekday and start/end dates match.
-3. It subtracts those meetings from the room’s listed building hours.
-4. A room is a match if a free interval contains the requested window.
-5. Results prefer rooms that fit the group, are in the selected building, and have useful free time around the session.
-6. If no single room covers the window, the combination finder looks for two rooms with a 5-minute transfer.
+2. SWS room events, exams and closures are added as additional room bookings.
+3. For a chosen date, the site keeps meetings whose weekday and start/end dates match.
+4. It subtracts those meetings from the room’s listed building hours.
+5. A room is a match if a free interval contains the requested window.
+6. Results prefer rooms that fit the group, are in the selected building, and have useful free time around the session.
+7. If no single room covers the window, the combination finder looks for two rooms with a 5-minute transfer.
 
 All calculations use **America/Vancouver** wall-clock times. The site does not currently model alternating-week patterns unless they are represented as separate date-ranged meetings in the source.
 
 ## What the site cannot know
 
-- Ad-hoc bookings, exams, events, maintenance closures, and department-controlled rooms.
+- Private or last-minute bookings not published in SWS.
+- Department-controlled rooms and rooms outside the SWS room list.
 - Whether a door is unlocked or a room is restricted.
-- Changes made in Workday after collection.
+- Changes made after the latest Workday or SWS capture.
 
 The correct reading of a result is:
 
-> **“No scheduled class appears in this dataset.”**
+> **“No scheduled class or SWS room booking appears in this dataset.”**
 
 It is not a reservation, a guarantee, or permission to use the room.
 
@@ -269,14 +326,20 @@ ubco-rooms/
     data.js                  dataset loading, time and room helpers
     styles.css
   data/
-    schedule.json            the dataset the site loads
-    raw/                     Workday exports / DOM snapshots (not deployed)
+    schedule.json            Workday course/section dataset
+    sws-2026-27.json         normalized SWS room bookings/exams overlay
+    raw/                     Workday/SWS captures (not deployed)
   exports/
     ubco-2026-27.xlsx        generated workbook
   collector/
     collect_workday.mjs      local, user-driven Workday capture
+    collect_sws.mjs          headed SWS login/session snapshot
+    capture_sws.mjs          List Timetable capture (headless-capable)
+    refresh_sws.sh           capture + parse wrapper for the daily timer
+    systemd/                 sample daily refresh units
   tools/
     import_workday.py        export -> normalized dataset
+    parse_sws.py             SWS List Timetable -> room overlay
     validate_data.py         structural checks before publishing
     audit_rooms.py           room-directory / reference audit
     check_coverage.py        completeness report vs raw Workday captures
@@ -297,8 +360,8 @@ ubco-rooms/
 - Building hours are defaults from the public learning-spaces directory and need verification.
 - The combination finder supports one room change (two rooms), not arbitrary chains.
 - Alternating-week meetings are represented as multiple date-ranged meetings where Workday exposes them.
-- Exam-period availability is intentionally not estimated; dates outside teaching periods return a warning instead of “everything is free”.
-- The dataset is a snapshot. It does not know about ad-hoc bookings, exams, events or room closures.
+- Exam-period availability is intentionally not estimated from Workday alone; SWS exams and closures are overlaid where a current snapshot exists.
+- The dataset is a snapshot. Private/last-minute bookings and rooms outside the SWS room list may still be missing.
 
 ## Regenerating the demo
 

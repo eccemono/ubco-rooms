@@ -1,0 +1,13 @@
+[Unit]
+Description=Daily UBCO SWS room data refresh
+Requires=ubco-rooms-sws.service
+
+[Timer]
+OnCalendar=*-*-* 05:30:00
+RandomizedDelaySec=15min
+AccuracySec=1min
+Persistent=true
+Unit=ubco-rooms-sws.service
+
+[Install]
+WantedBy=timers.target
