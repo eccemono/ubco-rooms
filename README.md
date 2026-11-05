@@ -18,6 +18,7 @@ The report showed **3,844 results**; the raw text contains **3,775 unique sectio
 
 - **A static website** (`index.html`, `assets/`) that runs entirely in the browser.
   - Date + time room search, with SWS room bookings and exams overlaid on Workday course meetings.
+  - A top-of-page **2-hour session** quick search that picks the next teaching-day window from the current time.
   - Horizontal availability bars for each room, ranked by usable free time, then cushion and building preference.
   - Lab-used rooms hidden by default; ADM, UCH, and CCS studio rooms never shown.
   - “Show more” reveals additional rooms, room-change options, and nearby time windows.

@@ -656,3 +656,12 @@ h1 { margin: 0 0 .55rem; font-size: clamp(1.9rem, 4.2vw, 3.1rem); line-height: 1
   .room-cell { display: block; }
   .room-menu { min-width: 34px; min-height: 34px; font-size: 1.3rem; }
 }
+
+/* Top quick action: next two-hour study window */
+.head-meta { display: flex; align-items: center; justify-content: flex-end; gap: .5rem; flex-wrap: wrap; }
+.quick-head-btn { white-space: nowrap; }
+.quick-search-note { margin-top: .65rem; }
+@media (max-width: 600px) {
+  .head-meta { gap: .35rem; }
+  .quick-head-btn { padding: .38rem .55rem; font-size: .74rem; }
+}

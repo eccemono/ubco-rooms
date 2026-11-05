@@ -7,7 +7,7 @@ import {
   termForDate,
   weekdayForDate,
   weekdayName,
-} from "./data.js?v=20261104b";
+} from "./data.js?v=20261104d";
 import {
   NEVER_SHOW_BUILDINGS,
   buildCourseRows,
@@ -16,7 +16,7 @@ import {
   dayAvailability,
   roomDayView,
   searchAvailability,
-} from "./engine.js?v=20261104b";
+} from "./engine.js?v=20261104d";
 
 const $ = (sel, root = document) => root.querySelector(sel);
 const $$ = (sel, root = document) => [...root.querySelectorAll(sel)];
@@ -244,6 +244,68 @@ function renderDayGlance() {
 function timeToMinutes(value) {
   const [h, m] = (value || "0:0").split(":").map(Number);
   return h * 60 + (m || 0);
+}
+
+function nextTeachingDay(date) {
+  return adjacentTeachingDay(date, 1) || defaultDate(state.dataset.meta);
+}
+
+function quickTwoHourSearch() {
+  if (!state.dataset) {
+    $("#search-status").textContent = "The room data is still loading.";
+    return;
+  }
+
+  const now = new Date();
+  const today = todayIso();
+  const nowMin = now.getHours() * 60 + now.getMinutes();
+  const earliest = 7 * 60;
+  const latestStart = 20 * 60;
+  let date = today;
+  let startMin = 9 * 60;
+
+  if (isTeachingDay(today)) {
+    if (nowMin < earliest) {
+      startMin = earliest;
+    } else if (nowMin <= latestStart) {
+      // Leave a few minutes to get to the room, then round up to a 15-min block.
+      startMin = Math.ceil((nowMin + 5) / 15) * 15;
+    } else {
+      date = nextTeachingDay(today);
+      startMin = 9 * 60;
+    }
+  } else {
+    date = nextTeachingDay(today);
+    startMin = 9 * 60;
+  }
+
+  if (startMin > latestStart) {
+    date = nextTeachingDay(date);
+    startMin = 9 * 60;
+  }
+
+  let endMin = startMin + 120;
+  if (endMin > 22 * 60) {
+    date = nextTeachingDay(date);
+    startMin = 9 * 60;
+    endMin = 11 * 60;
+  }
+
+  switchTab("search");
+  $("#date").value = date;
+  $("#start").value = `${String(Math.floor(startMin / 60)).padStart(2, "0")}:${String(startMin % 60).padStart(2, "0")}`;
+  $("#end").value = `${String(Math.floor(endMin / 60)).padStart(2, "0")}:${String(endMin % 60).padStart(2, "0")}`;
+  searchFromForm();
+
+  const note = $("#quick-search-note");
+  if (note) {
+    note.hidden = false;
+    note.textContent = `Quick search: ${prettyDate(date, { withYear: false })} · ${minutesToLabel(startMin)}–${minutesToLabel(endMin)}`;
+  }
+
+  // The live region announces the result; focus it so keyboard and screen-reader
+  // users are not left at the button after the search swaps the page content.
+  $("#search-status").focus({ preventScroll: true });
 }
 
 function reportSets(date, startMin, endMin) {
@@ -1263,6 +1325,8 @@ function wireEvents() {
     event.preventDefault();
     searchFromForm();
   });
+
+  $("#quick-two-hour").addEventListener("click", quickTwoHourSearch);
 
   $("#buildings-all").addEventListener("click", () => {
     $$("#building-options input").forEach((el) => { el.checked = true; });
